@@ -1,10 +1,14 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+
+import {store} from './store';
+import Game from './screens/Game';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Tower of Hanoi</h1>
-    </div>
+    <Provider store={store}>
+      <Game />
+    </Provider>
   );
 }
 
