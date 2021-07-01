@@ -1,25 +1,37 @@
 import {difficultyToGameBoard} from '../../utils/gameBoard';
 import {GameState, Difficulty} from '../types/game';
 
-export enum GAME_ACTIONS {
+export enum GameActions {
   CHANGE_DIFFICULTY = 'CHANGE_DIFFICULTY',
+  START_GAME = 'START_GAME',
 }
 
-const initialState: GameState = {
+type Payload = Difficulty;
+
+export const initialState: GameState = {
   difficulty: Difficulty.EASY,
   ...difficultyToGameBoard(Difficulty.EASY),
+  startPeg: 0,
 };
 
 export const gameStateReducer = (
   state: GameState = initialState,
-  action: {type: GAME_ACTIONS; payload: Partial<GameState>}
-) => {
-  switch (action.type) {
-    case GAME_ACTIONS.CHANGE_DIFFICULTY:
+  action?: {type: GameActions; payload?: Payload}
+): GameState => {
+  switch (action?.type) {
+    case GameActions.CHANGE_DIFFICULTY:
       return {
         ...state,
-        difficulty: action.payload,
+        difficulty: action.payload as Difficulty,
       };
+
+    case GameActions.START_GAME:
+      return {
+        ...state,
+        startTime: Date.now(),
+        startPeg: Math.floor(Math.random() * (state.pegs + 1)),
+      };
+
     default:
       return state;
   }
