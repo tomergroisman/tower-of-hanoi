@@ -1,4 +1,4 @@
-FROM node:16-alpine3.11
+FROM node:16
 LABEL maintainer = "Tomer Groisman"
 
 RUN mkdir -p /app
