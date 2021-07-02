@@ -1,11 +1,6 @@
 import {GameActions} from '../reducers/game';
 import {Difficulty} from '../types/game';
-import {
-  changeDifficulty,
-  decreaseDifficulty,
-  increaseDifficulty,
-  setStartTime,
-} from './game';
+import {changeDifficulty, decreaseDifficulty, increaseDifficulty, startGame} from './game';
 
 const setStateDifficulty = (difficulty: Difficulty) => {
   const store = require('../index').store;
@@ -69,8 +64,8 @@ describe('Game state actions tests', () => {
 
   describe('Time actions tests', () => {
     it('should return set start time dispatch object', () => {
-      expect(setStartTime()).toEqual({
-        type: GameActions.SET_START_TIME,
+      expect(startGame()).toEqual({
+        type: GameActions.START_GAME,
       });
     });
   });

@@ -1,8 +1,6 @@
 import {Difficulty} from '../store/types/game';
 
-export const difficultyToGameBoard = (
-  difficulty: Difficulty
-): {pegs: number; discs: number} => {
+export const difficultyToGameBoard = (difficulty: Difficulty): {pegs: number; discs: number} => {
   switch (difficulty) {
     case Difficulty.EASY: {
       return {

@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {changeDifficulty} from '../store/actions/game';
 
-import {Difficulty} from '../store/types/game';
+import {GameBoard} from '../components/GameBoard';
+import {TopBar} from '../components/TopBar';
+import {startGame} from '../store/actions/game';
 import {Store} from '../store/types/store';
 
 interface StateProps {
-  difficulty: Difficulty;
+  startTime?: number;
 }
 
 interface DispatchProps {
-  changeDifficulty: (difficulty: Difficulty) => void;
+  startGame: () => void;
 }
 
 type Props = StateProps & DispatchProps;
 
 class Game extends Component<Props> {
   render() {
-    const {difficulty, changeDifficulty} = this.props;
     return (
       <div>
-        <h1>Tower of Hanoi</h1>
-        <p>Difficulty: {difficulty}</p>
-        <button onClick={() => changeDifficulty(Difficulty.HARD)}>+</button>
-        <button onClick={() => changeDifficulty(Difficulty.MEDIUM)}>-</button>
+        <TopBar />
+        {this.props.startTime ? (
+          <GameBoard />
+        ) : (
+          <button onClick={this.props.startGame}>Start Game</button>
+        )}
       </div>
     );
   }
@@ -31,12 +33,12 @@ class Game extends Component<Props> {
 
 const mapState = (state: Store) => {
   return {
-    difficulty: state.gameState.difficulty,
+    startTime: state.gameState.startTime,
   };
 };
 
 const mapDispatch: DispatchProps = {
-  changeDifficulty,
+  startGame,
 };
 
 export default connect(mapState, mapDispatch)(Game);
