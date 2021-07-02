@@ -23,6 +23,7 @@ export const gameStateReducer = (
       return {
         ...state,
         difficulty: action.payload as Difficulty,
+        ...difficultyToGameBoard(action.payload as Difficulty),
       };
 
     case GameActions.START_GAME:

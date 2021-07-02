@@ -5,7 +5,7 @@ import {increaseDifficulty, decreaseDifficulty} from '../../store/actions/game';
 import {Difficulty} from '../../store/types/game';
 import {Store} from '../../store/types/store';
 import {capitalizeFirstLetter} from '../../utils/parse';
-import './TopBar.scss';
+import styles from './TopBar.module.scss';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -17,9 +17,9 @@ type Props = StateProps;
 
 const TopBarComponent = (props: Props) => {
   return (
-    <div className="container">
+    <div className={styles.container}>
       <div className="left-side">
-        <p className="title">Tower of Hanoi</p>
+        <p className={styles.title}>Tower of Hanoi</p>
       </div>
       <div className="right-side">
         <p>Difficulty: {capitalizeFirstLetter(Difficulty[props.difficulty])}</p>
