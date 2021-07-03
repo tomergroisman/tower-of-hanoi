@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import {createBoard, difficultyToGameBoard, isValidateMove} from '../../utils/gameBoard';
 import {EndDrag} from '../types/actions';
 import {GameState, Difficulty} from '../types/game';
+import {PEGS} from '../../utils/constants';
 
 export enum GameActions {
   CHANGE_DIFFICULTY = 'CHANGE_DIFFICULTY',
@@ -35,13 +36,13 @@ export const gameStateReducer = (
       };
 
     case GameActions.START_GAME:
-      const startPeg = Math.floor(Math.random() * state.pegs);
+      const startPeg = Math.floor(Math.random() * PEGS);
 
       return {
         ...state,
         startTime: Date.now(),
         startPeg: startPeg,
-        board: createBoard(startPeg, state.pegs, state.discs),
+        board: createBoard(startPeg, state.discs),
       };
 
     case GameActions.MOVE_DISC:
@@ -88,7 +89,7 @@ export const gameStateReducer = (
           ]),
         };
         const isGameFinish =
-          board[destination].length === state.pegs && destination !== `peg-${state.startPeg}`;
+          board[destination].length === PEGS && destination !== `peg-${state.startPeg}`;
         return {
           ...state,
           board: board,

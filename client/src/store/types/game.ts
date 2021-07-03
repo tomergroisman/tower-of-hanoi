@@ -1,6 +1,5 @@
 export interface GameState {
   difficulty: Difficulty;
-  pegs: number;
   discs: number;
   startPeg: number;
   board: Board;

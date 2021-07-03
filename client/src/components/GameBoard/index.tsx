@@ -13,7 +13,6 @@ import {getFinishTime} from '../../utils/parse';
 
 interface StateProps {
   difficulty: Difficulty;
-  pegs: number;
   discs: number;
   startPeg: number;
   board: Board;
@@ -53,7 +52,6 @@ const GameBoardComponent = (props: Props) => {
 
 const mapState = (store: Store) => ({
   difficulty: store.gameState.difficulty,
-  pegs: store.gameState.pegs,
   discs: store.gameState.discs,
   startPeg: store.gameState.startPeg,
   board: store.gameState.board,

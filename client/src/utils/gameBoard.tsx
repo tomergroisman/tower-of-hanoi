@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import {Board, Difficulty} from '../store/types/game';
 import {Disc} from '../components/Disc';
+import {PEGS} from './constants';
 
 /**
  * Returns a difficulty string representation of Difficulty enum
@@ -9,23 +10,20 @@ import {Disc} from '../components/Disc';
  * @param difficulty - difficulty enum object
  * @returns a difficulty string representation
  */
-export const difficultyToGameBoard = (difficulty: Difficulty): {pegs: number; discs: number} => {
+export const difficultyToGameBoard = (difficulty: Difficulty): {discs: number} => {
   switch (difficulty) {
     case Difficulty.EASY: {
       return {
-        pegs: 3,
         discs: 3,
       };
     }
     case Difficulty.MEDIUM: {
       return {
-        pegs: 4,
         discs: 4,
       };
     }
     case Difficulty.HARD: {
       return {
-        pegs: 5,
         discs: 5,
       };
     }
@@ -40,9 +38,9 @@ export const difficultyToGameBoard = (difficulty: Difficulty): {pegs: number; di
  * @param discs - number of discs
  * @returns an initial game board object
  */
-export const createBoard = (startPeg: number, pegs: number, discs: number): Board => {
+export const createBoard = (startPeg: number, discs: number): Board => {
   let board: Board = {};
-  for (let i = 0; i < pegs; i++) {
+  for (let i = 0; i < PEGS; i++) {
     board[`peg-${i}`] = [];
     if (i === startPeg) {
       for (let j = 0; j < discs; j++) {

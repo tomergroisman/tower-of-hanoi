@@ -44,7 +44,7 @@ describe('Game state reducer tests', () => {
     const state = reducer(prevState, action);
 
     expect(state.startTime).toBeDefined();
-    expect(createBoard).toBeCalledWith(0, 3, 3);
+    expect(createBoard).toBeCalledWith(0, 3);
     expect(Math.random).toBeCalled();
     expect(Math.floor).toBeCalled();
   });
@@ -53,7 +53,7 @@ describe('Game state reducer tests', () => {
     const prevState = {
       ...initialState,
       difficulty: Difficulty.EASY,
-      board: createBoard(0, 3, 3),
+      board: createBoard(0, 3),
     };
 
     expect(prevState.board?.['peg-0'].length).toEqual(3);
@@ -79,7 +79,7 @@ describe('Game state reducer tests', () => {
     const prevState = {
       ...initialState,
       difficulty: Difficulty.EASY,
-      board: createBoard(0, 3, 3),
+      board: createBoard(0, 3),
     };
 
     expect(prevState.board?.['peg-0'][0].props.index).toEqual(2);
@@ -104,7 +104,7 @@ describe('Game state reducer tests', () => {
     const prevState = {
       ...initialState,
       difficulty: Difficulty.EASY,
-      board: createBoard(0, 3, 3),
+      board: createBoard(0, 3),
       startPeg: 1,
     };
 
