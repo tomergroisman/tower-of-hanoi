@@ -7,6 +7,7 @@ describe('Parse functions tests', () => {
     const difficultyStr = 'Easy';
     expect(capitalizeFirstLetter(difficulty)).toEqual(difficultyStr);
   });
+
   it('should return capitalized first letter representation of a string', () => {
     const str = 'awesome TEST in tHe WoRlD';
     const capitalizedStr = 'Awesome Test In The World';

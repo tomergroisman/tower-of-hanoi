@@ -1,4 +1,7 @@
-import {createBoard, difficultyToGameBoard} from '../../utils/gameBoard';
+import React from 'react';
+import * as _ from 'lodash';
+
+import {createBoard, difficultyToGameBoard, isValidateMove} from '../../utils/gameBoard';
 import {EndDrag} from '../types/actions';
 import {GameState, Difficulty} from '../types/game';
 
@@ -43,15 +46,43 @@ export const gameStateReducer = (
 
     case GameActions.MOVE_DISC:
       const {source, destination} = action.payload as EndDrag;
-      const disc = state.board[source][0];
+
+      if (!isValidateMove(source, destination, state.board)) {
+        return state;
+      }
+
+      const newDestination = _.cloneDeep(state.board[destination]);
+      const newFirstDiscOnDestination = _.head(state.board[source]);
+
+      const newSource = _.cloneDeep(state.board[source]).splice(1);
+
+      let newSecondDiscDestination = newDestination.shift();
+      let newFirstDiscSource = newSource.shift();
+
+      // Activate dragging property to the top disc
+      if (newFirstDiscSource) {
+        newFirstDiscSource = React.cloneElement(newFirstDiscSource, {
+          isOnTop: true,
+        });
+      }
+      // Deactivate dragging property to the previous top disc
+      if (newSecondDiscDestination) {
+        newSecondDiscDestination = React.cloneElement(newSecondDiscDestination, {
+          isOnTop: false,
+        });
+      }
 
       if (state.board[source].length > 0) {
         return {
           ...state,
           board: {
             ...state.board,
-            [source]: [...state.board[source].splice(1)],
-            [destination]: [disc, ...state.board[destination]],
+            [source]: _.compact([newFirstDiscSource, ...newSource]),
+            [destination]: _.compact([
+              newFirstDiscOnDestination,
+              newSecondDiscDestination,
+              ...newDestination,
+            ]),
           },
         };
       }

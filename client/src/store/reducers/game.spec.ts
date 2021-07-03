@@ -7,6 +7,7 @@ describe('Game state reducer tests', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
+
   it('should return the initial state', () => {
     const state = reducer(undefined);
     expect(state).toEqual(initialState);
@@ -48,6 +49,7 @@ describe('Game state reducer tests', () => {
     expect(Math.random).toBeCalled();
     expect(Math.floor).toBeCalled();
   });
+
   it('should move disc', () => {
     const prevState = {
       ...initialState,

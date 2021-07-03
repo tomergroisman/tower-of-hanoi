@@ -1,6 +1,14 @@
+import * as _ from 'lodash';
+
 import {Board, Difficulty} from '../store/types/game';
 import {Disc} from '../components/Disc';
 
+/**
+ * Returns a difficulty string representation of Difficulty enum
+ *
+ * @param difficulty - difficulty enum object
+ * @returns a difficulty string representation
+ */
 export const difficultyToGameBoard = (difficulty: Difficulty): {pegs: number; discs: number} => {
   switch (difficulty) {
     case Difficulty.EASY: {
@@ -24,16 +32,38 @@ export const difficultyToGameBoard = (difficulty: Difficulty): {pegs: number; di
   }
 };
 
+/**
+ * Crate an initial game board object
+ *
+ * @param startPeg - the startling peg of the game
+ * @param pegs - number on pegs
+ * @param discs - number of discs
+ * @returns an initial game board object
+ */
 export const createBoard = (startPeg: number, pegs: number, discs: number): Board => {
   let board: Board = {};
   for (let i = 0; i < pegs; i++) {
     board[`peg-${i}`] = [];
     if (i === startPeg) {
-      for (let j = discs - 1; j >= 0; j--) {
-        board[`peg-${i}`].push(<Disc key={`disc-${j}`} index={j} discs={discs} />);
+      for (let j = 0; j < discs; j++) {
+        board[`peg-${i}`].push(<Disc key={`disc-${j}`} index={j} isOnTop={j === 0} />);
       }
     }
   }
 
   return board;
+};
+
+export const isValidateMove = (source: string, destination: string, board: Board) => {
+  if (source === destination) {
+    return false;
+  }
+
+  const topSource = _.head(board[source]);
+  const topDestination = _.head(board[destination]);
+  if (topSource?.props.index > topDestination?.props.index) {
+    return false;
+  }
+
+  return true;
 };
