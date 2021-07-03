@@ -17,3 +17,11 @@ export const getFinishTime = (start: number, finish: number) => {
     return `${minutes} minutes and ${(seconds - minutesInSeconds).toFixed(1)} seconds`;
   }
 };
+
+export const timerToString = (timer: number) => {
+  const minutes = Math.floor(timer / 60);
+  const minutesInSeconds = 60 * minutes;
+  return `${minutes.toString().padStart(2, '0')}:${(timer - minutesInSeconds)
+    .toString()
+    .padStart(2, '0')}`;
+};

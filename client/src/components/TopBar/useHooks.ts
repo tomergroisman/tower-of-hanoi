@@ -3,11 +3,7 @@ import {Props} from '.';
 export const useHooks = (props: Props) => {
   const handleDecreaseDifficulty = () => {
     props.decreaseDifficulty();
-
-    if (props.startGame) {
-      props.startGame();
-      _startGameIfGameIsOn();
-    }
+    _startGameIfGameIsOn();
   };
 
   const handleIncreaseDifficulty = () => {

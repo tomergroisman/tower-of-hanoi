@@ -41,6 +41,7 @@ export const gameStateReducer = (
       return {
         ...state,
         startTime: Date.now(),
+        finishTime: undefined,
         startPeg: startPeg,
         board: createBoard(startPeg, state.discs),
       };

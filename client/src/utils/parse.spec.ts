@@ -1,5 +1,5 @@
 import {Difficulty} from '../store/types/game';
-import {capitalizeFirstLetter, getFinishTime} from './parse';
+import {capitalizeFirstLetter, getFinishTime, timerToString} from './parse';
 
 describe('Parse functions tests', () => {
   it('should return Difficulty as string', () => {
@@ -33,5 +33,15 @@ describe('Parse functions tests', () => {
     const finish = 1922539;
     const msg = '32 minutes and 2.5 seconds';
     expect(getFinishTime(start, finish)).toEqual(msg);
+  });
+
+  it('should return timer representation of seconds', () => {
+    const timer = 29;
+    expect(timerToString(timer)).toEqual('00:29');
+  });
+
+  it('should return timer representation of minutes', () => {
+    const timer = 123;
+    expect(timerToString(timer)).toEqual('02:03');
   });
 });

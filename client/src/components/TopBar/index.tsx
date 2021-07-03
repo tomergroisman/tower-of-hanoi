@@ -1,23 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {increaseDifficulty, decreaseDifficulty, startGame} from '../../store/actions/game';
+import {increaseDifficulty, decreaseDifficulty} from '../../store/actions/game';
 import {Difficulty} from '../../store/types/game';
 import {Store} from '../../store/types/store';
-import {capitalizeFirstLetter} from '../../utils/parse';
+import {capitalizeFirstLetter, timerToString} from '../../utils/parse';
 import {useHooks} from './useHooks';
 
 import styles from './TopBar.module.scss';
 
 interface StateProps {
   difficulty: Difficulty;
-  isInGame: boolean;
   increaseDifficulty: () => void;
   decreaseDifficulty: () => void;
+}
+
+interface OwnProps {
+  gameTimer: number;
   startGame: () => void;
 }
 
-export type Props = StateProps;
+export type Props = OwnProps & StateProps;
 
 const TopBarComponent = (props: Props) => {
   const {handleDecreaseDifficulty, handleIncreaseDifficulty} = useHooks(props);
@@ -26,6 +29,9 @@ const TopBarComponent = (props: Props) => {
     <div className={styles.container}>
       <div className="left-side">
         <p className={styles.title}>Tower of Hanoi</p>
+      </div>
+      <div>
+        <p>{timerToString(props.gameTimer)}</p>
       </div>
       <div className="right-side">
         <p>Difficulty: {capitalizeFirstLetter(Difficulty[props.difficulty])}</p>
@@ -38,13 +44,11 @@ const TopBarComponent = (props: Props) => {
 
 const mapState = (store: Store) => ({
   difficulty: store.gameState.difficulty,
-  isInGame: !!store.gameState.startTime,
 });
 
 const mapDispatch = {
   increaseDifficulty: increaseDifficulty,
   decreaseDifficulty: decreaseDifficulty,
-  startGame: startGame,
 };
 
 export const TopBar = connect(mapState, mapDispatch)(TopBarComponent);
