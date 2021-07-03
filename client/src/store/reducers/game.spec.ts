@@ -75,4 +75,29 @@ describe('Game state reducer tests', () => {
     expect(state.board?.['peg-1'].length).toEqual(1);
     expect(state.board?.['peg-2'].length).toEqual(0);
   });
+
+  it('should change disc index disc', () => {
+    const prevState = {
+      ...initialState,
+      difficulty: Difficulty.EASY,
+      board: createBoard(0, 3, 3),
+    };
+
+    expect(prevState.board?.['peg-0'][0].props.index).toEqual(2);
+
+    let state = reducer(prevState, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-0', destination: 'peg-1'},
+    });
+    state = reducer(state, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-0', destination: 'peg-2'},
+    });
+    state = reducer(state, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-1', destination: 'peg-0'},
+    });
+
+    expect(state.board?.['peg-0'][0].props.index).toEqual(1);
+  });
 });

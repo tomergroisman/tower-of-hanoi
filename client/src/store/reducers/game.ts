@@ -52,7 +52,12 @@ export const gameStateReducer = (
       }
 
       const newDestination = _.cloneDeep(state.board[destination]);
-      const newFirstDiscOnDestination = _.head(state.board[source]);
+      const newFirstDiscOnDestination = React.cloneElement(
+        _.head(state.board[source]) as JSX.Element,
+        {
+          index: newDestination.length,
+        }
+      );
 
       const newSource = _.cloneDeep(state.board[source]).splice(1);
 

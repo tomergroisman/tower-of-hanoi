@@ -13,13 +13,11 @@ export const Peg = (props: PropsWithChildren<Props>) => {
   const {id, backgroundColor} = props;
 
   return (
-    <Droppable droppableId={id}>
+    <Droppable droppableId={id} ignoreContainerClipping isCombineEnabled>
       {provided => (
         <div ref={provided.innerRef} className={styles.container} style={{backgroundColor}}>
-          <div className={styles['disc-container']}>
-            {provided.placeholder}
-            {props.children}
-          </div>
+          {provided.placeholder}
+          <div className={styles['disc-container']}>{props.children}</div>
         </div>
       )}
     </Droppable>

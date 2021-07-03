@@ -1,13 +1,11 @@
 .container {
   width: 200px;
   height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   .disc-container {
+    height: 100%;
     display: flex;
+    justify-content: center;
     flex-direction: column;
-    align-items: center;
   }
 }

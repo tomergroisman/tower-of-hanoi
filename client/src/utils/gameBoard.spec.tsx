@@ -42,13 +42,13 @@ describe('gameBoard Tests', () => {
     expect(isValidateMove('peg-0', 'peg-1', board)).toBeTruthy();
   });
 
-  it('should calculate an invalid move (same peg)', () => {
+  it('should calculate an invalid move (larger disc)', () => {
     const board = createBoard(0, 3, 3);
     board['peg-1'].push(board['peg-0'].shift() as JSX.Element);
     expect(isValidateMove('peg-0', 'peg-1', board)).toBeFalsy();
   });
 
-  it('should calculate an invalid move (larger disc)', () => {
+  it('should calculate an invalid move (same peg)', () => {
     const board = createBoard(0, 3, 3);
     expect(isValidateMove('peg-0', 'peg-0', board)).toBeFalsy();
   });
