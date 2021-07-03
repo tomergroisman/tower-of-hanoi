@@ -30,7 +30,7 @@ export const gameStateReducer = (
       return {
         ...state,
         startTime: Date.now(),
-        startPeg: Math.floor(Math.random() * (state.pegs + 1)),
+        startPeg: Math.floor(Math.random() * state.pegs),
       };
 
     default:

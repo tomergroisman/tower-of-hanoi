@@ -1,11 +1,13 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {connect} from 'react-redux';
+import {DragDropContext, DropResult} from 'react-beautiful-dnd';
 
 import {Difficulty} from '../../store/types/game';
 import {Store} from '../../store/types/store';
 
 import {Peg} from '../Peg';
 import {Disc} from '../Disc';
+import styles from './GameBoard.module.scss';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -20,37 +22,51 @@ type Props = StateProps;
 const pegColors = ['#99ffff', '#cc99ff', '#ccff99', '#ffff99', '#dfbf9f'];
 
 const GameBoardComponent = (props: Props) => {
-  /** Render the pegs to the screen */
-  const renderPegs = useMemo(() => {
-    const pegs = [];
-    for (var i = 0; i < props.pegs; i++) {
-      pegs.push(<Peg key={`peg-${i}`} backgroundColor={pegColors[i]} />);
-    }
-    return pegs;
-  }, [props.pegs]);
+  // TODO
+  const onDragEnd = (results: DropResult) => {
+    console.log(results);
+  };
 
   /** Render the discs to the screen */
-  const renderDiscs = useMemo(() => {
-    const discs = [];
+  const renderDiscs = useCallback(
+    (pegIdx: number) => {
+      if (pegIdx === props.startPeg) {
+        const discs = [];
+        for (var i = props.discs - 1; i >= 0; i--) {
+          discs.push(<Disc key={`disc-${i}`} index={i} discs={props.discs} />);
+        }
+        return discs;
+      }
+      return null;
+    },
+    [props.startPeg, props.discs]
+  );
+
+  /** Render the pegs to the screen */
+  const renderGame = useMemo(() => {
+    const pegs = [];
     for (var i = 0; i < props.pegs; i++) {
-      discs.push(<Disc key={`disc-${i}`} index={i} />);
+      pegs.push(
+        <Peg key={`peg-${i}`} startPeg={props.startPeg} index={i} backgroundColor={pegColors[i]}>
+          {renderDiscs(i)}
+        </Peg>
+      );
     }
-    return discs;
-  }, [props.pegs]);
+    return pegs;
+  }, [props.pegs, props.startPeg, renderDiscs]);
 
   return (
-    <div>
-      {renderPegs}
-      {renderDiscs}
+    <div className={styles.container}>
+      <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
     </div>
   );
 };
 
-const mapStateToProps = (state: Store) => ({
+const mapState = (state: Store) => ({
   difficulty: state.gameState.difficulty,
   pegs: state.gameState.pegs,
   discs: state.gameState.discs,
   startPeg: state.gameState.startPeg,
 });
 
-export const GameBoard = connect(mapStateToProps)(GameBoardComponent);
+export const GameBoard = connect(mapState)(GameBoardComponent);
