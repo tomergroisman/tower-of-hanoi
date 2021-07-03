@@ -11,18 +11,14 @@ export const changeDifficulty = (difficulty: Difficulty) => ({
 
 export const increaseDifficulty = () => {
   const currentDifficult = store.getState().gameState.difficulty;
-  return {
-    type: GameActions.CHANGE_DIFFICULTY,
-    payload: currentDifficult + 1 <= NUM_DIFFICULTIES - 1 ? currentDifficult + 1 : currentDifficult,
-  };
+  return changeDifficulty(
+    currentDifficult + 1 <= NUM_DIFFICULTIES - 1 ? currentDifficult + 1 : currentDifficult
+  );
 };
 
 export const decreaseDifficulty = () => {
   const currentDifficult = store.getState().gameState.difficulty;
-  return {
-    type: GameActions.CHANGE_DIFFICULTY,
-    payload: currentDifficult - 1 >= 0 ? currentDifficult - 1 : currentDifficult,
-  };
+  return changeDifficulty(currentDifficult - 1 >= 0 ? currentDifficult - 1 : currentDifficult);
 };
 
 export const startGame = () => {
