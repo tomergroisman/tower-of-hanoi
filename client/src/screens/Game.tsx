@@ -38,7 +38,7 @@ const mapState = (state: Store) => {
 };
 
 const mapDispatch: DispatchProps = {
-  startGame,
+  startGame: startGame,
 };
 
 export default connect(mapState, mapDispatch)(Game);

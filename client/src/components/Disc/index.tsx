@@ -5,19 +5,27 @@ import {
   DraggingStyle,
   NotDraggingStyle,
 } from 'react-beautiful-dnd';
+import {connect} from 'react-redux';
+import {Store} from '../../store/types/store';
 
 import styles from './Disc.module.scss';
 
-interface Props {
+interface StateProps {
+  isGameInProgress: boolean;
+}
+
+interface OwnProps {
   size: number;
   index: number;
   isOnTop: boolean;
 }
 
+type Props = StateProps & OwnProps;
+
 const discColors = ['red', 'green', 'blue', '#cc33ff', '#ff9900'];
 
-export const Disc = (props: Props) => {
-  const {size, index, isOnTop} = props;
+const DiscComponent = (props: Props) => {
+  const {size, index, isOnTop, isGameInProgress} = props;
 
   /** Disable dnd drop animation */
   const getStyle = (
@@ -34,7 +42,11 @@ export const Disc = (props: Props) => {
   };
 
   return (
-    <Draggable draggableId={`disc-${size}`} index={index} isDragDisabled={!isOnTop}>
+    <Draggable
+      draggableId={`disc-${size}`}
+      index={index}
+      isDragDisabled={!isGameInProgress || !isOnTop}
+    >
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
@@ -51,3 +63,9 @@ export const Disc = (props: Props) => {
     </Draggable>
   );
 };
+
+const mapState = (store: Store) => ({
+  isGameInProgress: !store.gameState.finishTime,
+});
+
+export const Disc = connect(mapState)(DiscComponent);

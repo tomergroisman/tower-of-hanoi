@@ -3,8 +3,9 @@ export interface GameState {
   pegs: number;
   discs: number;
   startPeg: number;
-  startTime?: number;
   board: Board;
+  startTime?: number;
+  finishTime?: number;
 }
 
 export interface Board {

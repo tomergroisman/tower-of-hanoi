@@ -9,6 +9,7 @@ import {Peg} from '../Peg';
 import {useHooks} from './useHooks';
 
 import styles from './GameBoard.module.scss';
+import {getFinishTime} from '../../utils/parse';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -16,6 +17,8 @@ interface StateProps {
   discs: number;
   startPeg: number;
   board: Board;
+  startTime?: number;
+  finishTime?: number;
 }
 
 type Props = StateProps;
@@ -41,16 +44,21 @@ const GameBoardComponent = (props: Props) => {
   return (
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
+      {props.finishTime && props.startTime && (
+        <p>Game is finished in {getFinishTime(props.finishTime, props.startTime)}</p>
+      )}
     </div>
   );
 };
 
-const mapState = (state: Store) => ({
-  difficulty: state.gameState.difficulty,
-  pegs: state.gameState.pegs,
-  discs: state.gameState.discs,
-  startPeg: state.gameState.startPeg,
-  board: state.gameState.board,
+const mapState = (store: Store) => ({
+  difficulty: store.gameState.difficulty,
+  pegs: store.gameState.pegs,
+  discs: store.gameState.discs,
+  startPeg: store.gameState.startPeg,
+  board: store.gameState.board,
+  startTime: store.gameState.startTime,
+  finishTime: store.gameState.finishTime,
 });
 
 export const GameBoard = connect(mapState)(GameBoardComponent);

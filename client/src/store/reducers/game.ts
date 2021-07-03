@@ -78,17 +78,21 @@ export const gameStateReducer = (
       }
 
       if (state.board[source].length > 0) {
+        const board = {
+          ...state.board,
+          [source]: _.compact([newFirstDiscSource, ...newSource]),
+          [destination]: _.compact([
+            newFirstDiscOnDestination,
+            newSecondDiscDestination,
+            ...newDestination,
+          ]),
+        };
+        const isGameFinish =
+          board[destination].length === state.pegs && destination !== `peg-${state.startPeg}`;
         return {
           ...state,
-          board: {
-            ...state.board,
-            [source]: _.compact([newFirstDiscSource, ...newSource]),
-            [destination]: _.compact([
-              newFirstDiscOnDestination,
-              newSecondDiscDestination,
-              ...newDestination,
-            ]),
-          },
+          board: board,
+          finishTime: isGameFinish ? Date.now() : undefined,
         };
       }
       return state;

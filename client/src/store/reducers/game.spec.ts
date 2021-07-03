@@ -38,13 +38,12 @@ describe('Game state reducer tests', () => {
     };
 
     jest.spyOn(require('../../utils/gameBoard'), 'createBoard');
-    jest.spyOn(Date, 'now').mockReturnValue(1);
     jest.spyOn(Math, 'random').mockReturnValue(0);
     jest.spyOn(Math, 'floor');
 
     const state = reducer(prevState, action);
 
-    expect(state.startTime).toEqual(1);
+    expect(state.startTime).toBeDefined();
     expect(createBoard).toBeCalledWith(0, 3, 3);
     expect(Math.random).toBeCalled();
     expect(Math.floor).toBeCalled();
@@ -99,5 +98,27 @@ describe('Game state reducer tests', () => {
     });
 
     expect(state.board?.['peg-0'][0].props.index).toEqual(1);
+  });
+
+  it('should finish the game', () => {
+    const prevState = {
+      ...initialState,
+      difficulty: Difficulty.EASY,
+      board: createBoard(0, 3, 3),
+      startPeg: 1,
+    };
+
+    expect(prevState.finishTime).toBeUndefined();
+
+    let state = reducer(prevState, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-0', destination: 'peg-1'},
+    });
+    state = reducer(state, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-1', destination: 'peg-0'},
+    });
+
+    expect(state.finishTime).toBeDefined();
   });
 });
