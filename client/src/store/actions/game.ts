@@ -30,3 +30,10 @@ export const startGame = () => {
     type: GameActions.START_GAME,
   };
 };
+
+export const moveDisc = (source: string, destination: string) => {
+  return {
+    type: GameActions.MOVE_DISC,
+    payload: {source, destination},
+  };
+};

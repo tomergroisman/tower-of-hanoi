@@ -12,8 +12,9 @@ const discColors = ['red', 'green', 'blue', '#cc33ff', '#ff9900'];
 
 export const Disc = (props: Props) => {
   const {index, discs} = props;
+
   return (
-    <Draggable draggableId={`disc-${index}`} index={index} isDragDisabled={index < 2}>
+    <Draggable draggableId={`disc-${index}`} index={index}>
       {provided => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <div

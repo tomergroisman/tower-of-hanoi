@@ -4,6 +4,11 @@ export interface GameState {
   discs: number;
   startPeg: number;
   startTime?: number;
+  board: Board;
+}
+
+export interface Board {
+  [key: string]: JSX.Element[];
 }
 
 export enum Difficulty {

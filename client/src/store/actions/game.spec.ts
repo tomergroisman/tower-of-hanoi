@@ -1,6 +1,12 @@
 import {GameActions} from '../reducers/game';
 import {Difficulty} from '../types/game';
-import {changeDifficulty, decreaseDifficulty, increaseDifficulty, startGame} from './game';
+import {
+  changeDifficulty,
+  decreaseDifficulty,
+  increaseDifficulty,
+  startGame,
+  moveDisc,
+} from './game';
 
 const setStateDifficulty = (difficulty: Difficulty) => {
   const store = require('../index').store;
@@ -66,6 +72,18 @@ describe('Game state actions tests', () => {
     it('should return set start time dispatch object', () => {
       expect(startGame()).toEqual({
         type: GameActions.START_GAME,
+      });
+    });
+  });
+
+  describe('Board actions tests', () => {
+    it('should return move disc dispatch object', () => {
+      expect(moveDisc('peg-0', 'peg-1')).toEqual({
+        type: GameActions.MOVE_DISC,
+        payload: {
+          source: 'peg-0',
+          destination: 'peg-1',
+        },
       });
     });
   });

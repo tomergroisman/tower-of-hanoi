@@ -4,16 +4,16 @@ import {Droppable} from 'react-beautiful-dnd';
 import styles from './Peg.module.scss';
 
 interface Props {
+  id: string;
   backgroundColor: string;
-  index: number;
   startPeg: number;
 }
 
 export const Peg = (props: PropsWithChildren<Props>) => {
-  const {backgroundColor, index} = props;
+  const {id, backgroundColor} = props;
 
   return (
-    <Droppable droppableId={`peg-${index}`}>
+    <Droppable droppableId={id}>
       {provided => (
         <div ref={provided.innerRef} className={styles.container} style={{backgroundColor}}>
           <div className={styles['disc-container']}>

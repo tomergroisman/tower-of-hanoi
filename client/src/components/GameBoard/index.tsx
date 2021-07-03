@@ -1,12 +1,13 @@
-import React, {useCallback, useMemo} from 'react';
-import {connect} from 'react-redux';
-import {DragDropContext, DropResult} from 'react-beautiful-dnd';
+import React, {useMemo} from 'react';
+import {connect, useDispatch} from 'react-redux';
+import {DragDropContext} from 'react-beautiful-dnd';
 
-import {Difficulty} from '../../store/types/game';
+import {Board, Difficulty} from '../../store/types/game';
 import {Store} from '../../store/types/store';
 
 import {Peg} from '../Peg';
-import {Disc} from '../Disc';
+import {useHooks} from './useHooks';
+
 import styles from './GameBoard.module.scss';
 
 interface StateProps {
@@ -14,6 +15,7 @@ interface StateProps {
   pegs: number;
   discs: number;
   startPeg: number;
+  board: Board;
 }
 
 type Props = StateProps;
@@ -22,38 +24,19 @@ type Props = StateProps;
 const pegColors = ['#99ffff', '#cc99ff', '#ccff99', '#ffff99', '#dfbf9f'];
 
 const GameBoardComponent = (props: Props) => {
-  // TODO
-  const onDragEnd = (results: DropResult) => {
-    console.log(results);
-  };
-
-  /** Render the discs to the screen */
-  const renderDiscs = useCallback(
-    (pegIdx: number) => {
-      if (pegIdx === props.startPeg) {
-        const discs = [];
-        for (var i = props.discs - 1; i >= 0; i--) {
-          discs.push(<Disc key={`disc-${i}`} index={i} discs={props.discs} />);
-        }
-        return discs;
-      }
-      return null;
-    },
-    [props.startPeg, props.discs]
-  );
+  const dispatch = useDispatch();
+  const {onDragEnd} = useHooks(dispatch);
 
   /** Render the pegs to the screen */
-  const renderGame = useMemo(() => {
-    const pegs = [];
-    for (var i = 0; i < props.pegs; i++) {
-      pegs.push(
-        <Peg key={`peg-${i}`} startPeg={props.startPeg} index={i} backgroundColor={pegColors[i]}>
-          {renderDiscs(i)}
+  const renderGame = useMemo(
+    () =>
+      Object.keys(props.board).map((key, idx) => (
+        <Peg key={key} id={key} startPeg={props.startPeg} backgroundColor={pegColors[idx]}>
+          {props.board[key]}
         </Peg>
-      );
-    }
-    return pegs;
-  }, [props.pegs, props.startPeg, renderDiscs]);
+      )),
+    [props.board, props.startPeg]
+  );
 
   return (
     <div className={styles.container}>
@@ -67,6 +50,7 @@ const mapState = (state: Store) => ({
   pegs: state.gameState.pegs,
   discs: state.gameState.discs,
   startPeg: state.gameState.startPeg,
+  board: state.gameState.board,
 });
 
 export const GameBoard = connect(mapState)(GameBoardComponent);

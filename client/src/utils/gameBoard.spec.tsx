@@ -1,4 +1,5 @@
 import {Difficulty} from '../store/types/game';
+import {createBoard} from './gameBoard';
 
 describe('gameBoard Tests', () => {
   const {difficultyToGameBoard} = require('./gameBoard');
@@ -23,5 +24,13 @@ describe('gameBoard Tests', () => {
       discs: 5,
     };
     expect(difficultyToGameBoard(Difficulty.HARD)).toEqual(hardBoard);
+  });
+  it('should return a game board', () => {
+    const board = createBoard(0, 3, 3);
+    expect(Object.keys(board).length).toEqual(3);
+    expect(board['peg-0'].length).toEqual(3);
+    expect(board['peg-1'].length).toEqual(0);
+    expect(board['peg-2'].length).toEqual(0);
+    expect(board['peg-3']).toBeUndefined();
   });
 });
