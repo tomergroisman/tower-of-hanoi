@@ -1,7 +1,7 @@
 FROM node:16
 LABEL maintainer = "Tomer Groisman"
 
-RUN mkdir -p /app
+RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
