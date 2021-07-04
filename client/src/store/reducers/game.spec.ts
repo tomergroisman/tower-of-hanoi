@@ -89,7 +89,7 @@ describe('Game state reducer tests', () => {
     expect(state.board?.['peg-2'].length).toEqual(0);
   });
 
-  it('should change disc index disc', () => {
+  it('should change disc index', () => {
     const prevState = {
       ...initialState,
       difficulty: Difficulty.EASY,
@@ -112,5 +112,18 @@ describe('Game state reducer tests', () => {
     });
 
     expect(state.board?.['peg-0'][0].props.index).toEqual(1);
+  });
+
+  it('should reset the game state', () => {
+    const prevState = {
+      ...initialState,
+      difficulty: Difficulty.EASY,
+      startTime: 0,
+      board: createBoard(0, 3),
+    };
+
+    const state = reducer(prevState, {type: GameActions.RESET_GAME});
+
+    expect(state.startTime).toBeUndefined();
   });
 });

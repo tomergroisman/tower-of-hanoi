@@ -43,3 +43,9 @@ export const moveDisc = (source: string, destination: string, board: Board) => {
     payload: {source, destination},
   };
 };
+
+export const resetGame = () => {
+  return {
+    type: GameActions.RESET_GAME,
+  };
+};

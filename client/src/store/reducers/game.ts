@@ -9,8 +9,9 @@ import {PEGS} from '../../utils/constants';
 export enum GameActions {
   CHANGE_DIFFICULTY = 'CHANGE_DIFFICULTY',
   START_GAME = 'START_GAME',
-  MOVE_DISC = 'MOVE_DISC',
   END_GAME = 'END_GAME',
+  MOVE_DISC = 'MOVE_DISC',
+  RESET_GAME = 'RESET_GAME',
   NULL = '',
 }
 
@@ -88,6 +89,9 @@ export const gameStateReducer = (
           ]),
         },
       };
+
+    case GameActions.RESET_GAME:
+      return initialState;
 
     default:
       return state;

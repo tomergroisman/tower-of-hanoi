@@ -11,6 +11,11 @@ export const useHooks = (props: Props) => {
     _startGameIfGameIsOn();
   };
 
+  const handleTitleClick = () => {
+    props.endGame(true);
+    props.resetGame();
+  };
+
   const _startGameIfGameIsOn = () => {
     if (props.startGame) {
       props.startGame();
@@ -20,5 +25,6 @@ export const useHooks = (props: Props) => {
   return {
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
+    handleTitleClick,
   };
 };

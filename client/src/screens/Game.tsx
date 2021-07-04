@@ -56,10 +56,11 @@ class Game extends Component<Props, State> {
   };
 
   /** End game handler */
-  handleEndGame = () => {
+  handleEndGame = (nullifyTimer?: boolean) => {
     this.clearTimerInterval();
     this.setState({
       timerInterval: null,
+      gameTimer: nullifyTimer ? 0 : this.state.gameTimer,
     });
   };
 
@@ -72,7 +73,11 @@ class Game extends Component<Props, State> {
   render() {
     return (
       <div>
-        <TopBar gameTimer={this.state.gameTimer} startGame={this.handleStartGame} />
+        <TopBar
+          gameTimer={this.state.gameTimer}
+          startGame={this.handleStartGame}
+          endGame={this.handleEndGame}
+        />
         {this.props.startTime ? (
           <GameBoard />
         ) : (
@@ -89,7 +94,7 @@ const mapState = (store: Store) => ({
 });
 
 const mapDispatch: DispatchProps = {
-  startGame: startGame,
+  startGame,
 };
 
 export default connect(mapState, mapDispatch)(Game);

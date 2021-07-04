@@ -8,6 +8,7 @@ import {
   startGame,
   moveDisc,
   endGame,
+  resetGame,
 } from './game';
 
 const setStateDifficulty = (difficulty: Difficulty) => {
@@ -80,6 +81,12 @@ describe('Game state actions tests', () => {
     it('should return finish time dispatch object', () => {
       expect(endGame()).toEqual({
         type: GameActions.END_GAME,
+      });
+    });
+
+    it('should return reset dispatch object', () => {
+      expect(resetGame()).toEqual({
+        type: GameActions.RESET_GAME,
       });
     });
   });
