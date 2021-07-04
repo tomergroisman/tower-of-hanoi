@@ -3,7 +3,6 @@ import {DropResult} from 'react-beautiful-dnd';
 import {Dispatch} from 'redux';
 
 import {endGame, moveDisc} from '../../store/actions/game';
-import {PEGS} from '../../utils/constants';
 import {Props} from '.';
 
 export const useHooks = (props: Props, dispatch: Dispatch) => {
@@ -15,11 +14,11 @@ export const useHooks = (props: Props, dispatch: Dispatch) => {
 
   useEffect(() => {
     for (const key of Object.keys(props.board)) {
-      if (key !== `peg-${props.startPeg}` && props.board[key].length === PEGS) {
+      if (key !== `peg-${props.startPeg}` && props.board[key].length === props.discs) {
         dispatch(endGame());
       }
     }
-  }, [props.board, props.startPeg, dispatch]);
+  }, [props.board, props.startPeg, props.discs, dispatch]);
 
   return {
     onDragEnd,
