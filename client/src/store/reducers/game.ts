@@ -1,7 +1,7 @@
-import React from 'react';
+import {cloneElement} from 'react';
 import * as _ from 'lodash';
 
-import {createBoard, difficultyToGameBoard, isValidateMove} from '../../utils/gameBoard';
+import {createBoard, difficultyToGameBoard} from '../../utils/gameBoard';
 import {EndDrag} from '../types/actions';
 import {GameState, Difficulty} from '../types/game';
 import {PEGS} from '../../utils/constants';
@@ -10,6 +10,8 @@ export enum GameActions {
   CHANGE_DIFFICULTY = 'CHANGE_DIFFICULTY',
   START_GAME = 'START_GAME',
   MOVE_DISC = 'MOVE_DISC',
+  END_GAME = 'END_GAME',
+  NULL = '',
 }
 
 type Payload = Difficulty | EndDrag;
@@ -46,20 +48,19 @@ export const gameStateReducer = (
         board: createBoard(startPeg, state.discs),
       };
 
+    case GameActions.END_GAME:
+      return {
+        ...state,
+        finishTime: Date.now(),
+      };
+
     case GameActions.MOVE_DISC:
       const {source, destination} = action.payload as EndDrag;
 
-      if (!isValidateMove(source, destination, state.board)) {
-        return state;
-      }
-
       const newDestination = _.cloneDeep(state.board[destination]);
-      const newFirstDiscOnDestination = React.cloneElement(
-        _.head(state.board[source]) as JSX.Element,
-        {
-          index: newDestination.length,
-        }
-      );
+      const newFirstDiscOnDestination = cloneElement(_.head(state.board[source]) as JSX.Element, {
+        index: newDestination.length,
+      });
 
       const newSource = _.cloneDeep(state.board[source]).splice(1);
 
@@ -68,19 +69,16 @@ export const gameStateReducer = (
 
       // Activate dragging property to the top disc
       if (newFirstDiscSource) {
-        newFirstDiscSource = React.cloneElement(newFirstDiscSource, {
-          isOnTop: true,
-        });
+        newFirstDiscSource = cloneElement(newFirstDiscSource, {isOnTop: true});
       }
       // Deactivate dragging property to the previous top disc
       if (newSecondDiscDestination) {
-        newSecondDiscDestination = React.cloneElement(newSecondDiscDestination, {
-          isOnTop: false,
-        });
+        newSecondDiscDestination = cloneElement(newSecondDiscDestination, {isOnTop: false});
       }
 
-      if (state.board[source].length > 0) {
-        const board = {
+      return {
+        ...state,
+        board: {
           ...state.board,
           [source]: _.compact([newFirstDiscSource, ...newSource]),
           [destination]: _.compact([
@@ -88,16 +86,8 @@ export const gameStateReducer = (
             newSecondDiscDestination,
             ...newDestination,
           ]),
-        };
-        const isGameFinish =
-          board[destination].length === PEGS && destination !== `peg-${state.startPeg}`;
-        return {
-          ...state,
-          board: board,
-          finishTime: isGameFinish ? Date.now() : undefined,
-        };
-      }
-      return state;
+        },
+      };
 
     default:
       return state;

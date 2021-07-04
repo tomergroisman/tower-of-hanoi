@@ -49,6 +49,20 @@ describe('Game state reducer tests', () => {
     expect(Math.floor).toBeCalled();
   });
 
+  it('should end the game', () => {
+    const prevState = {
+      ...initialState,
+      startTime: 0,
+    };
+    const action = {
+      type: GameActions.END_GAME,
+    };
+
+    const state = reducer(prevState, action);
+
+    expect(state.finishTime).toBeDefined();
+  });
+
   it('should move disc', () => {
     const prevState = {
       ...initialState,
@@ -98,27 +112,5 @@ describe('Game state reducer tests', () => {
     });
 
     expect(state.board?.['peg-0'][0].props.index).toEqual(1);
-  });
-
-  it('should finish the game', () => {
-    const prevState = {
-      ...initialState,
-      difficulty: Difficulty.EASY,
-      board: createBoard(0, 3),
-      startPeg: 1,
-    };
-
-    expect(prevState.finishTime).toBeUndefined();
-
-    let state = reducer(prevState, {
-      type: GameActions.MOVE_DISC,
-      payload: {source: 'peg-0', destination: 'peg-1'},
-    });
-    state = reducer(state, {
-      type: GameActions.MOVE_DISC,
-      payload: {source: 'peg-1', destination: 'peg-0'},
-    });
-
-    expect(state.finishTime).toBeDefined();
   });
 });

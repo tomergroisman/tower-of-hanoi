@@ -20,14 +20,14 @@ interface StateProps {
   finishTime?: number;
 }
 
-type Props = StateProps;
+export type Props = StateProps;
 
 // TODO: delete later
 const pegColors = ['#99ffff', '#cc99ff', '#ccff99', '#ffff99', '#dfbf9f'];
 
 const GameBoardComponent = (props: Props) => {
   const dispatch = useDispatch();
-  const {onDragEnd} = useHooks(dispatch);
+  const {onDragEnd} = useHooks(props, dispatch);
 
   /** Render the pegs to the screen */
   const renderGame = useMemo(

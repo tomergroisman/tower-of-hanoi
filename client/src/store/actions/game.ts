@@ -1,6 +1,7 @@
+import {isValidateMove} from '../../utils/gameBoard';
 import {store} from '../index';
 import {GameActions} from '../reducers/game';
-import {Difficulty} from '../types/game';
+import {Board, Difficulty} from '../types/game';
 
 const NUM_DIFFICULTIES = Object.keys(Difficulty).length / 2;
 
@@ -27,7 +28,16 @@ export const startGame = () => {
   };
 };
 
-export const moveDisc = (source: string, destination: string) => {
+export const endGame = () => {
+  return {
+    type: GameActions.END_GAME,
+  };
+};
+
+export const moveDisc = (source: string, destination: string, board: Board) => {
+  if (!isValidateMove(source, destination, board)) {
+    return {type: GameActions.NULL};
+  }
   return {
     type: GameActions.MOVE_DISC,
     payload: {source, destination},

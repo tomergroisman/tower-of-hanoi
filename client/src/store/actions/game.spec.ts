@@ -1,3 +1,4 @@
+import {createBoard} from '../../utils/gameBoard';
 import {GameActions} from '../reducers/game';
 import {Difficulty} from '../types/game';
 import {
@@ -6,6 +7,7 @@ import {
   increaseDifficulty,
   startGame,
   moveDisc,
+  endGame,
 } from './game';
 
 const setStateDifficulty = (difficulty: Difficulty) => {
@@ -69,21 +71,35 @@ describe('Game state actions tests', () => {
   });
 
   describe('Time actions tests', () => {
-    it('should return set start time dispatch object', () => {
+    it('should return start time dispatch object', () => {
       expect(startGame()).toEqual({
         type: GameActions.START_GAME,
+      });
+    });
+
+    it('should return finish time dispatch object', () => {
+      expect(endGame()).toEqual({
+        type: GameActions.END_GAME,
       });
     });
   });
 
   describe('Board actions tests', () => {
     it('should return move disc dispatch object', () => {
-      expect(moveDisc('peg-0', 'peg-1')).toEqual({
+      const board = createBoard(0, 3);
+      expect(moveDisc('peg-0', 'peg-1', board)).toEqual({
         type: GameActions.MOVE_DISC,
         payload: {
           source: 'peg-0',
           destination: 'peg-1',
         },
+      });
+    });
+
+    it('should return null dispatch object', () => {
+      const board = createBoard(0, 3);
+      expect(moveDisc('peg-0', 'peg-0', board)).toEqual({
+        type: GameActions.NULL,
       });
     });
   });
