@@ -17,7 +17,7 @@ export const useHooks = (props: Props) => {
   };
 
   const _startGameIfGameIsOn = () => {
-    if (props.startGame) {
+    if (props.isInGame) {
       props.startGame();
     }
   };

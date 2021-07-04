@@ -5,6 +5,7 @@ import {GameBoard} from '../components/GameBoard';
 import {TopBar} from '../components/TopBar';
 import {startGame} from '../store/actions/game';
 import {Store} from '../store/types/store';
+import {SECOND_IN_MILLIS} from '../utils/constants';
 
 interface StateProps {
   startTime?: number;
@@ -46,7 +47,7 @@ class Game extends Component<Props, State> {
       this.setState({
         gameTimer: this.state.gameTimer + 1,
       });
-    }, 1000);
+    }, SECOND_IN_MILLIS);
 
     this.setState({
       timerInterval: timerInterval,
@@ -65,7 +66,8 @@ class Game extends Component<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.isGameEnded !== this.props.isGameEnded) {
+    const {isGameEnded} = this.props;
+    if (isGameEnded && prevProps.isGameEnded !== isGameEnded) {
       this.handleEndGame();
     }
   }

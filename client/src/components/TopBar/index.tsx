@@ -11,6 +11,7 @@ import styles from './TopBar.module.scss';
 
 interface StateProps {
   difficulty: Difficulty;
+  isInGame: boolean;
 }
 
 interface DispatchProps {
@@ -51,6 +52,7 @@ const TopBarComponent = (props: Props) => {
 
 const mapState = (store: Store) => ({
   difficulty: store.gameState.difficulty,
+  isInGame: !!store.gameState.startTime,
 });
 
 const mapDispatch = {
