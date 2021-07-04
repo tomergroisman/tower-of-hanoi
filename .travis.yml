@@ -7,4 +7,4 @@ services:
 
 before_script: npm install docker-compose
 
-script: docker-compose run client sh -c "npm test"
+script: docker-compose run client sh -c "npm run test-no-watch"
