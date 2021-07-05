@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model thar supports using email instead of username"""
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(
         i18n('ADMIN_USER_ACTIVE'),
         help_text=i18n('ADMIN_USER_ACTIVE_HELPER_TEXT'),

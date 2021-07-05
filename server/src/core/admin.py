@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from core.services.translation import i18n
 from core import models
+from core.services.translation import i18n
 
 
 class UserAdmin(BaseUserAdmin):
