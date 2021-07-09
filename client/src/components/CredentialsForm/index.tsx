@@ -1,16 +1,16 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
 
+import {Credentials, ErrorFields} from '../../store/types/user';
 import {useHooks} from './useHooks';
 import styles from './CredentialsForm.module.scss';
-import {Credentials} from '../../store/types/user';
-import {Link} from 'react-router-dom';
 
-interface Props {
+export interface Props {
   formType: 'login' | 'signup';
   onSubmit: (credentials: Credentials) => void;
   loading: boolean;
-  error: boolean;
+  error?: ErrorFields;
 }
 
 export const CredentialsForm = (props: Props) => {
@@ -21,7 +21,8 @@ export const CredentialsForm = (props: Props) => {
     handleEmailChange,
     handlePasswordChange,
     handleNicknameChange,
-  } = useHooks();
+    errorToMessage,
+  } = useHooks(props);
 
   /** Submit form handler */
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
@@ -35,8 +36,9 @@ export const CredentialsForm = (props: Props) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <TextField onChange={handleEmailChange} inputProps={{type: 'email'}} label="Email" />
+      <TextField required onChange={handleEmailChange} inputProps={{type: 'email'}} label="Email" />
       <TextField
+        required
         onChange={handlePasswordChange}
         inputProps={{type: 'password'}}
         label="Password"
@@ -46,7 +48,7 @@ export const CredentialsForm = (props: Props) => {
         <TextField onChange={handleNicknameChange} label="Nickname" />
       )}
 
-      <p className={styles.error}>{props.error && 'Error in form'}</p>
+      <p className={styles.error}>{!!props.error && errorToMessage}</p>
 
       <Link to={props.formType === 'login' ? '/signup' : '/login'}>
         {props.formType === 'login' ? 'New user? Sign up!' : 'Already have an account? Log in!'}

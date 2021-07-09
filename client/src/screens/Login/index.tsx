@@ -3,20 +3,19 @@ import {ReactCookieProps, withCookies} from 'react-cookie';
 import {Redirect} from 'react-router-dom';
 
 import {CredentialsForm} from '../../components/CredentialsForm';
-import {Credentials} from '../../store/types/user';
+import {Credentials, ErrorFields} from '../../store/types/user';
 import {apiRequests} from '../../utils/requests';
 import styles from './Login.module.scss';
 
 interface State {
   loading: boolean;
-  error: boolean;
   isAuthenticated: boolean;
+  error?: ErrorFields;
 }
 
 class LoginScreen extends Component<ReactCookieProps, State> {
   state: State = {
     loading: false,
-    error: false,
     isAuthenticated: false,
   };
 
@@ -27,9 +26,16 @@ class LoginScreen extends Component<ReactCookieProps, State> {
       const expires = new Date();
       expires.setMonth(new Date().getMonth() + 6);
       this.props.cookies?.set('token', token, {expires});
-      this.setState({error: false, loading: false, isAuthenticated: true});
-    } catch {
-      this.setState({error: true, loading: false});
+      this.setState({error: undefined, loading: false, isAuthenticated: true});
+    } catch (e) {
+      const res = e.response.data;
+      let error: ErrorFields;
+      if (res.email) {
+        error = 'email';
+      } else {
+        error = 'password';
+      }
+      this.setState({error: error, loading: false});
     }
   };
 
