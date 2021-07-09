@@ -4,10 +4,13 @@ import {Provider} from 'react-redux';
 import {CookiesProvider} from 'react-cookie';
 import {BrowserRouter} from 'react-router-dom';
 
+import {init as i18nInit} from './strings/i18n.config';
 import {store} from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.scss';
+
+i18nInit();
 
 ReactDOM.render(
   <React.StrictMode>

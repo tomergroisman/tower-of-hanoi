@@ -1,6 +1,6 @@
 export interface AppState {
   user: User;
-  language: 'en' | 'he';
+  language: Language;
 }
 
 export interface User {
@@ -8,6 +8,8 @@ export interface User {
   name?: string;
   nickname?: string;
 }
+
+export type Language = 'he' | 'en';
 
 export type ErrorFields = 'email' | 'password' | 'nickname';
 

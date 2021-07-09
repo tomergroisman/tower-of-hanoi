@@ -1,5 +1,5 @@
 import {AppActions, appStateReducer as reducer} from './app';
-import {User} from '../types/app';
+import {Language, User} from '../types/app';
 
 describe('App state reducer tests', () => {
   const mockUser: User = {
@@ -31,5 +31,17 @@ describe('App state reducer tests', () => {
     expect(state.user.email).toEqual(mockUser.email);
     expect(state.user.nickname).toEqual(mockUser.nickname);
     expect(state.user.name).toBeUndefined();
+  });
+
+  it('should set a language', () => {
+    const language: Language = 'he';
+    const action = {
+      type: AppActions.SET_LANGUAGE,
+      payload: language,
+    };
+
+    const state = reducer(undefined, action);
+
+    expect(state.language).toEqual(language);
   });
 });

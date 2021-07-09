@@ -1,8 +1,11 @@
-import {useMemo} from 'react';
+import {useMemo, useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import {Props} from '.';
 
 export const useHooks = (props: Props) => {
+  const {i18n} = useTranslation();
+
   const userTitle = useMemo(() => {
     const {email, nickname} = props.user;
     return nickname ?? email ?? '';
@@ -18,6 +21,14 @@ export const useHooks = (props: Props) => {
     _startGameIfGameIsOn();
   };
 
+  const handleSetToEn = () => {
+    props.setLanguage('en');
+  };
+
+  const handleSetToHe = () => {
+    props.setLanguage('he');
+  };
+
   const handleTitleClick = () => {
     props.endGame(true);
     props.resetGame();
@@ -29,10 +40,16 @@ export const useHooks = (props: Props) => {
     }
   };
 
+  useEffect(() => {
+    i18n.changeLanguage(props.language);
+  }, [props.language, i18n]);
+
   return {
     userTitle,
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
+    handleSetToEn,
+    handleSetToHe,
     handleTitleClick,
   };
 };
