@@ -3,8 +3,8 @@ import {apiEndpoints} from './constants';
 import {Credentials, User} from '../store/types/user';
 
 interface ApiRequest {
-  getUser: (token: string) => Promise<User | undefined>;
-  getToken: (credentials: Credentials) => Promise<{token: string} | undefined>;
+  getUser: (token: string) => Promise<User>;
+  getToken: (credentials: Credentials) => Promise<{token: string}>;
 }
 
 export const apiRequests: ApiRequest = {
@@ -15,11 +15,11 @@ export const apiRequests: ApiRequest = {
           Authorization: `Token ${token}`,
         },
       })
-      .then(res => (res.status === 200 ? (res.data as User) : undefined));
+      .then(res => res.data as User);
   },
   getToken: (credentials: Credentials) => {
     return apiClient
       .post(apiEndpoints.getToken, credentials)
-      .then(res => (res.status === 200 ? (res.data as {token: string}) : undefined));
+      .then(res => res.data as {token: string});
   },
 };
