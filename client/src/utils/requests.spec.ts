@@ -29,4 +29,16 @@ describe('Requests tests', () => {
     const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/user/token/`;
     expect(apiClient.post).toHaveBeenCalledWith(endpoint, credentials);
   });
+
+  it('should make a create user request', () => {
+    const user = {
+      email: 'test@test.com',
+      password: '123456',
+      nickname: 'test',
+    };
+    apiRequests.createUser(user);
+
+    const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/user/create/`;
+    expect(apiClient.post).toHaveBeenCalledWith(endpoint, user);
+  });
 });

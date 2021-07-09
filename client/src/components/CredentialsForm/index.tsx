@@ -35,15 +35,20 @@ export const CredentialsForm = (props: Props) => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <TextField onChange={handleEmailChange} inputProps={{type: 'email'}} label="Email" />
-      <TextField onChange={handlePasswordChange} inputProps={{type: 'password'}} label="Password" />
+      <TextField
+        onChange={handlePasswordChange}
+        inputProps={{type: 'password'}}
+        label="Password"
+        helperText={props.formType === 'signup' && 'Minimum 5 characters'}
+      />
       {props.formType === 'signup' && (
         <TextField onChange={handleNicknameChange} label="Nickname" />
       )}
 
-      <p>{props.error && 'Error in form'}</p>
+      <p className={styles.error}>{props.error && 'Error in form'}</p>
 
       <Button type="submit" variant="outlined" color="primary">
-        {!props.loading ? 'Login' : 'Loading...'}
+        {!props.loading ? (props.formType === 'login' ? 'Login' : 'Signup') : 'Loading...'}
       </Button>
     </form>
   );

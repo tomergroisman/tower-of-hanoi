@@ -5,6 +5,7 @@ import {Credentials, User} from '../store/types/user';
 interface ApiRequest {
   getUser: (token: string) => Promise<User>;
   getToken: (credentials: Credentials) => Promise<{token: string}>;
+  createUser: (userData: Credentials) => Promise<{user: User}>;
 }
 
 export const apiRequests: ApiRequest = {
@@ -21,5 +22,8 @@ export const apiRequests: ApiRequest = {
     return apiClient
       .post(apiEndpoints.getToken, credentials)
       .then(res => res.data as {token: string});
+  },
+  createUser: (userData: Credentials) => {
+    return apiClient.post(apiEndpoints.createUser, userData).then(res => res.data as {user: User});
   },
 };
