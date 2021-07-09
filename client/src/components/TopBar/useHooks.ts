@@ -1,6 +1,13 @@
+import {useMemo} from 'react';
+
 import {Props} from '.';
 
 export const useHooks = (props: Props) => {
+  const userTitle = useMemo(() => {
+    const {email, nickname} = props.user;
+    return nickname ?? email ?? '';
+  }, [props.user]);
+
   const handleDecreaseDifficulty = () => {
     props.decreaseDifficulty();
     _startGameIfGameIsOn();
@@ -23,6 +30,7 @@ export const useHooks = (props: Props) => {
   };
 
   return {
+    userTitle,
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
     handleTitleClick,

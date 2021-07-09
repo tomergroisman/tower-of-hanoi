@@ -1,10 +1,12 @@
 export interface User {
-  email: string;
+  email?: string;
   name?: string;
   nickname?: string;
 }
 
-export type UserState = User | undefined;
+export interface UserState {
+  user: User;
+}
 
 export interface Credentials {
   email: string;

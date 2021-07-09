@@ -1,8 +1,8 @@
 import {UserActions, userStateReducer as reducer} from './user';
-import {UserState} from '../types/user';
+import {User} from '../types/user';
 
 describe('User state reducer tests', () => {
-  const mockUser: UserState = {
+  const mockUser: User = {
     email: 'test@test.com',
     name: 'De Vinci',
     nickname: 'DeVi',
@@ -14,7 +14,13 @@ describe('User state reducer tests', () => {
 
   it('should return the initial state', () => {
     const state = reducer(undefined);
-    expect(state).toEqual(undefined);
+    expect(state).toEqual({
+      user: {
+        email: undefined,
+        name: undefined,
+        nickname: undefined,
+      },
+    });
   });
 
   it('should set a user', () => {
@@ -25,8 +31,8 @@ describe('User state reducer tests', () => {
 
     const state = reducer(undefined, action);
 
-    expect(state?.email).toEqual(mockUser.email);
-    expect(state?.nickname).toEqual(mockUser.nickname);
-    expect(state?.name).toBeUndefined();
+    expect(state.user.email).toEqual(mockUser.email);
+    expect(state.user.nickname).toEqual(mockUser.nickname);
+    expect(state.user.name).toBeUndefined();
   });
 });

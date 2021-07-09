@@ -4,6 +4,7 @@ import {TextField, Button} from '@material-ui/core';
 import {useHooks} from './useHooks';
 import styles from './CredentialsForm.module.scss';
 import {Credentials} from '../../store/types/user';
+import {Link} from 'react-router-dom';
 
 interface Props {
   formType: 'login' | 'signup';
@@ -46,6 +47,10 @@ export const CredentialsForm = (props: Props) => {
       )}
 
       <p className={styles.error}>{props.error && 'Error in form'}</p>
+
+      <Link to={props.formType === 'login' ? '/signup' : '/login'}>
+        {props.formType === 'login' ? 'New user? Sign up!' : 'Already have an account? Log in!'}
+      </Link>
 
       <Button type="submit" variant="outlined" color="primary">
         {!props.loading ? (props.formType === 'login' ? 'Login' : 'Signup') : 'Loading...'}

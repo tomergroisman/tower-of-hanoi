@@ -1,18 +1,32 @@
-import {Provider} from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {useCookies} from 'react-cookie';
 import {Redirect} from 'react-router-dom';
 
-import {store} from './store';
 import {Router} from './components/Router';
+import {setUser} from './store/actions/user';
+import {apiRequests} from './utils/requests';
 
 function App() {
   const [cookies] = useCookies(['token']);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (cookies.token) {
+        const user = await apiRequests.getUser(cookies.token);
+        dispatch(setUser(user));
+      }
+    };
+
+    fetchUser();
+  }, [cookies, dispatch]);
 
   return (
-    <Provider store={store}>
+    <>
       <Router />
       {!cookies.token && <Redirect to="/signup" />}
-    </Provider>
+    </>
   );
 }
 

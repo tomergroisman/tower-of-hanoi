@@ -1,19 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import {CookiesProvider} from 'react-cookie';
 import {BrowserRouter} from 'react-router-dom';
 
+import {store} from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </CookiesProvider>
+    <Provider store={store}>
+      <CookiesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CookiesProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
