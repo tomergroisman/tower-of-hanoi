@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import {Board, Difficulty} from '../store/types/game';
-import {Disc} from '../components/Disc';
+import {Disc} from '../screens/Game/components/Disc';
 import {PEGS} from './constants';
 
 /**

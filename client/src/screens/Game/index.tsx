@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {GameBoard} from '../components/GameBoard';
-import {TopBar} from '../components/TopBar';
-import {startGame} from '../store/actions/game';
-import {Store} from '../store/types/store';
-import {SECOND_IN_MILLIS} from '../utils/constants';
+import {GameBoard} from './components/GameBoard';
+import {TopBar} from '../../components/TopBar';
+import {startGame} from '../../store/actions/game';
+import {Store} from '../../store/types/store';
+import {SECOND_IN_MILLIS} from '../../utils/constants';
 
 interface StateProps {
   startTime?: number;

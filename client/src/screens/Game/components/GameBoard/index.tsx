@@ -2,14 +2,14 @@ import React, {useMemo} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {DragDropContext} from 'react-beautiful-dnd';
 
-import {Board, Difficulty} from '../../store/types/game';
-import {Store} from '../../store/types/store';
+import {Board, Difficulty} from '../../../../store/types/game';
+import {Store} from '../../../../store/types/store';
 
 import {Peg} from '../Peg';
 import {useHooks} from './useHooks';
 
 import styles from './GameBoard.module.scss';
-import {getFinishTime} from '../../utils/parse';
+import {getFinishTime} from '../../../../utils/parse';
 
 interface StateProps {
   difficulty: Difficulty;

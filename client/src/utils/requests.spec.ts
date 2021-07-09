@@ -15,7 +15,7 @@ describe('Requests tests', () => {
     const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/user/me/`;
     expect(apiClient.get).toBeCalled();
     expect(apiClient.get).toHaveBeenCalledWith(endpoint, {
-      headers: {Authorization: mockToken},
+      headers: {Authorization: `Token ${mockToken}`},
     });
   });
 

@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {DropResult} from 'react-beautiful-dnd';
 import {Dispatch} from 'redux';
 
-import {endGame, moveDisc} from '../../store/actions/game';
+import {endGame, moveDisc} from '../../../../store/actions/game';
 import {Props} from '.';
 
 export const useHooks = (props: Props, dispatch: Dispatch) => {

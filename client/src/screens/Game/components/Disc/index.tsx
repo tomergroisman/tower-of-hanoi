@@ -6,7 +6,7 @@ import {
   NotDraggingStyle,
 } from 'react-beautiful-dnd';
 import {connect} from 'react-redux';
-import {Store} from '../../store/types/store';
+import {Store} from '../../../../store/types/store';
 
 import styles from './Disc.module.scss';
 
