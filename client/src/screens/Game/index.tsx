@@ -23,7 +23,7 @@ interface State {
 
 export type Props = StateProps & DispatchProps;
 
-class Game extends Component<Props, State> {
+class GameScreen extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -99,4 +99,4 @@ const mapDispatch: DispatchProps = {
   startGame,
 };
 
-export default connect(mapState, mapDispatch)(Game);
+export const Game = connect(mapState, mapDispatch)(GameScreen);
