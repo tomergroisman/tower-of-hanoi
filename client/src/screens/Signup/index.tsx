@@ -3,7 +3,7 @@ import {ReactCookieProps, withCookies} from 'react-cookie';
 import {Redirect} from 'react-router-dom';
 
 import {CredentialsForm} from '../../components/CredentialsForm';
-import {Credentials, ErrorFields} from '../../store/types/user';
+import {Credentials, ErrorFields} from '../../store/types/app';
 import {apiRequests} from '../../utils/requests';
 import styles from './Signup.module.scss';
 

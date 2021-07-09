@@ -4,7 +4,7 @@ import {useCookies} from 'react-cookie';
 import {Redirect} from 'react-router-dom';
 
 import {Router} from './components/Router';
-import {setUser} from './store/actions/user';
+import {setUser} from './store/actions/app';
 import {apiRequests} from './utils/requests';
 
 function App() {

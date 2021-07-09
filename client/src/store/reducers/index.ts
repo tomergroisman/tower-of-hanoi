@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import {gameStateReducer as gameState} from './game';
-import {userStateReducer as userState} from './user';
+import {appStateReducer as appState} from './app';
 
 export const rootReducer = combineReducers({
   gameState,
-  userState,
+  appState,
 });

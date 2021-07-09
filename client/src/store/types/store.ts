@@ -1,7 +1,7 @@
 import {GameState} from './game';
-import {UserState} from './user';
+import {AppState} from './app';
 
 export interface Store {
   gameState: GameState;
-  userState: UserState
+  appState: AppState;
 }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
 import {Difficulty} from '../../store/types/game';
-import {User} from '../../store/types/user';
+import {User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
 import {capitalizeFirstLetter, timerToString} from '../../utils/parse';
 import {useHooks} from './useHooks';
@@ -61,7 +61,7 @@ const TopBarComponent = (props: Props) => {
 const mapState = (store: Store) => ({
   difficulty: store.gameState.difficulty,
   isInGame: !!store.gameState.startTime,
-  user: store.userState.user,
+  user: store.appState.user,
 });
 
 const mapDispatch = {

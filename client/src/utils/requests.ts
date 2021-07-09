@@ -1,6 +1,6 @@
 import {apiClient} from './api';
 import {apiEndpoints} from './constants';
-import {Credentials, User} from '../store/types/user';
+import {Credentials, User} from '../store/types/app';
 
 interface ApiRequest {
   getUser: (token: string) => Promise<User>;

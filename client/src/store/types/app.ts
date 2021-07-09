@@ -1,11 +1,12 @@
+export interface AppState {
+  user: User;
+  language: 'en' | 'he';
+}
+
 export interface User {
   email?: string;
   name?: string;
   nickname?: string;
-}
-
-export interface UserState {
-  user: User;
 }
 
 export type ErrorFields = 'email' | 'password' | 'nickname';

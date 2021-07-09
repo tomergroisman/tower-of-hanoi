@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
 
-import {Credentials, ErrorFields} from '../../store/types/user';
+import {Credentials, ErrorFields} from '../../store/types/app';
 import {useHooks} from './useHooks';
 import styles from './CredentialsForm.module.scss';
 

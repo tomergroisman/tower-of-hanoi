@@ -1,7 +1,7 @@
-import {UserActions, userStateReducer as reducer} from './user';
-import {User} from '../types/user';
+import {AppActions, appStateReducer as reducer} from './app';
+import {User} from '../types/app';
 
-describe('User state reducer tests', () => {
+describe('App state reducer tests', () => {
   const mockUser: User = {
     email: 'test@test.com',
     name: 'De Vinci',
@@ -15,17 +15,14 @@ describe('User state reducer tests', () => {
   it('should return the initial state', () => {
     const state = reducer(undefined);
     expect(state).toEqual({
-      user: {
-        email: undefined,
-        name: undefined,
-        nickname: undefined,
-      },
+      user: {},
+      language: 'en',
     });
   });
 
   it('should set a user', () => {
     const action = {
-      type: UserActions.SET_USER,
+      type: AppActions.SET_USER,
       payload: {...mockUser, name: undefined},
     };
 
