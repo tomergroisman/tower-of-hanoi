@@ -21,6 +21,8 @@ class PublicUserApiTests(TestCase):
         self.mock_user = {
             'email': 'test@test.com',
             'password': 'test123',
+            'name': 'Mona Lisa',
+            'nickname': 'Mona',
         }
 
     def test_create_user_valid(self):
@@ -39,6 +41,20 @@ class PublicUserApiTests(TestCase):
         create_mock_user(**self.mock_user)
 
         res = self.client.post(CREATE_USER_URL, self.mock_user)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_user_nickname_exists(self):
+        """should fail to create user if the user is already exists"""
+        create_mock_user(**self.mock_user)
+        second_mock_user = {
+            'email': 'test@test1.com',
+            'password': 'test123',
+            'name': 'Pablo Picasso',
+            'nickname': 'Mona',
+        }
+
+        res = self.client.post(CREATE_USER_URL, second_mock_user)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
