@@ -36,6 +36,20 @@ class PublicUserApiTests(TestCase):
         self.assertTrue(user.check_password(self.mock_user['password']))
         self.assertNotIn('password', res.data)
 
+    def test_create_user_empty_string(self):
+        """should create a user from api url with empty strings"""
+        res = self.client.post(CREATE_USER_URL, {
+            **self.mock_user,
+            'name': ''
+        })
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+
+        user = get_user_model().objects.get(**res.data)
+
+        self.assertTrue(user.check_password(self.mock_user['password']))
+        self.assertNotEqual('', user.name)
+
     def test_create_user_user_exists(self):
         """should fail to create user if the user is already exists"""
         create_mock_user(**self.mock_user)
