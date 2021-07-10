@@ -16,7 +16,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Return objects for the current authenticated user only"""
+        best = bool(self.request.query_params.get('best_records', 0))
         queryset = self.queryset
+
+        if best:
+            queryset = queryset.filter(is_best=True)
 
         return queryset.filter(
             user=self.request.user

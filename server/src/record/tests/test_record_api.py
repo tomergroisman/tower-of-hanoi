@@ -79,3 +79,19 @@ class PrivateIngredientsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]['time'], record.time)
+
+    def test_best_records_limited_to_user(self):
+        """
+        should test that the retrived records
+        are the best records of the authenticated user
+        """
+        record = Record.objects.create(
+            user=self.user, **{**mock_record, 'time': '00:00:01'}
+        )
+        Record.objects.create(user=self.user, **mock_record)
+
+        res = self.client.get(RECORD_URL, {'best_records': 1})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 1)
+        self.assertEqual(res.data[0]['time'], record.time)

@@ -58,7 +58,7 @@ class RecordManager(models.Manager):
 
     def create(self, user, time, level, **extra_fields):
         """Create and save a new record"""
-
+        is_best = False
         try:
             best_record = super().get_queryset().filter(
                 user=user, level=level, is_best=True
