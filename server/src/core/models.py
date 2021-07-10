@@ -3,20 +3,27 @@ from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
-
 from core.services.translation import i18n
 from core import fields
 
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None, nickname=None, **extra_fields):
         """Create and save a new user"""
         if not email:
             raise ValueError(i18n('CREATE_USER_NO_EMAIL'))
 
-        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user = self.model(
+            email=self.normalize_email(email),
+            nickname=nickname,
+            **extra_fields
+        )
         user.set_password(password)
+
+        if not nickname:
+            user.nickname = email
+
         user.save(using=self._db)
 
         return user
@@ -61,7 +68,9 @@ class RecordManager(models.Manager):
         is_best = False
         try:
             best_record = super().get_queryset().filter(
-                user=user, level=level, is_best=True
+                user=user,
+                level=level,
+                is_best=True
             )[0]
             if best_record.time > time:
                 is_best = True

@@ -77,6 +77,18 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
 
+    def test_create_new_user_no_nickname(self):
+        """should create a new user with email as nickname"""
+        email = 'test@example.com'
+        password = 'test123'
+
+        user = get_user_model().objects.create_user(
+            email=email,
+            password=password
+        )
+
+        self.assertEqual(user.nickname, email)
+
     def test_record_str(self):
         """should test the record string representation"""
         mock_record = {

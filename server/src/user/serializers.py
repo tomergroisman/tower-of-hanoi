@@ -42,6 +42,14 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class NicknameSerializer(serializers.ModelSerializer):
+    """Serializer for user nickname"""
+
+    class Meta:
+        model = get_user_model()
+        fields = ['nickname']
+
+
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
 

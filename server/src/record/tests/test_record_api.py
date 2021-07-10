@@ -14,7 +14,8 @@ MOCKED_USER = {
     'nickname': 'Mona Lisa'
 }
 
-RECORD_URL = reverse('record:record-list')
+RECORD_URL = reverse('record:user-list')
+LEADERBOARD_URL = reverse('record:leaderboard-list')
 
 mock_record = {
     'level':  1,
@@ -28,19 +29,6 @@ def create_mock_record(user, **params):
     mock_record.update(params)
 
     return Record.objects.create(user=user, **mock_record)
-
-# TODO
-# class PublicRecordApiTests(TestCase):
-#     """Public record api tests (unauthorized)"""
-
-#     def setUp(self):
-#         self.client = APIClient()
-
-#     def test_retrive_leaderboard_records_list(self):
-#         """should fail to retrive tags due to login require"""
-#         res = self.client.get(RECIPES_URL)
-
-#         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateIngredientsApiTests(TestCase):
@@ -95,3 +83,19 @@ class PrivateIngredientsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]['time'], record.time)
+
+    def test_retrive_leaderboard_records_list(self):
+        """should retrive the users leaderboard list"""
+        user_2 = get_user_model().objects.create_user('2@test.com', '12345')
+
+        create_mock_record(user=self.user)
+        create_mock_record(user=user_2)
+        best_user_2 = create_mock_record(user=user_2, time='00:00:00')
+
+        res = self.client.get(LEADERBOARD_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 2)
+        self.assertEqual(res.data[0]['nickname'], '2@test.com')
+        self.assertEqual(res.data[1]['nickname'], self.user.nickname)
+        self.assertEqual(res.data[0]['time'], best_user_2.time)

@@ -5,7 +5,12 @@ from record import views
 
 
 router = DefaultRouter()
-router.register('records', views.RecipeViewSet)
+router.register('user', views.RecipeViewSet, basename='user')
+router.register(
+  'leaderboard',
+  views.LeaderboardViewSet,
+  basename='leaderboard'
+)
 
 app_name = 'record'
 
