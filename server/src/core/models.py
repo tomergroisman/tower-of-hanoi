@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     nickname = fields.CharField(
         max_length=255,
         blank=True,
-        null=True, 
+        null=True,
         unique=True,
         error_messages={
             'unique': i18n('CREATE_USER_UNIQUE_NICKNAME'),
