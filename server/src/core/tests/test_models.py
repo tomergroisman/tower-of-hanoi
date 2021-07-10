@@ -1,6 +1,10 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from datetime import date
+
+from core import models
+
 
 def create_mock_user(
     email='test@test.com',
@@ -72,3 +76,32 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_record_str(self):
+        """should test the record string representation"""
+        mock_record = {
+            'user': create_mock_user(),
+            'date': date.today(),
+            'level': 3,
+            'time': '00:22:01',
+            'moves': 38
+        }
+        record = models.Record.objects.create(**mock_record)
+
+        expected = f"Level: {mock_record['level']} \
+            Time: {mock_record['time']} \
+            Moves: {mock_record['moves']}"
+
+        self.assertEqual(str(record), expected)
+
+    def test_create_record_no_date(self):
+        """should create a record without date"""
+        mock_record = {
+            'user': create_mock_user(),
+            'level': 3,
+            'time': '00:22:01',
+            'moves': 38
+        }
+        record = models.Record.objects.create(**mock_record)
+
+        self.assertEqual(record.date, date.today())
