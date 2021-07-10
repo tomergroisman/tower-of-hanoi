@@ -35,7 +35,6 @@ export type Props = OwnProps & StateProps & DispatchProps;
 
 const TopBarComponent = (props: Props) => {
   const {
-    userTitle,
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
     handleSetToEn,
@@ -50,7 +49,7 @@ const TopBarComponent = (props: Props) => {
         <p className={styles.title} onClick={handleTitleClick}>
           {t('TOWER_OF_HANOI')}
         </p>
-        <p onClick={handleTitleClick}>{userTitle}</p>
+        <p onClick={handleTitleClick}>{props.user.nickname}</p>
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img src="icons/he.png" onClick={handleSetToHe} />
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
