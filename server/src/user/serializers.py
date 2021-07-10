@@ -13,9 +13,20 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ['email', 'password', 'name', 'nickname']
         extra_kwargs = {
+            'email': {
+                'error_messages': {
+                    'required': i18n('CREATE_USER_NO_EMAIL'),
+                    'blank': i18n('CREATE_USER_NO_EMAIL'),
+                }
+            },
             'password': {
                 'write_only': True,
-                'min_length': 5
+                'min_length': 5,
+                'error_messages': {
+                    'required': i18n('CREATE_USER_NO_PASSWORD'),
+                    'min_length': i18n('CREATE_USER_SHORT_PASSWORD'),
+                    'blank': i18n('CREATE_USER_NO_PASSWORD'),
+                }
             },
         }
 
@@ -40,14 +51,6 @@ class UserSerializer(serializers.ModelSerializer):
             user.save()
 
         return user
-
-
-class NicknameSerializer(serializers.ModelSerializer):
-    """Serializer for user nickname"""
-
-    class Meta:
-        model = get_user_model()
-        fields = ['nickname']
 
 
 class AuthTokenSerializer(serializers.Serializer):

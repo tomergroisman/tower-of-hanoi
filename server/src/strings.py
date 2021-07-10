@@ -1,5 +1,9 @@
 texts = {
   'CREATE_USER_NO_EMAIL': 'Email address is required',
+  'CREATE_USER_UNIQUE_EMAIL': 'User with this email address already exists',
+  'CREATE_USER_NO_PASSWORD': 'Password is required',
+  'CREATE_USER_SHORT_PASSWORD': 'Password must include at least 5 characters',
+  'CREATE_USER_UNIQUE_NICKNAME': 'User with this nickname already exists',
   'ADMIN_USER_PERSONAL_INFO': 'Personal Info',
   'ADMIN_USER_PERMISSIONS': 'Permissions',
   'ADMIN_USER_IMPORTANT_DAYS': 'Important Dates',

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
+
 from core.services.translation import i18n
 from core import fields
 
@@ -40,11 +41,25 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model thar supports using email instead of username"""
-    email = models.EmailField(max_length=255, unique=True)
-    name = fields.CharField(max_length=255, blank=True, null=True)
-    nickname = fields.CharField(
-        max_length=255, blank=True, null=True, unique=True
+    email = models.EmailField(
+        max_length=255,
+        unique=True,
+        error_messages={
+            'required': i18n('CREATE_USER_NO_EMAIL'),
+            'unique': i18n('CREATE_USER_UNIQUE_EMAIL'),
+            'blank': i18n('CREATE_USER_NO_EMAIL'),
+        }
     )
+    nickname = fields.CharField(
+        max_length=255,
+        blank=True,
+        null=True, 
+        unique=True,
+        error_messages={
+            'unique': i18n('CREATE_USER_UNIQUE_NICKNAME'),
+        }
+    )
+    name = fields.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(
         i18n('ADMIN_USER_ACTIVE'),
         help_text=i18n('ADMIN_USER_ACTIVE_HELPER_TEXT'),
