@@ -10,7 +10,7 @@ import styles from './Login.module.scss';
 interface State {
   loading: boolean;
   isAuthenticated: boolean;
-  error?: ErrorFields;
+  errors?: ErrorFields;
 }
 
 class LoginScreen extends Component<ReactCookieProps, State> {
@@ -26,16 +26,10 @@ class LoginScreen extends Component<ReactCookieProps, State> {
       const expires = new Date();
       expires.setMonth(new Date().getMonth() + 6);
       this.props.cookies?.set('token', token, {expires});
-      this.setState({error: undefined, loading: false, isAuthenticated: true});
+      this.setState({errors: undefined, loading: false, isAuthenticated: true});
     } catch (e) {
-      const res = e.response.data;
-      let error: ErrorFields;
-      if (res.email) {
-        error = 'email';
-      } else {
-        error = 'password';
-      }
-      this.setState({error: error, loading: false});
+      const errors: ErrorFields = e.response.data;
+      this.setState({errors: errors, loading: false});
     }
   };
 
@@ -46,7 +40,7 @@ class LoginScreen extends Component<ReactCookieProps, State> {
           <CredentialsForm
             formType="login"
             onSubmit={this.submit}
-            error={this.state.error}
+            errors={this.state.errors}
             loading={this.state.loading}
           />
         </div>

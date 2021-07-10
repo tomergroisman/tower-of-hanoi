@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
+import * as _ from 'lodash';
 
 import {Credentials, ErrorFields} from '../../store/types/app';
 import {useHooks} from './useHooks';
@@ -10,7 +11,7 @@ export interface Props {
   formType: 'login' | 'signup';
   onSubmit: (credentials: Credentials) => void;
   loading: boolean;
-  error?: ErrorFields;
+  errors?: ErrorFields;
 }
 
 export const CredentialsForm = (props: Props) => {
@@ -21,8 +22,21 @@ export const CredentialsForm = (props: Props) => {
     handleEmailChange,
     handlePasswordChange,
     handleNicknameChange,
-    errorToMessage,
-  } = useHooks(props);
+  } = useHooks();
+  const {errors} = props;
+
+  /** Render error message */
+  const renderErrorMessage = useMemo(() => {
+    if (errors) {
+      return _.map(errors, messages =>
+        _.map(messages, message => (
+          <p key={message} className={styles.error}>
+            {message}
+          </p>
+        ))
+      );
+    }
+  }, [errors]);
 
   /** Submit form handler */
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
@@ -36,9 +50,8 @@ export const CredentialsForm = (props: Props) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <TextField required onChange={handleEmailChange} inputProps={{type: 'email'}} label="Email" />
+      <TextField onChange={handleEmailChange} inputProps={{type: 'email'}} label="Email" />
       <TextField
-        required
         onChange={handlePasswordChange}
         inputProps={{type: 'password'}}
         label="Password"
@@ -48,7 +61,7 @@ export const CredentialsForm = (props: Props) => {
         <TextField onChange={handleNicknameChange} label="Nickname" />
       )}
 
-      <p className={styles.error}>{!!props.error && errorToMessage}</p>
+      {renderErrorMessage}
 
       <Link to={props.formType === 'login' ? '/signup' : '/login'}>
         {props.formType === 'login' ? 'New user? Sign up!' : 'Already have an account? Log in!'}

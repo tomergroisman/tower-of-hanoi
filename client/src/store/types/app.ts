@@ -11,7 +11,11 @@ export interface User {
 
 export type Language = 'he' | 'en';
 
-export type ErrorFields = 'email' | 'password' | 'nickname';
+export interface ErrorFields {
+  email?: string[];
+  password?: string[];
+  nickname?: string[];
+}
 
 export interface Credentials {
   email: string;
