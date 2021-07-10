@@ -105,3 +105,23 @@ class ModelTests(TestCase):
         record = models.Record.objects.create(**mock_record)
 
         self.assertEqual(record.date, date.today())
+
+    def test_create_best_record(self):
+        """should create a new best record"""
+        user = create_mock_user()
+        mock_record = {
+            'user': user,
+            'level': 3,
+            'time': '00:22:01',
+            'moves': 38
+        }
+        record = models.Record.objects.create(**mock_record)
+        record_best = models.Record.objects.create(**{
+            **mock_record,
+            'time': '00:00:01'
+        })
+
+        record.refresh_from_db()
+
+        self.assertFalse(record.is_best)
+        self.assertTrue(record_best.is_best)

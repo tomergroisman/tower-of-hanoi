@@ -54,6 +54,32 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
 
+class RecordManager(models.Manager):
+
+    def create(self, user, time, level, **extra_fields):
+        """Create and save a new record"""
+
+        try:
+            best_record = super().get_queryset().filter(
+                user=user, level=level, is_best=True
+            )[0]
+            if best_record.time > time:
+                is_best = True
+                best_record.is_best = False
+                best_record.save(using=self._db)
+        except IndexError:
+            is_best = True
+
+        record = super().create(
+            user=user,
+            time=time,
+            is_best=is_best,
+            level=level,
+            **extra_fields)
+
+        return record
+
+
 class Record(models.Model):
     """Record model"""
     user = models.ForeignKey(
@@ -64,6 +90,9 @@ class Record(models.Model):
     time = models.CharField(max_length=255)
     level = models.IntegerField()
     moves = models.IntegerField()
+    is_best = models.BooleanField(default=False)
+
+    objects = RecordManager()
 
     def __str__(self):
         return f"Level: {self.level} \
