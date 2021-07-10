@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withTranslation, WithTranslation} from 'react-i18next';
 
 import {GameBoard} from './components/GameBoard';
 import {TopBar} from '../../components/TopBar';
@@ -21,7 +22,7 @@ interface State {
   timerInterval: NodeJS.Timeout | null;
 }
 
-export type Props = StateProps & DispatchProps;
+export type Props = StateProps & DispatchProps & WithTranslation;
 
 class GameScreen extends Component<Props, State> {
   constructor(props: Props) {
@@ -73,6 +74,7 @@ class GameScreen extends Component<Props, State> {
   }
 
   render() {
+    const {t} = this.props;
     return (
       <div>
         <TopBar
@@ -83,7 +85,7 @@ class GameScreen extends Component<Props, State> {
         {this.props.startTime ? (
           <GameBoard />
         ) : (
-          <button onClick={this.handleStartGame}>Start Game</button>
+          <button onClick={this.handleStartGame}>{t('START_GAME_BUTTON')}</button>
         )}
       </div>
     );
@@ -99,4 +101,4 @@ const mapDispatch: DispatchProps = {
   startGame,
 };
 
-export const Game = connect(mapState, mapDispatch)(GameScreen);
+export const Game = connect(mapState, mapDispatch)(withTranslation()(GameScreen));

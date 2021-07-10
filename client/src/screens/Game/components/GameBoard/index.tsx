@@ -10,6 +10,7 @@ import {useHooks} from './useHooks';
 
 import styles from './GameBoard.module.scss';
 import {getFinishTime} from '../../../../utils/parse';
+import {useTranslation} from 'react-i18next';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -28,6 +29,7 @@ const pegColors = ['#99ffff', '#cc99ff', '#ccff99', '#ffff99', '#dfbf9f'];
 const GameBoardComponent = (props: Props) => {
   const dispatch = useDispatch();
   const {onDragEnd} = useHooks(props, dispatch);
+  const {t} = useTranslation();
 
   /** Render the pegs to the screen */
   const renderGame = useMemo(
@@ -44,7 +46,10 @@ const GameBoardComponent = (props: Props) => {
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
       {props.finishTime && props.startTime && (
-        <p>Game is finished in {getFinishTime(props.finishTime, props.startTime)}</p>
+        // <p>{t('GAME_FINISH_MESSAGE')}</p>
+        <p>
+          {t('GAME_FINISH_MESSAGE', {finishTime: getFinishTime(props.finishTime, props.startTime)})}
+        </p>
       )}
     </div>
   );

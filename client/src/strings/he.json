@@ -1,3 +1,9 @@
 {
-  "TOWER_OF_HANOI": "מגדל האנוי"
+  "TOWER_OF_HANOI": "מגדל האנוי",
+  "DIFFICULTY_TITLE": "רמה:",
+  "DIFFICULTY_EASY": "קל",
+  "DIFFICULTY_MEDIUM": "בינוני",
+  "DIFFICULTY_HARD": "קשה",
+  "START_GAME_BUTTON": "התחל משחק",
+  "GAME_FINISH_MESSAGE": "המשחק הסתיים ב-{{finishTime}}"
 }

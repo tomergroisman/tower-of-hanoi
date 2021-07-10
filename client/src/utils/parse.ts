@@ -1,10 +1,3 @@
-export const capitalizeFirstLetter = (str: string) => {
-  return str
-    .split(' ')
-    .map(str => str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleLowerCase())
-    .join(' ');
-};
-
 export const getFinishTime = (start: number, finish: number) => {
   const seconds = Math.abs((finish - start) / 1000);
   const minutes = Math.floor(seconds / 60);

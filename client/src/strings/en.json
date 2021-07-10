@@ -1,3 +1,9 @@
 {
-  "TOWER_OF_HANOI": "Tower of Hanoi"
+  "TOWER_OF_HANOI": "Tower of Hanoi",
+  "DIFFICULTY_TITLE": "Difficulty:",
+  "DIFFICULTY_EASY": "Easy",
+  "DIFFICULTY_MEDIUM": "Medium",
+  "DIFFICULTY_HARD": "Hard",
+  "START_GAME_BUTTON": "Start Game",
+  "GAME_FINISH_MESSAGE": "Game is finished in {{finishTime}}"
 }

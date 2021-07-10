@@ -7,7 +7,7 @@ import {setLanguage} from '../../store/actions/app';
 import {Difficulty} from '../../store/types/game';
 import {Language, User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
-import {capitalizeFirstLetter, timerToString} from '../../utils/parse';
+import {timerToString} from '../../utils/parse';
 import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
 
@@ -59,7 +59,9 @@ const TopBarComponent = (props: Props) => {
         <p>{timerToString(props.gameTimer)}</p>
       </div>
       <div className="right-side">
-        <p>Difficulty: {capitalizeFirstLetter(Difficulty[props.difficulty])}</p>
+        <p>
+          {t('DIFFICULTY_TITLE')} {t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}
+        </p>
         <button onClick={handleIncreaseDifficulty}>+</button>
         <button onClick={handleDecreaseDifficulty}>-</button>
       </div>
