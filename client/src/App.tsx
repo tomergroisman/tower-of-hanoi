@@ -10,6 +10,7 @@ import {apiRequests} from './utils/api/requests';
 import {theme} from './utils/theme';
 import {Language} from './store/types/app';
 import {Store} from './store/types/store';
+import {padBestRecordsWithUndefined} from './utils/arrays';
 
 function App() {
   const [cookies] = useCookies(['token']);
@@ -25,7 +26,7 @@ function App() {
         dispatch(
           setUser({
             ...user,
-            bestRecords,
+            bestRecords: padBestRecordsWithUndefined(bestRecords),
           })
         );
       }

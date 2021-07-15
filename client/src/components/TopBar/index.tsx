@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
+import {Container} from '@material-ui/core';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
 import {setLanguage} from '../../store/actions/app';
@@ -9,6 +10,7 @@ import {Language, User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
 import {timerToString} from '../../utils/parse';
 import {useHooks} from './useHooks';
+
 import styles from './TopBar.module.scss';
 
 interface StateProps {
@@ -45,28 +47,30 @@ const TopBarComponent = (props: Props) => {
   const {t} = useTranslation();
 
   return (
-    <div className={styles.container}>
-      <div className="left-side">
-        <p className={styles.title} onClick={handleTitleClick}>
-          {t('TOWER_OF_HANOI')}
-        </p>
-        <p onClick={handleTitleClick}>{props.user.nickname}</p>
-        {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img src="icons/he.png" onClick={handleSetToHe} />
-        {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img src="icons/en.png" onClick={handleSetToEn} />
-      </div>
-      <div>
-        <p>{timerToString(props.gameTimer)}</p>
-        <p>{`${t('NUMBER_OF_MOVES')} ${props.moves}`}</p>
-      </div>
-      <div className="right-side">
-        <p>
-          {t('DIFFICULTY_TITLE')} {t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}
-        </p>
-        <button onClick={handleIncreaseDifficulty}>+</button>
-        <button onClick={handleDecreaseDifficulty}>-</button>
-      </div>
+    <div className={styles.wrapper}>
+      <Container maxWidth="lg" className={styles.container}>
+        <div className="left-side">
+          <p className={styles.title} onClick={handleTitleClick}>
+            {t('TOWER_OF_HANOI')}
+          </p>
+          <p onClick={handleTitleClick}>{props.user.nickname}</p>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <img src="icons/he.png" onClick={handleSetToHe} />
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <img src="icons/en.png" onClick={handleSetToEn} />
+        </div>
+        <div>
+          <p>{timerToString(props.gameTimer)}</p>
+          <p>{`${t('NUMBER_OF_MOVES')} ${props.moves}`}</p>
+        </div>
+        <div className="right-side">
+          <p>
+            {t('DIFFICULTY_TITLE')} {t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}
+          </p>
+          <button onClick={handleIncreaseDifficulty}>+</button>
+          <button onClick={handleDecreaseDifficulty}>-</button>
+        </div>
+      </Container>
     </div>
   );
 };

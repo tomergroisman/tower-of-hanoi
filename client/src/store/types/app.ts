@@ -9,7 +9,7 @@ export interface User {
   email?: string;
   name?: string;
   nickname?: string;
-  bestRecords?: Record[];
+  bestRecords?: (Record | undefined)[];
 }
 
 export type Language = 'he' | 'en';

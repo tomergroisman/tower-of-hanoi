@@ -14,5 +14,7 @@
   "TIME_MINUTES": "{{minutes}} דקות",
   "TIME_SECOND": "שניה אחת",
   "TIME_SECONDS": "{{seconds}} שניות",
-  "NUMBER_OF_MOVES": "מהלכים: "
+  "NUMBER_OF_MOVES": "מהלכים: ",
+  "BEST_RECORDS_TITLE": "השיאים שלך",
+  "EMPTY_RECORD_CARD_TEXT": "לא ניצחת ברמה הזו... בינתיים :)"
 }

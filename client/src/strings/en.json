@@ -14,5 +14,7 @@
   "TIME_MINUTES": "{{minutes}} minutes",
   "TIME_SECOND": "1 second",
   "TIME_SECONDS": "{{seconds}} seconds",
-  "NUMBER_OF_MOVES": "Moves: "
+  "NUMBER_OF_MOVES": "Moves: ",
+  "BEST_RECORDS_TITLE": "Your best records",
+  "EMPTY_RECORD_CARD_TEXT": "No records for this difficulty... yet :)"
 }

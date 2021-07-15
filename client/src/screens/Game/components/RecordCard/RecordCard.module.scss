@@ -1,0 +1,17 @@
+.container {
+  padding: 8px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  p {
+    text-align: center;
+
+  }
+
+  .difficulty {
+    font-weight: 600;
+  }
+}

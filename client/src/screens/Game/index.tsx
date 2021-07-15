@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {ReactCookieProps, withCookies} from 'react-cookie';
 import {withTranslation, WithTranslation} from 'react-i18next';
+import {Button, Container} from '@material-ui/core';
 
 import {GameBoard} from './components/GameBoard';
 import {TopBar} from '../../components/TopBar';
@@ -11,12 +12,17 @@ import {SECOND_IN_MILLIS} from '../../utils/constants';
 import {apiRequests} from '../../utils/api/requests';
 import {Record} from '../../utils/api/interfaces/Record';
 import {timerToString} from '../../utils/parse';
+import {RecordCard} from './components/RecordCard';
+import {EmptyRecordCard} from './components/RecordCard/empty';
+
+import styles from './Game.module.scss';
 
 interface StateProps {
   startTime?: number;
   finishTime?: number;
   level: number;
   moves: number;
+  bestRecords?: (Record | undefined)[];
 }
 
 interface DispatchProps {
@@ -85,6 +91,33 @@ class GameScreen extends Component<Props, State> {
     }
   };
 
+  renderLobby = () => {
+    const {t, bestRecords} = this.props;
+    return (
+      <div>
+        <h3 className={styles.bestRecordsTitle}>{t('BEST_RECORDS_TITLE')}</h3>
+        <div className={styles.bestRecordsContainer}>
+          {bestRecords?.map((record, i) =>
+            record ? (
+              <RecordCard
+                key={`${record.level}-${record.moves}-${record.time}`}
+                record={record}
+                level={i}
+              />
+            ) : (
+              <EmptyRecordCard key={`empty_record-${i + 1}`} level={i} />
+            )
+          )}
+        </div>
+        <div className={styles.ctaContainer}>
+          <Button variant="contained" color="primary" onClick={this.handleStartGame}>
+            {t('START_GAME_BUTTON')}
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   componentDidUpdate(prevProps: Props) {
     const isGameEnded = !!this.props.finishTime;
     if (isGameEnded && !!prevProps.finishTime !== isGameEnded) {
@@ -94,7 +127,6 @@ class GameScreen extends Component<Props, State> {
   }
 
   render() {
-    const {t} = this.props;
     return (
       <div>
         <TopBar
@@ -102,11 +134,9 @@ class GameScreen extends Component<Props, State> {
           startGame={this.handleStartGame}
           endGame={this.handleEndGame}
         />
-        {this.props.startTime ? (
-          <GameBoard />
-        ) : (
-          <button onClick={this.handleStartGame}>{t('START_GAME_BUTTON')}</button>
-        )}
+        <Container maxWidth="lg">
+          {this.props.startTime ? <GameBoard /> : this.renderLobby()}
+        </Container>
       </div>
     );
   }
@@ -117,6 +147,7 @@ const mapState = (store: Store) => ({
   finishTime: store.gameState.finishTime,
   level: store.gameState.difficulty + 1,
   moves: store.gameState.moves,
+  bestRecords: store.appState.user.bestRecords,
 });
 
 const mapDispatch: DispatchProps = {
