@@ -21,7 +21,13 @@ function App() {
     const fetchUser = async () => {
       if (cookies.token) {
         const user = await apiRequests.getUser(cookies.token);
-        dispatch(setUser(user));
+        const bestRecords = await apiRequests.getBestRecords(cookies.token);
+        dispatch(
+          setUser({
+            ...user,
+            bestRecords,
+          })
+        );
       }
     };
 

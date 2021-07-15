@@ -10,5 +10,5 @@ export const apiEndpoints = {
   getUser: `${_apiHost}/api/user/me/`,
   getToken: `${_apiHost}/api/user/token/`,
   createUser: `${_apiHost}/api/user/create/`,
-  postRecord: `${_apiHost}/api/record/user/`,
+  userRecords: `${_apiHost}/api/record/user/`,
 };

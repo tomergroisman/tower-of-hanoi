@@ -58,4 +58,19 @@ describe('Requests tests', () => {
     const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/record/user/`;
     expect(apiClient.post).toHaveBeenCalledWith(endpoint, record, headers);
   });
+
+  it('should make a get best records request', () => {
+    const mockToken = '1';
+    const headers = {
+      headers: {Authorization: `Token ${mockToken}`},
+      params: {
+        best_records: 1,
+      },
+    };
+
+    apiRequests.getBestRecords(mockToken);
+
+    const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/record/user/`;
+    expect(apiClient.get).toHaveBeenCalledWith(endpoint, headers);
+  });
 });

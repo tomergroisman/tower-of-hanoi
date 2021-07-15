@@ -1,3 +1,5 @@
+import {Record} from '../../utils/api/interfaces/Record';
+
 export interface AppState {
   user: User;
   language: Language;
@@ -7,6 +9,7 @@ export interface User {
   email?: string;
   name?: string;
   nickname?: string;
+  bestRecords?: Record[];
 }
 
 export type Language = 'he' | 'en';
