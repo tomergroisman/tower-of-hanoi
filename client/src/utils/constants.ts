@@ -11,4 +11,5 @@ export const apiEndpoints = {
   getToken: `${_apiHost}/api/user/token/`,
   createUser: `${_apiHost}/api/user/create/`,
   userRecords: `${_apiHost}/api/record/user/`,
+  leaderboard: `${_apiHost}/api/record/leaderboard/`,
 };

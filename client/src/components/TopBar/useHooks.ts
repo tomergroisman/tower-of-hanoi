@@ -1,9 +1,10 @@
+import {History} from 'history';
 import {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import {Props} from '.';
 
-export const useHooks = (props: Props) => {
+export const useHooks = (props: Props, history: History) => {
   const {i18n} = useTranslation();
 
   const handleDecreaseDifficulty = () => {
@@ -25,12 +26,15 @@ export const useHooks = (props: Props) => {
   };
 
   const handleTitleClick = () => {
-    props.endGame(true);
-    props.resetGame();
+    if (props.endGame) {
+      props.endGame(true);
+      props.resetGame();
+    }
+    history.push('/');
   };
 
   const _startGameIfGameIsOn = () => {
-    if (props.isInGame) {
+    if (props.isInGame && props.startGame) {
       props.startGame();
     }
   };

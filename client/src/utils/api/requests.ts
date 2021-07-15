@@ -1,7 +1,8 @@
 import {apiClient} from './api';
 import {apiEndpoints} from '../constants';
 import {Credentials, User} from '../../store/types/app';
-import {Record} from './interfaces/Record';
+import {LeaderboardRecord, Record} from './interfaces/Record';
+import {ApiResponse} from './interfaces/Response';
 
 interface ApiRequest {
   getUser: (token: string) => Promise<Partial<User>>;
@@ -9,6 +10,11 @@ interface ApiRequest {
   createUser: (userData: Credentials) => Promise<{user: User}>;
   postRecord: (token: string, record: Record) => Promise<Record>;
   getBestRecords: (token: string) => Promise<Record[]>;
+  getLeaderboard: (
+    token: string,
+    level?: number,
+    page?: number
+  ) => Promise<ApiResponse<LeaderboardRecord[]>>;
 }
 
 const getAuthorizedHeaders = (token: string) => ({
@@ -20,30 +26,41 @@ const getAuthorizedHeaders = (token: string) => ({
 export const apiRequests: ApiRequest = {
   getUser: (token: string) => {
     return apiClient
-      .get(apiEndpoints.getUser, getAuthorizedHeaders(token))
+      .get<User>(apiEndpoints.getUser, getAuthorizedHeaders(token))
       .then(res => res.data as User);
   },
   getToken: (credentials: Credentials) => {
     return apiClient
-      .post(apiEndpoints.getToken, credentials)
-      .then(res => res.data as {token: string});
+      .post<{token: string}>(apiEndpoints.getToken, credentials)
+      .then(res => res.data);
   },
   createUser: (userData: Credentials) => {
-    return apiClient.post(apiEndpoints.createUser, userData).then(res => res.data as {user: User});
+    return apiClient.post<{user: User}>(apiEndpoints.createUser, userData).then(res => res.data);
   },
   postRecord: (token: string, record: Record) => {
     return apiClient
-      .post(apiEndpoints.userRecords, record, getAuthorizedHeaders(token))
-      .then(res => res.data as Record);
+      .post<Record>(apiEndpoints.userRecords, record, getAuthorizedHeaders(token))
+      .then(res => res.data);
   },
   getBestRecords: (token: string) => {
     return apiClient
-      .get(apiEndpoints.userRecords, {
+      .get<ApiResponse<Record[]>>(apiEndpoints.userRecords, {
         ...getAuthorizedHeaders(token),
         params: {
           best_records: 1,
         },
       })
-      .then(res => res.data as Record[]);
+      .then(res => res.data.results);
+  },
+  getLeaderboard: (token: string, level: number = 1, page: number = 1) => {
+    return apiClient
+      .get<ApiResponse<LeaderboardRecord[]>>(apiEndpoints.leaderboard, {
+        ...getAuthorizedHeaders(token),
+        params: {
+          level,
+          page,
+        },
+      })
+      .then(res => res.data);
   },
 };

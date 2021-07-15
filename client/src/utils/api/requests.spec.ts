@@ -4,8 +4,8 @@ import {apiRequests} from './requests';
 
 describe('Requests tests', () => {
   beforeEach(() => {
-    jest.spyOn(require('./api').apiClient, 'get').mockResolvedValue('');
-    jest.spyOn(require('./api').apiClient, 'post').mockResolvedValue('');
+    jest.spyOn(require('./api').apiClient, 'get').mockResolvedValue({data: {results: ''}});
+    jest.spyOn(require('./api').apiClient, 'post').mockResolvedValue({data: {results: ''}});
   });
 
   it('should make a get user request', async () => {
@@ -61,7 +61,7 @@ describe('Requests tests', () => {
 
   it('should make a get best records request', () => {
     const mockToken = '1';
-    const headers = {
+    const config = {
       headers: {Authorization: `Token ${mockToken}`},
       params: {
         best_records: 1,
@@ -71,6 +71,22 @@ describe('Requests tests', () => {
     apiRequests.getBestRecords(mockToken);
 
     const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/record/user/`;
-    expect(apiClient.get).toHaveBeenCalledWith(endpoint, headers);
+    expect(apiClient.get).toHaveBeenCalledWith(endpoint, config);
+  });
+
+  it('should make a get leaderboard request', () => {
+    const mockToken = '1';
+    const config = {
+      headers: {Authorization: `Token ${mockToken}`},
+      params: {
+        level: 2,
+        page: 1,
+      },
+    };
+
+    apiRequests.getLeaderboard(mockToken, 2);
+
+    const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/record/leaderboard/`;
+    expect(apiClient.get).toHaveBeenCalledWith(endpoint, config);
   });
 });

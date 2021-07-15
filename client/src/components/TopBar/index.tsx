@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {Container} from '@material-ui/core';
+import {useHistory} from 'react-router-dom';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
 import {setLanguage} from '../../store/actions/app';
@@ -30,20 +31,21 @@ interface DispatchProps {
 
 interface OwnProps {
   gameTimer: number;
-  startGame: () => void;
-  endGame: (nullifyTimer?: boolean) => void;
+  startGame?: () => void;
+  endGame?: (nullifyTimer?: boolean) => void;
 }
 
 export type Props = OwnProps & StateProps & DispatchProps;
 
 const TopBarComponent = (props: Props) => {
+  const history = useHistory();
   const {
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
     handleSetToEn,
     handleSetToHe,
     handleTitleClick,
-  } = useHooks(props);
+  } = useHooks(props, history);
   const {t} = useTranslation();
 
   return (
