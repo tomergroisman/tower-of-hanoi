@@ -46,7 +46,6 @@ const GameBoardComponent = (props: Props) => {
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
       {props.finishTime && props.startTime && (
-        // <p>{t('GAME_FINISH_MESSAGE')}</p>
         <p>
           {t('GAME_FINISH_MESSAGE', {finishTime: getFinishTime(props.finishTime, props.startTime)})}
         </p>

@@ -6,7 +6,7 @@ import {ThemeProvider} from '@material-ui/core';
 
 import {Router} from './components/Router';
 import {setUser} from './store/actions/app';
-import {apiRequests} from './utils/requests';
+import {apiRequests} from './utils/api/requests';
 import {theme} from './utils/theme';
 import {Language} from './store/types/app';
 import {Store} from './store/types/store';

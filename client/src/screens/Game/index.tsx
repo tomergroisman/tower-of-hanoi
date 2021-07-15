@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {ReactCookieProps, withCookies} from 'react-cookie';
 import {withTranslation, WithTranslation} from 'react-i18next';
 
 import {GameBoard} from './components/GameBoard';
@@ -7,10 +8,15 @@ import {TopBar} from '../../components/TopBar';
 import {startGame} from '../../store/actions/game';
 import {Store} from '../../store/types/store';
 import {SECOND_IN_MILLIS} from '../../utils/constants';
+import {apiRequests} from '../../utils/api/requests';
+import {Record} from '../../utils/api/interfaces/Record';
+import {timerToString} from '../../utils/parse';
 
 interface StateProps {
   startTime?: number;
-  isGameEnded?: boolean;
+  finishTime?: number;
+  level: number;
+  moves: number;
 }
 
 interface DispatchProps {
@@ -22,7 +28,7 @@ interface State {
   timerInterval: NodeJS.Timeout | null;
 }
 
-export type Props = StateProps & DispatchProps & WithTranslation;
+export type Props = StateProps & DispatchProps & WithTranslation & ReactCookieProps;
 
 class GameScreen extends Component<Props, State> {
   constructor(props: Props) {
@@ -66,10 +72,24 @@ class GameScreen extends Component<Props, State> {
     });
   };
 
+  /** Submit the game record to the server */
+  submitRecord = async () => {
+    const {startTime, finishTime} = this.props;
+    if (startTime && finishTime) {
+      const record: Record = {
+        level: this.props.level,
+        moves: this.props.moves,
+        time: timerToString(this.state.gameTimer),
+      };
+      await apiRequests.postRecord(this.props.allCookies?.token, record);
+    }
+  };
+
   componentDidUpdate(prevProps: Props) {
-    const {isGameEnded} = this.props;
-    if (isGameEnded && prevProps.isGameEnded !== isGameEnded) {
+    const isGameEnded = !!this.props.finishTime;
+    if (isGameEnded && !!prevProps.finishTime !== isGameEnded) {
       this.handleEndGame();
+      this.submitRecord();
     }
   }
 
@@ -94,11 +114,13 @@ class GameScreen extends Component<Props, State> {
 
 const mapState = (store: Store) => ({
   startTime: store.gameState.startTime,
-  isGameEnded: !!store.gameState.finishTime,
+  finishTime: store.gameState.finishTime,
+  level: store.gameState.difficulty + 1,
+  moves: store.gameState.moves,
 });
 
 const mapDispatch: DispatchProps = {
   startGame,
 };
 
-export const Game = connect(mapState, mapDispatch)(withTranslation()(GameScreen));
+export const Game = connect(mapState, mapDispatch)(withCookies(withTranslation()(GameScreen)));

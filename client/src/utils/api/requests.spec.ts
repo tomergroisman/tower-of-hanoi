@@ -1,5 +1,5 @@
 import {apiClient} from './api';
-import {ENV_PREFIX} from './constants';
+import {ENV_PREFIX} from '../constants';
 import {apiRequests} from './requests';
 
 describe('Requests tests', () => {
@@ -40,5 +40,22 @@ describe('Requests tests', () => {
 
     const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/user/create/`;
     expect(apiClient.post).toHaveBeenCalledWith(endpoint, user);
+  });
+
+  it('should make a post record request', () => {
+    const record = {
+      level: 1,
+      time: '00:00:09',
+      moves: 7,
+    };
+    const mockToken = '1';
+    const headers = {
+      headers: {Authorization: `Token ${mockToken}`},
+    };
+
+    apiRequests.postRecord(mockToken, record);
+
+    const endpoint = `${process.env[`${ENV_PREFIX}API_ENDPOINT`]}/api/record/user/`;
+    expect(apiClient.post).toHaveBeenCalledWith(endpoint, record, headers);
   });
 });
