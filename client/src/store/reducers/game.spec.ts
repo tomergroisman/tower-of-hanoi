@@ -126,4 +126,23 @@ describe('Game state reducer tests', () => {
 
     expect(state.startTime).toBeUndefined();
   });
+
+  it('should make two moves', () => {
+    const prevState = {
+      ...initialState,
+      difficulty: Difficulty.EASY,
+      board: createBoard(0, 3),
+    };
+
+    let state = reducer(prevState, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-0', destination: 'peg-1'},
+    });
+    state = reducer(state, {
+      type: GameActions.MOVE_DISC,
+      payload: {source: 'peg-0', destination: 'peg-2'},
+    });
+
+    expect(state.moves).toEqual(2);
+  });
 });

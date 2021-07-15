@@ -13,6 +13,7 @@ import styles from './TopBar.module.scss';
 
 interface StateProps {
   difficulty: Difficulty;
+  moves: number;
   isInGame: boolean;
   user: User;
   language: Language;
@@ -57,6 +58,7 @@ const TopBarComponent = (props: Props) => {
       </div>
       <div>
         <p>{timerToString(props.gameTimer)}</p>
+        <p>{`${t('NUMBER_OF_MOVES')} ${props.moves}`}</p>
       </div>
       <div className="right-side">
         <p>
@@ -71,6 +73,7 @@ const TopBarComponent = (props: Props) => {
 
 const mapState = (store: Store) => ({
   difficulty: store.gameState.difficulty,
+  moves: store.gameState.moves,
   isInGame: !!store.gameState.startTime,
   user: store.appState.user,
   language: store.appState.language,

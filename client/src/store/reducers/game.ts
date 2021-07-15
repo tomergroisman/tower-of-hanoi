@@ -20,6 +20,7 @@ type Payload = Difficulty | EndDrag;
 export const initialState: GameState = {
   difficulty: Difficulty.EASY,
   ...difficultyToGameBoard(Difficulty.EASY),
+  moves: 0,
   startPeg: 0,
   board: {},
 };
@@ -79,6 +80,7 @@ export const gameStateReducer = (
 
       return {
         ...state,
+        moves: state.moves + 1,
         board: {
           ...state.board,
           [source]: _.compact([newFirstDiscSource, ...newSource]),

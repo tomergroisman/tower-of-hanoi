@@ -5,5 +5,6 @@
   "DIFFICULTY_MEDIUM": "בינוני",
   "DIFFICULTY_HARD": "קשה",
   "START_GAME_BUTTON": "התחל משחק",
-  "GAME_FINISH_MESSAGE": "המשחק הסתיים ב-{{finishTime}}"
+  "GAME_FINISH_MESSAGE": "המשחק הסתיים ב-{{finishTime}}",
+  "NUMBER_OF_MOVES": "מהלכים: "
 }
