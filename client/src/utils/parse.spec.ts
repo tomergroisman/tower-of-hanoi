@@ -4,31 +4,48 @@ describe('Parse functions tests', () => {
   it('should return the finish time in seconds', () => {
     const start = 0;
     const finish = 2539;
-    const msg = '2.5 seconds';
-    expect(getFinishTime(start, finish)).toEqual(msg);
+    const time = {
+      seconds: 2,
+      minutes: 0,
+      hours: 0,
+    };
+    expect(getFinishTime(start, finish)).toEqual(time);
   });
 
   it('should return the finish time in minutes (single)', () => {
     const start = 0;
-    const finish = 62539;
-    const msg = '1 minute and 2.5 seconds';
-    expect(getFinishTime(start, finish)).toEqual(msg);
+    const finish = 1922539;
+    const time = {
+      seconds: 2,
+      minutes: 32,
+      hours: 0,
+    };
+    expect(getFinishTime(start, finish)).toEqual(time);
   });
 
   it('should return the finish time in minutes (many)', () => {
     const start = 0;
-    const finish = 1922539;
-    const msg = '32 minutes and 2.5 seconds';
-    expect(getFinishTime(start, finish)).toEqual(msg);
+    const finish = 3922539;
+    const time = {
+      seconds: 22,
+      minutes: 5,
+      hours: 1,
+    };
+    expect(getFinishTime(start, finish)).toEqual(time);
   });
 
   it('should return timer representation of seconds', () => {
     const timer = 29;
-    expect(timerToString(timer)).toEqual('00:29');
+    expect(timerToString(timer)).toEqual('00:00:29');
   });
 
   it('should return timer representation of minutes', () => {
     const timer = 123;
-    expect(timerToString(timer)).toEqual('02:03');
+    expect(timerToString(timer)).toEqual('00:02:03');
+  });
+
+  it('should return timer representation of hours', () => {
+    const timer = 3723;
+    expect(timerToString(timer)).toEqual('01:02:03');
   });
 });

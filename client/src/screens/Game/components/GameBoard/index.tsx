@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {DragDropContext} from 'react-beautiful-dnd';
+import {useTranslation} from 'react-i18next';
 
 import {Board, Difficulty} from '../../../../store/types/game';
 import {Store} from '../../../../store/types/store';
@@ -9,8 +10,6 @@ import {Peg} from '../Peg';
 import {useHooks} from './useHooks';
 
 import styles from './GameBoard.module.scss';
-import {getFinishTime} from '../../../../utils/parse';
-import {useTranslation} from 'react-i18next';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -28,8 +27,8 @@ const pegColors = ['#99ffff', '#cc99ff', '#ccff99', '#ffff99', '#dfbf9f'];
 
 const GameBoardComponent = (props: Props) => {
   const dispatch = useDispatch();
-  const {onDragEnd} = useHooks(props, dispatch);
   const {t} = useTranslation();
+  const {onDragEnd, getEndGameMessage} = useHooks(props, t, dispatch);
 
   /** Render the pegs to the screen */
   const renderGame = useMemo(
@@ -45,11 +44,7 @@ const GameBoardComponent = (props: Props) => {
   return (
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
-      {props.finishTime && props.startTime && (
-        <p>
-          {t('GAME_FINISH_MESSAGE', {finishTime: getFinishTime(props.finishTime, props.startTime)})}
-        </p>
-      )}
+      {props.finishTime && props.startTime && <p>{getEndGameMessage()}</p>}
     </div>
   );
 };

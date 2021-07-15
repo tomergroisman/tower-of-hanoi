@@ -1,15 +1,50 @@
 import {useEffect} from 'react';
 import {DropResult} from 'react-beautiful-dnd';
+import {TFunction} from 'i18next';
 import {Dispatch} from 'redux';
 
 import {endGame, moveDisc} from '../../../../store/actions/game';
+import {getFinishTime} from '../../../../utils/parse';
+
 import {Props} from '.';
 
-export const useHooks = (props: Props, dispatch: Dispatch) => {
+export const useHooks = (props: Props, t: TFunction, dispatch: Dispatch) => {
   const onDragEnd = ({source, destination}: DropResult) => {
     if (destination) {
       dispatch(moveDisc(source.droppableId, destination.droppableId, props.board));
     }
+  };
+
+  const getEndGameMessage = () => {
+    // @ts-ignore
+    const {seconds, minutes, hours} = getFinishTime(props.finishTime, props.startTime);
+    let message = [];
+    if (!!hours) {
+      if (hours > 1) {
+        message.push(t('TIME_HOURS', {hours}));
+      } else {
+        message.push(t('TIME_HOUR'));
+      }
+    }
+    if (!!minutes) {
+      if (minutes > 1) {
+        message.push(t('TIME_MINUTES', {minutes}));
+      } else {
+        message.push(t('TIME_MINUTE'));
+      }
+    }
+    if (!!seconds) {
+      if (seconds > 1) {
+        message.push(t('TIME_SECONDS', {seconds}));
+      } else {
+        message.push(t('TIME_SECOND'));
+      }
+    }
+    let last = '';
+    if (message.length > 1) {
+      last = t('GAME_FINISH_MESSAGE_AND') + message.pop();
+    }
+    return t('GAME_FINISH_MESSAGE', {finishTime: message.join(', ') + last});
   };
 
   useEffect(() => {
@@ -22,5 +57,6 @@ export const useHooks = (props: Props, dispatch: Dispatch) => {
 
   return {
     onDragEnd,
+    getEndGameMessage,
   };
 };
