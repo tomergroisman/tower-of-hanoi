@@ -1,3 +1,4 @@
+import {getTheme} from '../../utils/theme';
 import {User, AppState, Language} from '../types/app';
 
 export enum AppActions {
@@ -10,6 +11,7 @@ type Payload = User | Language;
 export const initialState: AppState = {
   user: {},
   language: 'en',
+  theme: getTheme('en'),
 };
 
 export const appStateReducer = (
@@ -28,9 +30,11 @@ export const appStateReducer = (
 
     case AppActions.SET_LANGUAGE:
       if (action.payload) {
+        const language = action.payload as Language;
         return {
           ...state,
-          language: action.payload as Language,
+          language: language,
+          theme: getTheme(language),
         };
       }
       return state;

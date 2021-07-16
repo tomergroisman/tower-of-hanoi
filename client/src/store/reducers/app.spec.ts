@@ -7,14 +7,17 @@ describe('App state reducer tests', () => {
     name: 'De Vinci',
     nickname: 'DeVi',
   };
+  let getTheme: any;
 
   beforeEach(() => {
     jest.restoreAllMocks();
+    jest.spyOn(require('../../utils/theme'), 'getTheme');
+    getTheme = require('../../utils/theme').getTheme;
   });
 
   it('should return the initial state', () => {
     const state = reducer(undefined);
-    expect(state).toEqual({
+    expect(state).toMatchObject({
       user: {},
       language: 'en',
     });
@@ -42,6 +45,7 @@ describe('App state reducer tests', () => {
 
     const state = reducer(undefined, action);
 
+    expect(getTheme).toHaveBeenCalledWith(language);
     expect(state.language).toEqual(language);
   });
 });

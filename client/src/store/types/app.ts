@@ -1,8 +1,11 @@
+import {Theme} from '@material-ui/core';
+
 import {Record} from '../../utils/api/interfaces/Record';
 
 export interface AppState {
   user: User;
   language: Language;
+  theme: Theme;
 }
 
 export interface User {
