@@ -27,5 +27,6 @@
   "EXISTING_USER_LOGIN_INVITATION": "משתמש קיים? התחבר!",
   "LOGIN_LABEL": "התחבר",
   "SIGNUP_LABEL": "הירשם",
+  "LOGOUT_LABEL": "התנתק",
   "LOADING_LABEL": "טוען..."
 }

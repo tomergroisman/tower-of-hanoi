@@ -8,10 +8,9 @@ import rtl from 'jss-rtl';
 
 import {Router} from './components/Router';
 import {setUser} from './store/actions/app';
-import {apiRequests} from './utils/api/requests';
 import {AppState} from './store/types/app';
 import {Store} from './store/types/store';
-import {padBestRecordsWithUndefined} from './utils/arrays';
+import {fetchUser} from './utils/api/fetch';
 
 const jss = create({plugins: [...jssPreset().plugins, rtl()]});
 
@@ -22,20 +21,12 @@ function App() {
 
   /** Fetch user info from token in cookies */
   useEffect(() => {
-    const fetchUser = async () => {
-      if (cookies.token) {
-        const user = await apiRequests.getUser(cookies.token);
-        const bestRecords = await apiRequests.getBestRecords(cookies.token);
-        dispatch(
-          setUser({
-            ...user,
-            bestRecords: padBestRecordsWithUndefined(bestRecords),
-          })
-        );
-      }
+    const fetch = async () => {
+      const user = await fetchUser(cookies.token);
+      dispatch(setUser(user));
     };
 
-    fetchUser();
+    cookies.token && fetch();
   }, [cookies, dispatch]);
 
   useEffect(() => {

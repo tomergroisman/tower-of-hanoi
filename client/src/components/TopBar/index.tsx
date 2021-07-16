@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {Container} from '@material-ui/core';
-import {useHistory} from 'react-router-dom';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
 import {Difficulty} from '../../store/types/game';
@@ -36,14 +35,13 @@ interface OwnProps {
 export type Props = OwnProps & StateProps & DispatchProps;
 
 const TopBarComponent = (props: Props) => {
-  const history = useHistory();
   const {
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
     handleTitleClick,
     handleLeaderboardClick,
     handleLogout,
-  } = useHooks(props, history);
+  } = useHooks(props);
   const {t} = useTranslation();
 
   return (
@@ -70,7 +68,7 @@ const TopBarComponent = (props: Props) => {
           <div>
             <LanguageSelector />
             <p onClick={handleTitleClick}>{props.user.nickname}</p>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}>{t('LOGOUT_LABEL')}</button>
           </div>
         </div>
       </Container>

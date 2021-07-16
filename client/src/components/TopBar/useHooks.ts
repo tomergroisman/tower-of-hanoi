@@ -1,9 +1,10 @@
-import {History} from 'history';
 import {useCookies} from 'react-cookie';
+import {useHistory} from 'react-router-dom';
 
 import {Props} from '.';
 
-export const useHooks = (props: Props, history: History) => {
+export const useHooks = (props: Props) => {
+  const history = useHistory();
   const [, , removeCookie] = useCookies(['token']);
 
   const handleDecreaseDifficulty = () => {

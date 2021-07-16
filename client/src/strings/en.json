@@ -27,5 +27,6 @@
   "EXISTING_USER_LOGIN_INVITATION": "Already have an account? Log in!",
   "LOGIN_LABEL": "Login",
   "SIGNUP_LABEL": "Signup",
+  "LOGOUT_LABEL": "Logout",
   "LOADING_LABEL": "Loading..."
 }

@@ -7,10 +7,12 @@ import {Button, Container} from '@material-ui/core';
 import {GameBoard} from './components/GameBoard';
 import {TopBar} from '../../components/TopBar';
 import {startGame} from '../../store/actions/game';
+import {setBestRecords} from '../../store/actions/app';
 import {Store} from '../../store/types/store';
 import {SECOND_IN_MILLIS} from '../../utils/constants';
 import {apiRequests} from '../../utils/api/requests';
 import {Record} from '../../utils/api/interfaces/Record';
+import {fetchBestRecords} from '../../utils/api/fetch';
 import {timerToString} from '../../utils/parse';
 import {RecordCard} from './components/RecordCard';
 import {EmptyRecordCard} from './components/RecordCard/empty';
@@ -27,6 +29,7 @@ interface StateProps {
 
 interface DispatchProps {
   startGame: () => void;
+  setBestRecords: (bestRecords: (Record | undefined)[]) => void;
 }
 
 interface State {
@@ -80,14 +83,16 @@ class GameScreen extends Component<Props, State> {
 
   /** Submit the game record to the server */
   submitRecord = async () => {
-    const {startTime, finishTime} = this.props;
+    const {startTime, finishTime, setBestRecords, allCookies: cookies} = this.props;
     if (startTime && finishTime) {
       const record: Record = {
         level: this.props.level,
         moves: this.props.moves,
         time: timerToString(this.state.gameTimer),
       };
-      await apiRequests.postRecord(this.props.allCookies?.token, record);
+      apiRequests.postRecord(cookies?.token, record);
+      const bestRecords = await fetchBestRecords(cookies?.token);
+      setBestRecords(bestRecords);
     }
   };
 
@@ -152,6 +157,7 @@ const mapState = (store: Store) => ({
 
 const mapDispatch: DispatchProps = {
   startGame,
+  setBestRecords,
 };
 
 export const Game = connect(mapState, mapDispatch)(withCookies(withTranslation()(GameScreen)));

@@ -1,5 +1,6 @@
 import {AppActions, appStateReducer as reducer} from './app';
 import {Language, User} from '../types/app';
+import {Record} from '../../utils/api/interfaces/Record';
 
 describe('App state reducer tests', () => {
   const mockUser: User = {
@@ -34,6 +35,18 @@ describe('App state reducer tests', () => {
     expect(state.user.email).toEqual(mockUser.email);
     expect(state.user.nickname).toEqual(mockUser.nickname);
     expect(state.user.name).toBeUndefined();
+  });
+
+  it('should set a new best records array', () => {
+    const bestRecords: Record[] = [];
+    const action = {
+      type: AppActions.SET_BEST_RECORDS,
+      payload: bestRecords,
+    };
+
+    const state = reducer(undefined, action);
+
+    expect(state.user.bestRecords).toEqual(bestRecords);
   });
 
   it('should set a language', () => {
