@@ -13,12 +13,15 @@ import {
   TablePagination,
   Paper,
 } from '@material-ui/core';
+import {Pagination} from '@material-ui/lab';
 
 import {TopBar} from '../../components/TopBar';
 import {Store} from '../../store/types/store';
 import {LeaderboardRecord} from '../../utils/api/interfaces/Record';
 import {apiRequests} from '../../utils/api/requests';
 import {ApiResponse} from '../../utils/api/interfaces/Response';
+import {NUM_DIFFICULTIES} from '../../utils/constants';
+import {Difficulty} from '../../store/types/game';
 
 const RECORDS_PER_PAGE = 20;
 
@@ -52,8 +55,26 @@ class LeaderboardScreen extends Component<Props, State> {
     this.setState({leaderboard});
   };
 
+  /** Page change handler */
   handlePageChange = ({}: any, page: number) => {
     this.setState({page});
+  };
+
+  /** Level change handler */
+  handleLevelChange = ({}: any, level: number) => {
+    this.setState({level: level, page: 0});
+  };
+
+  /** Renders an empty leaderboard */
+  renderEmptyState = () => {
+    const {t} = this.props;
+    const {level} = this.state;
+
+    return (
+      <div>
+        <p>{t('LEADERBOARD_EMPTY_STATE', {level: Difficulty[level - 1].toLocaleLowerCase()})}</p>
+      </div>
+    );
   };
 
   componentDidMount() {
@@ -61,18 +82,22 @@ class LeaderboardScreen extends Component<Props, State> {
   }
 
   componentDidUpdate({}, prevState: State) {
-    if (prevState.page !== this.state.page) {
+    const isPageChanged = prevState.page !== this.state.page;
+    const isLevelChanged = prevState.level !== this.state.level;
+
+    if (isPageChanged || isLevelChanged) {
       this.fetchLeaderboard();
     }
   }
 
   render() {
-    const {leaderboard, page} = this.state;
+    const {leaderboard, level, page} = this.state;
 
     return (
       <div>
         <TopBar gameTimer={0} />
-        {leaderboard && (
+        <Pagination count={NUM_DIFFICULTIES} page={level} onChange={this.handleLevelChange} />
+        {!!leaderboard?.results.length ? (
           <TableContainer component={Paper}>
             <Table>
               <TableBody>
@@ -104,6 +129,8 @@ class LeaderboardScreen extends Component<Props, State> {
               </TableFooter>
             </Table>
           </TableContainer>
+        ) : (
+          this.renderEmptyState()
         )}
       </div>
     );

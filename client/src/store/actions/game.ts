@@ -1,9 +1,8 @@
+import {NUM_DIFFICULTIES} from '../../utils/constants';
 import {isValidateMove} from '../../utils/gameBoard';
 import {store} from '../index';
 import {GameActions} from '../reducers/game';
 import {Board, Difficulty} from '../types/game';
-
-const NUM_DIFFICULTIES = Object.keys(Difficulty).length / 2;
 
 export const changeDifficulty = (difficulty: Difficulty) => ({
   type: GameActions.CHANGE_DIFFICULTY,

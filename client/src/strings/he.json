@@ -17,5 +17,6 @@
   "NUMBER_OF_MOVES": "מהלכים: ",
   "BEST_RECORDS_TITLE": "השיאים שלך",
   "EMPTY_RECORD_CARD_TEXT": "לא ניצחת ברמה הזו... בינתיים :)",
-  "LEADERBOARD": "טבלת שיאים"
+  "LEADERBOARD": "טבלת שיאים",
+  "LEADERBOARD_EMPTY_STATE": "אין תוצאות לרמה{{level}}"
 }

@@ -1,3 +1,5 @@
+import {Difficulty} from '../store/types/game';
+
 export const PEGS = 3;
 
 export const SECOND_IN_MILLIS = 1000;
@@ -13,3 +15,5 @@ export const apiEndpoints = {
   userRecords: `${_apiHost}/api/record/user/`,
   leaderboard: `${_apiHost}/api/record/leaderboard/`,
 };
+
+export const NUM_DIFFICULTIES = Object.keys(Difficulty).length / 2;
