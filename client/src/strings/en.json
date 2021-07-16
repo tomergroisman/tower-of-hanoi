@@ -16,5 +16,6 @@
   "TIME_SECONDS": "{{seconds}} seconds",
   "NUMBER_OF_MOVES": "Moves: ",
   "BEST_RECORDS_TITLE": "Your best records",
-  "EMPTY_RECORD_CARD_TEXT": "No records for this difficulty... yet :)"
+  "EMPTY_RECORD_CARD_TEXT": "No records for this difficulty... yet :)",
+  "LEADERBOARD": "Leaderboard"
 }

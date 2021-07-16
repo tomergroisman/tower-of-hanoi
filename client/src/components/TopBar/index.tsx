@@ -45,6 +45,8 @@ const TopBarComponent = (props: Props) => {
     handleSetToEn,
     handleSetToHe,
     handleTitleClick,
+    handleLeaderboardClick,
+    handleLogout,
   } = useHooks(props, history);
   const {t} = useTranslation();
 
@@ -55,22 +57,30 @@ const TopBarComponent = (props: Props) => {
           <p className={styles.title} onClick={handleTitleClick}>
             {t('TOWER_OF_HANOI')}
           </p>
-          <p onClick={handleTitleClick}>{props.user.nickname}</p>
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
-          <img src="icons/he.png" onClick={handleSetToHe} />
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
-          <img src="icons/en.png" onClick={handleSetToEn} />
+          <p className={styles.leaderboard} onClick={handleLeaderboardClick}>
+            {t('LEADERBOARD')}
+          </p>
         </div>
-        <div>
+        <div className="middle">
           <p>{timerToString(props.gameTimer)}</p>
           <p>{`${t('NUMBER_OF_MOVES')} ${props.moves}`}</p>
+          <div>
+            <button onClick={handleDecreaseDifficulty}>-</button>
+            {t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}
+            <button onClick={handleIncreaseDifficulty}>+</button>
+          </div>
         </div>
         <div className="right-side">
-          <p>
-            {t('DIFFICULTY_TITLE')} {t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}
-          </p>
-          <button onClick={handleIncreaseDifficulty}>+</button>
-          <button onClick={handleDecreaseDifficulty}>-</button>
+          <div>
+            <div>
+              {/* eslint-disable-next-line jsx-a11y/alt-text */}
+              <img src="icons/he.png" onClick={handleSetToHe} />
+              {/* eslint-disable-next-line jsx-a11y/alt-text */}
+              <img src="icons/en.png" onClick={handleSetToEn} />
+            </div>
+            <p onClick={handleTitleClick}>{props.user.nickname}</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       </Container>
     </div>

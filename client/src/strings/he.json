@@ -16,5 +16,6 @@
   "TIME_SECONDS": "{{seconds}} שניות",
   "NUMBER_OF_MOVES": "מהלכים: ",
   "BEST_RECORDS_TITLE": "השיאים שלך",
-  "EMPTY_RECORD_CARD_TEXT": "לא ניצחת ברמה הזו... בינתיים :)"
+  "EMPTY_RECORD_CARD_TEXT": "לא ניצחת ברמה הזו... בינתיים :)",
+  "LEADERBOARD": "טבלת שיאים"
 }
