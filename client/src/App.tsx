@@ -1,7 +1,6 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useCookies} from 'react-cookie';
-import {Redirect} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core';
 
 import {Router} from './components/Router';
@@ -43,7 +42,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router />
-      {!cookies.token && <Redirect to="/signup" />}
     </ThemeProvider>
   );
 }
