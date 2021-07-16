@@ -13,15 +13,13 @@ import './index.scss';
 i18nInit();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <CookiesProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CookiesProvider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <CookiesProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CookiesProvider>
+  </Provider>,
   document.getElementById('root')
 );
 

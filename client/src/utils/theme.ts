@@ -1,9 +1,21 @@
-import {createTheme} from '@material-ui/core';
+import {createTheme, ThemeOptions} from '@material-ui/core';
 import {heIL, enUS} from '@material-ui/core/locale';
 
 import {Language} from '../store/types/app';
 
-const theme = {};
+const theme: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#8000ff',
+    },
+    secondary: {
+      main: '#ff3300',
+    },
+  },
+  typography: {
+    fontFamily: 'Rubik',
+  },
+};
 
 const rtlTheme = createTheme(
   {
