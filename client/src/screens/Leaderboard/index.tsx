@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-pattern */
 import React, {Component} from 'react';
 import {ReactCookieProps, withCookies} from 'react-cookie';
 import {withTranslation, WithTranslation} from 'react-i18next';
@@ -39,7 +40,7 @@ class LeaderboardScreen extends Component<Props, State> {
 
     this.state = {
       level: 1,
-      page: 1,
+      page: 0,
     };
   }
 
@@ -47,19 +48,18 @@ class LeaderboardScreen extends Component<Props, State> {
   fetchLeaderboard = async () => {
     const {level, page} = this.state;
     const token = this.props.allCookies?.token;
-    const leaderboard = await apiRequests.getLeaderboard(token, level, page);
+    const leaderboard = await apiRequests.getLeaderboard(token, level, RECORDS_PER_PAGE, page);
     this.setState({leaderboard});
   };
 
-  handlePageChange = () => {
-    this.setState({page: this.state.page + 1});
+  handlePageChange = ({}: any, page: number) => {
+    this.setState({page});
   };
 
   componentDidMount() {
     this.fetchLeaderboard();
   }
 
-  // eslint-disable-next-line no-empty-pattern
   componentDidUpdate({}, prevState: State) {
     if (prevState.page !== this.state.page) {
       this.fetchLeaderboard();
@@ -97,11 +97,7 @@ class LeaderboardScreen extends Component<Props, State> {
                     colSpan={3}
                     count={leaderboard?.count}
                     rowsPerPage={RECORDS_PER_PAGE}
-                    page={page - 1}
-                    SelectProps={{
-                      inputProps: {'aria-label': 'rows per page'},
-                      native: true,
-                    }}
+                    page={page}
                     onPageChange={this.handlePageChange}
                   />
                 </TableRow>
