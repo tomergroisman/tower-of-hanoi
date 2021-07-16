@@ -1,12 +1,9 @@
 import {History} from 'history';
-import {useEffect} from 'react';
 import {useCookies} from 'react-cookie';
-import {useTranslation} from 'react-i18next';
 
 import {Props} from '.';
 
 export const useHooks = (props: Props, history: History) => {
-  const {i18n} = useTranslation();
   const [, , removeCookie] = useCookies(['token']);
 
   const handleDecreaseDifficulty = () => {
@@ -17,14 +14,6 @@ export const useHooks = (props: Props, history: History) => {
   const handleIncreaseDifficulty = () => {
     props.increaseDifficulty();
     _startGameIfGameIsOn();
-  };
-
-  const handleSetToEn = () => {
-    props.setLanguage('en');
-  };
-
-  const handleSetToHe = () => {
-    props.setLanguage('he');
   };
 
   const handleTitleClick = () => {
@@ -50,15 +39,9 @@ export const useHooks = (props: Props, history: History) => {
     }
   };
 
-  useEffect(() => {
-    i18n.changeLanguage(props.language);
-  }, [props.language, i18n]);
-
   return {
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
-    handleSetToEn,
-    handleSetToHe,
     handleTitleClick,
     handleLeaderboardClick,
     handleLogout,

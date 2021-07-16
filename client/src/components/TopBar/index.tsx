@@ -5,13 +5,13 @@ import {Container} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
-import {setLanguage} from '../../store/actions/app';
 import {Difficulty} from '../../store/types/game';
-import {Language, User} from '../../store/types/app';
+import {User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
 import {timerToString} from '../../utils/parse';
-import {useHooks} from './useHooks';
+import {LanguageSelector} from '../LanguageSelector';
 
+import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
 
 interface StateProps {
@@ -19,14 +19,12 @@ interface StateProps {
   moves: number;
   isInGame: boolean;
   user: User;
-  language: Language;
 }
 
 interface DispatchProps {
   increaseDifficulty: () => void;
   decreaseDifficulty: () => void;
   resetGame: () => void;
-  setLanguage: (language: Language) => void;
 }
 
 interface OwnProps {
@@ -42,8 +40,6 @@ const TopBarComponent = (props: Props) => {
   const {
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
-    handleSetToEn,
-    handleSetToHe,
     handleTitleClick,
     handleLeaderboardClick,
     handleLogout,
@@ -72,12 +68,7 @@ const TopBarComponent = (props: Props) => {
         </div>
         <div className="right-side">
           <div>
-            <div>
-              {/* eslint-disable-next-line jsx-a11y/alt-text */}
-              <img src="icons/he.png" onClick={handleSetToHe} />
-              {/* eslint-disable-next-line jsx-a11y/alt-text */}
-              <img src="icons/en.png" onClick={handleSetToEn} />
-            </div>
+            <LanguageSelector />
             <p onClick={handleTitleClick}>{props.user.nickname}</p>
             <button onClick={handleLogout}>Logout</button>
           </div>
@@ -92,14 +83,12 @@ const mapState = (store: Store) => ({
   moves: store.gameState.moves,
   isInGame: !!store.gameState.startTime,
   user: store.appState.user,
-  language: store.appState.language,
 });
 
 const mapDispatch = {
   increaseDifficulty,
   decreaseDifficulty,
   resetGame,
-  setLanguage,
 };
 
 export const TopBar = connect(mapState, mapDispatch)(TopBarComponent);
