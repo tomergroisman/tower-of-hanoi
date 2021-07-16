@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button, Typography, CircularProgress} from '@material-ui/core';
 import * as _ from 'lodash';
 import {useTranslation} from 'react-i18next';
 
@@ -8,7 +8,6 @@ import {Credentials, ErrorFields} from '../../store/types/app';
 
 import {useHooks} from './useHooks';
 import styles from './CredentialsForm.module.scss';
-import {LanguageSelector} from '../LanguageSelector';
 
 export interface Props {
   formType: 'login' | 'signup';
@@ -53,37 +52,52 @@ export const CredentialsForm = (props: Props) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <TextField
-        onChange={handleEmailChange}
-        inputProps={{type: 'email'}}
-        label={t('EMAIL_LABEL')}
-      />
-      <TextField
-        onChange={handlePasswordChange}
-        inputProps={{type: 'password'}}
-        label={t('PASSWORD_LABEL')}
-        helperText={props.formType === 'signup' && t('PASSWORD_LENGTH_HELPER')}
-      />
-      {props.formType === 'signup' && (
-        <TextField onChange={handleNicknameChange} label={t('NICKNAME_LABEL')} />
-      )}
-
-      {renderErrorMessage}
-
-      <Button type="submit" variant="outlined" color="primary">
-        {!props.loading
-          ? props.formType === 'login'
-            ? t('LOGIN_LABEL')
-            : t('SIGNUP_LABEL')
-          : t('LOADING_LABEL')}
-      </Button>
-      <Link to={props.formType === 'login' ? '/signup' : '/login'}>
-        {props.formType === 'login'
-          ? t('NEW_USER_SIGNUP_INVITATION')
-          : t('EXISTING_USER_LOGIN_INVITATION')}
-      </Link>
-      <LanguageSelector />
-    </form>
+    <div>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.inputs}>
+          <TextField
+            onChange={handleEmailChange}
+            inputProps={{type: 'email'}}
+            label={t('EMAIL_LABEL')}
+          />
+          <TextField
+            onChange={handlePasswordChange}
+            inputProps={{type: 'password'}}
+            label={t('PASSWORD_LABEL')}
+            helperText={props.formType === 'signup' && t('PASSWORD_LENGTH_HELPER')}
+          />
+          {props.formType === 'signup' && (
+            <TextField onChange={handleNicknameChange} label={t('NICKNAME_LABEL')} />
+          )}
+        </div>
+        <div className={styles.errorMessages}>{renderErrorMessage}</div>
+        <Button
+          className={styles.submitButton}
+          type="submit"
+          variant="text"
+          size="large"
+          color="primary"
+        >
+          {!props.loading ? (
+            props.formType === 'login' ? (
+              t('LOGIN_LABEL')
+            ) : (
+              t('SIGNUP_LABEL')
+            )
+          ) : (
+            <CircularProgress />
+          )}
+        </Button>
+      </form>
+      <div className={styles.cta}>
+        <Typography variant="subtitle2">
+          <Link className={styles.link} to={props.formType === 'login' ? '/signup' : '/login'}>
+            {props.formType === 'login'
+              ? t('NEW_USER_SIGNUP_INVITATION')
+              : t('EXISTING_USER_LOGIN_INVITATION')}
+          </Link>
+        </Typography>
+      </div>
+    </div>
   );
 };

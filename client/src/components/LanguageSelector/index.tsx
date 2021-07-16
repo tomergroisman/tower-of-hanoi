@@ -7,6 +7,7 @@ import {setLanguage} from '../../store/actions/app';
 import {Store} from '../../store/types/store';
 
 import {useHooks} from './useHooks';
+import styles from './LanguageSelector.module.scss';
 
 interface StateProps {
   language: Language;
@@ -21,7 +22,7 @@ export type Props = StateProps & DispatchProps;
 const LanguageSelectorComponent = (props: Props) => {
   const {handleSetToHe, handleSetToEn} = useHooks(props);
   return (
-    <div>
+    <div className={styles.container}>
       <img src="icons/he.png" onClick={handleSetToHe} />
       <img src="icons/en.png" onClick={handleSetToEn} />
     </div>

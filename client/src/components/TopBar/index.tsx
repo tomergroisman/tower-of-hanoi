@@ -8,7 +8,6 @@ import {Difficulty} from '../../store/types/game';
 import {User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
 import {timerToString} from '../../utils/parse';
-import {LanguageSelector} from '../LanguageSelector';
 
 import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
@@ -66,7 +65,6 @@ const TopBarComponent = (props: Props) => {
         </div>
         <div className="right-side">
           <div>
-            <LanguageSelector />
             <p onClick={handleTitleClick}>{props.user.nickname}</p>
             <button onClick={handleLogout}>{t('LOGOUT_LABEL')}</button>
           </div>

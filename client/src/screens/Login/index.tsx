@@ -37,6 +37,7 @@ class LoginScreen extends Component<ReactCookieProps, State> {
   render() {
     return (
       <div className={styles.container}>
+        <img src="img/Logo.png" className={styles.logo} alt="Logo" />
         <CredentialsForm
           formType="login"
           onSubmit={this.submit}

@@ -11,6 +11,7 @@ import {setUser} from './store/actions/app';
 import {AppState} from './store/types/app';
 import {Store} from './store/types/store';
 import {fetchUser} from './utils/api/fetch';
+import {LanguageSelector} from './components/LanguageSelector';
 
 const jss = create({plugins: [...jssPreset().plugins, rtl()]});
 
@@ -36,6 +37,7 @@ function App() {
   return (
     <StylesProvider jss={jss}>
       <ThemeProvider theme={appState.theme}>
+        <LanguageSelector />
         <Router />
       </ThemeProvider>
     </StylesProvider>

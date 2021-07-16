@@ -6,7 +6,7 @@ import {Language} from '../store/types/app';
 const theme: ThemeOptions = {
   palette: {
     primary: {
-      main: '#8000ff',
+      main: '#0099ff',
     },
     secondary: {
       main: '#ff3300',
