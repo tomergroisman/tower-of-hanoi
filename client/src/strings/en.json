@@ -18,5 +18,14 @@
   "BEST_RECORDS_TITLE": "Your best records",
   "EMPTY_RECORD_CARD_TEXT": "No records for this difficulty... yet :)",
   "LEADERBOARD": "Leaderboard",
-  "LEADERBOARD_EMPTY_STATE": "No records for {{level}} level"
+  "LEADERBOARD_EMPTY_STATE": "No records for {{level}} level",
+  "EMAIL_LABEL": "Email",
+  "PASSWORD_LABEL": "Password",
+  "PASSWORD_LENGTH_HELPER": "Minimum 5 characters",
+  "NICKNAME_LABEL": "Nickname",
+  "NEW_USER_SIGNUP_INVITATION": "New user? Sign up!",
+  "EXISTING_USER_LOGIN_INVITATION": "Already have an account? Log in!",
+  "LOGIN_LABEL": "Login",
+  "SIGNUP_LABEL": "Signup",
+  "LOADING_LABEL": "Loading..."
 }

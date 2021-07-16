@@ -2,10 +2,13 @@ import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {TextField, Button} from '@material-ui/core';
 import * as _ from 'lodash';
+import {useTranslation} from 'react-i18next';
 
 import {Credentials, ErrorFields} from '../../store/types/app';
+
 import {useHooks} from './useHooks';
 import styles from './CredentialsForm.module.scss';
+import {LanguageSelector} from '../LanguageSelector';
 
 export interface Props {
   formType: 'login' | 'signup';
@@ -23,6 +26,7 @@ export const CredentialsForm = (props: Props) => {
     handlePasswordChange,
     handleNicknameChange,
   } = useHooks();
+  const {t} = useTranslation();
   const {errors} = props;
 
   /** Render error message */
@@ -50,26 +54,36 @@ export const CredentialsForm = (props: Props) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <TextField onChange={handleEmailChange} inputProps={{type: 'email'}} label="Email" />
+      <TextField
+        onChange={handleEmailChange}
+        inputProps={{type: 'email'}}
+        label={t('EMAIL_LABEL')}
+      />
       <TextField
         onChange={handlePasswordChange}
         inputProps={{type: 'password'}}
-        label="Password"
-        helperText={props.formType === 'signup' && 'Minimum 5 characters'}
+        label={t('PASSWORD_LABEL')}
+        helperText={props.formType === 'signup' && t('PASSWORD_LENGTH_HELPER')}
       />
       {props.formType === 'signup' && (
-        <TextField onChange={handleNicknameChange} label="Nickname" />
+        <TextField onChange={handleNicknameChange} label={t('NICKNAME_LABEL')} />
       )}
 
       {renderErrorMessage}
 
-      <Link to={props.formType === 'login' ? '/signup' : '/login'}>
-        {props.formType === 'login' ? 'New user? Sign up!' : 'Already have an account? Log in!'}
-      </Link>
-
       <Button type="submit" variant="outlined" color="primary">
-        {!props.loading ? (props.formType === 'login' ? 'Login' : 'Signup') : 'Loading...'}
+        {!props.loading
+          ? props.formType === 'login'
+            ? t('LOGIN_LABEL')
+            : t('SIGNUP_LABEL')
+          : t('LOADING_LABEL')}
       </Button>
+      <Link to={props.formType === 'login' ? '/signup' : '/login'}>
+        {props.formType === 'login'
+          ? t('NEW_USER_SIGNUP_INVITATION')
+          : t('EXISTING_USER_LOGIN_INVITATION')}
+      </Link>
+      <LanguageSelector />
     </form>
   );
 };
