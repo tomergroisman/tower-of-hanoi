@@ -44,12 +44,10 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Return objects for the current authenticated user only"""
         level = self.request.query_params.get('level', 1)
-        page = int(self.request.query_params.get('page', 1))
-        [start_idx, end_idx] = [(page - 1) * PAGE_SIZE, page * PAGE_SIZE]
 
         queryset = self.queryset
 
         return queryset.filter(
             is_best=True,
             level=level,
-        ).order_by('time').distinct()[start_idx:end_idx]
+        ).order_by('time').distinct()
