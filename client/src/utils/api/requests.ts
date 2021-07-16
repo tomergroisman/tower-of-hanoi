@@ -13,7 +13,8 @@ interface ApiRequest {
   getLeaderboard: (
     token: string,
     level?: number,
-    page?: number
+    limit?: number,
+    offset?: number
   ) => Promise<ApiResponse<LeaderboardRecord[]>>;
 }
 
@@ -52,13 +53,14 @@ export const apiRequests: ApiRequest = {
       })
       .then(res => res.data.results);
   },
-  getLeaderboard: (token: string, level: number = 1, page: number = 1) => {
+  getLeaderboard: (token: string, level: number = 1, limit: number = 20, offset: number = 1) => {
     return apiClient
       .get<ApiResponse<LeaderboardRecord[]>>(apiEndpoints.leaderboard, {
         ...getAuthorizedHeaders(token),
         params: {
           level,
-          page,
+          limit,
+          offset,
         },
       })
       .then(res => res.data);

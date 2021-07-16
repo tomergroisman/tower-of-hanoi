@@ -80,7 +80,8 @@ describe('Requests tests', () => {
       headers: {Authorization: `Token ${mockToken}`},
       params: {
         level: 2,
-        page: 1,
+        limit: 20,
+        offset: 1,
       },
     };
 
