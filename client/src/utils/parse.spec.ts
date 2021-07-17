@@ -1,4 +1,4 @@
-import {getFinishTime, timerToString} from './parse';
+import {getFinishTime, parseDate, timerToString} from './parse';
 
 describe('Parse functions tests', () => {
   it('should return the finish time in seconds', () => {
@@ -47,5 +47,10 @@ describe('Parse functions tests', () => {
   it('should return timer representation of hours', () => {
     const timer = 3723;
     expect(timerToString(timer)).toEqual('01:02:03');
+  });
+
+  it('should return viewable date', () => {
+    const date = '2021-07-16';
+    expect(parseDate(date)).toEqual('16/07/2021');
   });
 });

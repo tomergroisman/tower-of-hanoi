@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {ReactCookieProps, withCookies} from 'react-cookie';
 import {withTranslation, WithTranslation} from 'react-i18next';
-import {Button, Container} from '@material-ui/core';
+import {Button, Container, Grid, Typography} from '@material-ui/core';
 
 import {GameBoard} from './components/GameBoard';
 import {TopBar} from '../../components/TopBar';
@@ -15,7 +15,6 @@ import {Record} from '../../utils/api/interfaces/Record';
 import {fetchBestRecords} from '../../utils/api/fetch';
 import {timerToString} from '../../utils/parse';
 import {RecordCard} from './components/RecordCard';
-import {EmptyRecordCard} from './components/RecordCard/empty';
 
 import styles from './Game.module.scss';
 
@@ -96,24 +95,24 @@ class GameScreen extends Component<Props, State> {
     }
   };
 
+  /** Extract key for record card */
+  extractRecordKey = (i: number, record?: Record) => {
+    return record ? `${record.level}-${record.moves}-${record.time}` : `empty_record-${i + 1}`;
+  };
+
+  /** Render the lobby layout */
   renderLobby = () => {
     const {t, bestRecords} = this.props;
     return (
-      <div>
-        <h3 className={styles.bestRecordsTitle}>{t('BEST_RECORDS_TITLE')}</h3>
-        <div className={styles.bestRecordsContainer}>
-          {bestRecords?.map((record, i) =>
-            record ? (
-              <RecordCard
-                key={`${record.level}-${record.moves}-${record.time}`}
-                record={record}
-                level={i}
-              />
-            ) : (
-              <EmptyRecordCard key={`empty_record-${i + 1}`} level={i} />
-            )
-          )}
-        </div>
+      <div className={styles.lobbyContainer}>
+        <Typography variant="h3" className={styles.bestRecordsTitle}>
+          {t('BEST_RECORDS_TITLE')}
+        </Typography>
+        <Grid container spacing={3} direction="row" justifyContent="center" alignItems="stretch">
+          {bestRecords?.map((record, i) => (
+            <RecordCard key={this.extractRecordKey(i, record)} record={record} level={i} />
+          ))}
+        </Grid>
         <div className={styles.ctaContainer}>
           <Button variant="contained" color="primary" onClick={this.handleStartGame}>
             {t('START_GAME_BUTTON')}

@@ -40,3 +40,8 @@ export const timerToString = (timer: number) => {
   const seconds = _padNumberWithZeros(time.seconds);
   return `${hours}:${minutes}:${seconds}`;
 };
+
+export const parseDate = (date: string) => {
+  const [yyyy, mm, dd] = date.split('-');
+  return `${dd}/${mm}/${yyyy}`;
+};

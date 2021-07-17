@@ -8,6 +8,8 @@ import {Store} from '../../store/types/store';
 
 import {useHooks} from './useHooks';
 import styles from './LanguageSelector.module.scss';
+import {Icon} from '../Icon';
+import {Assets} from '../../utils/assets';
 
 interface StateProps {
   language: Language;
@@ -23,8 +25,8 @@ const LanguageSelectorComponent = (props: Props) => {
   const {handleSetToHe, handleSetToEn} = useHooks(props);
   return (
     <div className={styles.container}>
-      <img src="icons/he.png" onClick={handleSetToHe} />
-      <img src="icons/en.png" onClick={handleSetToEn} />
+      <Icon spacing={1} asset={Assets.icons.en} onClick={handleSetToEn} />
+      <Icon spacing={1} asset={Assets.icons.he} onClick={handleSetToHe} />
     </div>
   );
 };
