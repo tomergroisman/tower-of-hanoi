@@ -5,12 +5,13 @@ import * as _ from 'lodash';
 import {useTranslation} from 'react-i18next';
 
 import {Credentials, ErrorFields} from '../../store/types/app';
+import {AuthenticationScreen} from '../Authentication';
 
 import {useHooks} from './useHooks';
 import styles from './CredentialsForm.module.scss';
 
 export interface Props {
-  formType: 'login' | 'signup';
+  formType: AuthenticationScreen;
   onSubmit: (credentials: Credentials) => void;
   loading: boolean;
   errors?: ErrorFields;
@@ -26,7 +27,7 @@ export const CredentialsForm = (props: Props) => {
     handleNicknameChange,
   } = useHooks();
   const {t} = useTranslation();
-  const {errors} = props;
+  const {errors, loading} = props;
 
   /** Render error message */
   const renderErrorMessage = useMemo(() => {
@@ -78,7 +79,7 @@ export const CredentialsForm = (props: Props) => {
           size="large"
           color="primary"
         >
-          {!props.loading ? (
+          {!loading ? (
             props.formType === 'login' ? (
               t('LOGIN_LABEL')
             ) : (
