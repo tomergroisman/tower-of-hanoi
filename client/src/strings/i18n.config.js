@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
+import {rehydrate} from '../utils/rehydrate';
 
 export const init = () => {
   i18n.use(initReactI18next).init({
@@ -11,7 +12,7 @@ export const init = () => {
         translation: require('../strings/he.json'),
       },
     },
-    lng: 'en',
+    lng: rehydrate.language(),
     fallbackLng: 'en',
 
     interpolation: {

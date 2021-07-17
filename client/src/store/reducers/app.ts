@@ -1,4 +1,5 @@
 import {Record} from '../../utils/api/interfaces/Record';
+import {rehydrate} from '../../utils/rehydrate';
 import {getTheme} from '../../utils/theme';
 import {User, AppState, Language} from '../types/app';
 
@@ -12,8 +13,8 @@ type Payload = User | Language | Record[];
 
 export const initialState: AppState = {
   user: {},
-  language: 'en',
-  theme: getTheme('en'),
+  language: rehydrate.language(),
+  theme: getTheme(rehydrate.language()),
 };
 
 export const appStateReducer = (

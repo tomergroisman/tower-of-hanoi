@@ -16,11 +16,10 @@ import {LanguageSelector} from './components/LanguageSelector';
 const jss = create({plugins: [...jssPreset().plugins, rtl()]});
 
 function App() {
-  const [cookies] = useCookies(['token']);
+  const [cookies, setCookies] = useCookies(['token']);
   const dispatch = useDispatch();
   const appState = useSelector<Store, AppState>(store => store.appState);
 
-  /** Fetch user info from token in cookies */
   useEffect(() => {
     const fetch = async () => {
       const user = await fetchUser(cookies.token);
@@ -32,7 +31,8 @@ function App() {
 
   useEffect(() => {
     document.body.setAttribute('dir', appState.language === 'en' ? 'ltr' : 'rtl');
-  }, [appState.language]);
+    window.localStorage.setItem('language', appState.language);
+  }, [appState.language, setCookies]);
 
   return (
     <StylesProvider jss={jss}>
