@@ -18,7 +18,7 @@
   "BEST_RECORDS_TITLE": "השיאים שלך",
   "EMPTY_RECORD_CARD_TEXT": "לא ניצחת ברמה הזו... בינתיים :)",
   "LEADERBOARD": "טבלת שיאים",
-  "LEADERBOARD_EMPTY_STATE": "אין תוצאות לרמה{{level}}",
+  "LEADERBOARD_EMPTY_STATE": "אין תוצאות לרמה {{level}}",
   "EMAIL_LABEL": "אימייל",
   "PASSWORD_LABEL": "סיסמה",
   "PASSWORD_LENGTH_HELPER": "לכל הפחות 5 תווים",
@@ -28,5 +28,8 @@
   "LOGIN_LABEL": "התחבר",
   "SIGNUP_LABEL": "הירשם",
   "LOGOUT_LABEL": "התנתק",
-  "LOADING_LABEL": "טוען..."
+  "LOADING_LABEL": "טוען...",
+  "LEADERBOARD_TABLE_NICKNAME": "כינוי",
+  "LEADERBOARD_TABLE_FINISH_TIME": "זמן סיום",
+  "LEADERBOARD_TABLE_MOVES": "מספר מהלכים"
 }

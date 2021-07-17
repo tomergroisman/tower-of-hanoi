@@ -1,0 +1,14 @@
+.leaderboard {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .content {
+    margin-top: 40px;
+    width: 100%;
+    tfoot td {
+      border: none;
+    }
+  }
+}

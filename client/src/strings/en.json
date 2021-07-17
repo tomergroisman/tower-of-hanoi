@@ -28,5 +28,8 @@
   "LOGIN_LABEL": "Login",
   "SIGNUP_LABEL": "Signup",
   "LOGOUT_LABEL": "Logout",
-  "LOADING_LABEL": "Loading..."
+  "LOADING_LABEL": "Loading...",
+  "LEADERBOARD_TABLE_NICKNAME": "Nickname",
+  "LEADERBOARD_TABLE_FINISH_TIME": "Finish Time",
+  "LEADERBOARD_TABLE_MOVES": "No. of Moves"
 }
