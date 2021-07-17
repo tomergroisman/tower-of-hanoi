@@ -21,6 +21,8 @@ export const initialState: GameState = {
   difficulty: Difficulty.EASY,
   ...difficultyToGameBoard(Difficulty.EASY),
   moves: 0,
+  startTime: undefined,
+  finishTime: undefined,
   startPeg: 0,
   board: {},
 };
@@ -47,6 +49,7 @@ export const gameStateReducer = (
         startTime: Date.now(),
         finishTime: undefined,
         startPeg: startPeg,
+        moves: 0,
         board: createBoard(startPeg, state.discs),
       };
 

@@ -18,14 +18,12 @@ export const useHooks = (props: Props) => {
   };
 
   const handleTitleClick = () => {
-    if (props.endGame) {
-      props.endGame(true);
-      props.resetGame();
-    }
+    _resetGameIfGameIsOver();
     history.push('/');
   };
 
   const handleLeaderboardClick = () => {
+    _resetGameIfGameIsOver();
     history.push('/leaderboard');
   };
 
@@ -37,6 +35,13 @@ export const useHooks = (props: Props) => {
   const _startGameIfGameIsOn = () => {
     if (props.isInGame && props.startGame) {
       props.startGame();
+    }
+  };
+
+  const _resetGameIfGameIsOver = () => {
+    if (props.endGame) {
+      props.endGame(true);
+      props.resetGame();
     }
   };
 

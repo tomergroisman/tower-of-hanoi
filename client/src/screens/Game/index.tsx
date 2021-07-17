@@ -89,7 +89,7 @@ class GameScreen extends Component<Props, State> {
         moves: this.props.moves,
         time: timerToString(this.state.gameTimer),
       };
-      apiRequests.postRecord(cookies?.token, record);
+      await apiRequests.postRecord(cookies?.token, record);
       const bestRecords = await fetchBestRecords(cookies?.token);
       setBestRecords(bestRecords);
     }

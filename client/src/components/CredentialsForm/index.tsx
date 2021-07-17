@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {TextField, Button, Typography, CircularProgress} from '@material-ui/core';
+import {TextField, Button, Typography, CircularProgress, Container} from '@material-ui/core';
 import * as _ from 'lodash';
 import {useTranslation} from 'react-i18next';
 
@@ -53,7 +53,7 @@ export const CredentialsForm = (props: Props) => {
   };
 
   return (
-    <div>
+    <Container maxWidth="xs">
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.inputs}>
           <TextField
@@ -101,6 +101,6 @@ export const CredentialsForm = (props: Props) => {
           </Link>
         </Typography>
       </div>
-    </div>
+    </Container>
   );
 };
