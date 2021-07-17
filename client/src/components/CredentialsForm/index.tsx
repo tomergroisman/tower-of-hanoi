@@ -34,9 +34,9 @@ export const CredentialsForm = (props: Props) => {
     if (errors) {
       return _.map(errors, messages =>
         _.map(messages, message => (
-          <p key={message} className={styles.error}>
+          <Typography color="secondary" key={message} className={styles.error}>
             {message}
-          </p>
+          </Typography>
         ))
       );
     }
@@ -60,15 +60,17 @@ export const CredentialsForm = (props: Props) => {
             onChange={handleEmailChange}
             inputProps={{type: 'email'}}
             label={t('EMAIL_LABEL')}
+            fullWidth
           />
           <TextField
             onChange={handlePasswordChange}
             inputProps={{type: 'password'}}
             label={t('PASSWORD_LABEL')}
             helperText={props.formType === 'signup' && t('PASSWORD_LENGTH_HELPER')}
+            fullWidth
           />
           {props.formType === 'signup' && (
-            <TextField onChange={handleNicknameChange} label={t('NICKNAME_LABEL')} />
+            <TextField onChange={handleNicknameChange} label={t('NICKNAME_LABEL')} fullWidth />
           )}
         </div>
         <div className={styles.errorMessages}>{renderErrorMessage}</div>
