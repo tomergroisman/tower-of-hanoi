@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import {Container} from '@material-ui/core';
+import {Button, Container, IconButton, Typography} from '@material-ui/core';
+import {Add, Remove} from '@material-ui/icons';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
 import {Difficulty} from '../../store/types/game';
@@ -11,6 +12,7 @@ import {timerToString} from '../../utils/parse';
 
 import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
+import {NUM_DIFFICULTIES} from '../../utils/constants';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -43,31 +45,47 @@ const TopBarComponent = (props: Props) => {
   } = useHooks(props);
   const {t} = useTranslation();
 
+  const renderLevelSelector = () => {
+    const {difficulty} = props;
+
+    return (
+      <div className={styles.difficultySelector}>
+        <IconButton color="inherit" size="small" onClick={handleDecreaseDifficulty}>
+          <Remove style={{opacity: difficulty > 0 ? 1 : 0}} />
+        </IconButton>
+        <Typography variant="body1">{t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}</Typography>
+        <IconButton color="inherit" size="small" onClick={handleIncreaseDifficulty}>
+          <Add style={{opacity: difficulty < NUM_DIFFICULTIES - 1 ? 1 : 0}} />
+        </IconButton>
+      </div>
+    );
+  };
+
   return (
     <div className={styles.wrapper}>
       <Container maxWidth="lg" className={styles.container}>
-        <div className="left-side">
-          <p className={styles.title} onClick={handleTitleClick}>
+        <div className={styles.leftSide}>
+          <Typography variant="h6" className={styles.link} onClick={handleTitleClick}>
             {t('TOWER_OF_HANOI')}
-          </p>
-          <p className={styles.leaderboard} onClick={handleLeaderboardClick}>
+          </Typography>
+          <Typography variant="button" className={styles.link} onClick={handleLeaderboardClick}>
             {t('LEADERBOARD')}
-          </p>
+          </Typography>
         </div>
-        <div className="middle">
-          <p>{timerToString(props.gameTimer)}</p>
-          <p>{`${t('NUMBER_OF_MOVES')} ${props.moves}`}</p>
-          <div>
-            <button onClick={handleDecreaseDifficulty}>-</button>
-            {t(`DIFFICULTY_${Difficulty[props.difficulty]}`)}
-            <button onClick={handleIncreaseDifficulty}>+</button>
-          </div>
+        <div className={styles.middle}>
+          <Typography variant="body1">{timerToString(props.gameTimer)}</Typography>
+          <Typography className={styles.middleText} variant="body1">{`${t('NUMBER_OF_MOVES')} ${
+            props.moves
+          }`}</Typography>
+          {renderLevelSelector()}
         </div>
-        <div className="right-side">
-          <div>
-            <p onClick={handleTitleClick}>{props.user.nickname}</p>
-            <button onClick={handleLogout}>{t('LOGOUT_LABEL')}</button>
-          </div>
+        <div className={styles.rightSide}>
+          <Typography variant="body1" onClick={handleTitleClick}>
+            {props.user.nickname}
+          </Typography>
+          <Button color="inherit" onClick={handleLogout}>
+            {t('LOGOUT_LABEL')}
+          </Button>
         </div>
       </Container>
     </div>

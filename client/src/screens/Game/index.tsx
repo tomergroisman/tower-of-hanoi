@@ -114,8 +114,8 @@ class GameScreen extends Component<Props, State> {
           ))}
         </Grid>
         <div className={styles.ctaContainer}>
-          <Button variant="contained" color="primary" onClick={this.handleStartGame}>
-            {t('START_GAME_BUTTON')}
+          <Button variant="text" color="primary" size="large" onClick={this.handleStartGame}>
+            <Typography variant="h5">{t('START_GAME_BUTTON')}</Typography>
           </Button>
         </div>
       </div>
