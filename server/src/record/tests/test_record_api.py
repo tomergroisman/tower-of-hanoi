@@ -63,10 +63,11 @@ class PrivateIngredientsApiTests(TestCase):
         )
 
         res = self.client.get(RECORD_URL)
+        results = res.data['results']
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(res.data), 1)
-        self.assertEqual(res.data[0]['time'], record.time)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['time'], record.time)
 
     def test_best_records_limited_to_user(self):
         """
@@ -79,10 +80,11 @@ class PrivateIngredientsApiTests(TestCase):
         Record.objects.create(user=self.user, **mock_record)
 
         res = self.client.get(RECORD_URL, {'best_records': 1})
+        results = res.data['results']
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(res.data), 1)
-        self.assertEqual(res.data[0]['time'], record.time)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['time'], record.time)
 
     def test_retrive_leaderboard_records_list(self):
         """should retrive the users leaderboard list"""
@@ -93,9 +95,10 @@ class PrivateIngredientsApiTests(TestCase):
         best_user_2 = create_mock_record(user=user_2, time='00:00:00')
 
         res = self.client.get(LEADERBOARD_URL)
+        results = res.data['results']
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(res.data), 2)
-        self.assertEqual(res.data[0]['nickname'], '2@test.com')
-        self.assertEqual(res.data[1]['nickname'], self.user.nickname)
-        self.assertEqual(res.data[0]['time'], best_user_2.time)
+        self.assertEqual(len(results), 2)
+        self.assertEqual(results[0]['nickname'], '2@test.com')
+        self.assertEqual(results[1]['nickname'], self.user.nickname)
+        self.assertEqual(results[0]['time'], best_user_2.time)

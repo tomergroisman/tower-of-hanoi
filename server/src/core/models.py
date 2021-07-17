@@ -13,7 +13,7 @@ class UserManager(BaseUserManager):
     def create_user(self, email, password=None, nickname=None, **extra_fields):
         """Create and save a new user"""
         if not email:
-            raise ValueError(i18n('CREATE_USER_NO_EMAIL'))
+            raise ValueError(i18n('AUTH_USER_NO_EMAIL'))
 
         user = self.model(
             email=self.normalize_email(email),
@@ -45,9 +45,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
         error_messages={
-            'required': i18n('CREATE_USER_NO_EMAIL'),
+            'required': i18n('AUTH_USER_NO_EMAIL'),
             'unique': i18n('CREATE_USER_UNIQUE_EMAIL'),
-            'blank': i18n('CREATE_USER_NO_EMAIL'),
+            'blank': i18n('AUTH_USER_NO_EMAIL'),
         }
     )
     nickname = fields.CharField(

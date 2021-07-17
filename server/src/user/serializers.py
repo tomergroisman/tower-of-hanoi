@@ -15,17 +15,17 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'email': {
                 'error_messages': {
-                    'required': i18n('CREATE_USER_NO_EMAIL'),
-                    'blank': i18n('CREATE_USER_NO_EMAIL'),
+                    'required': i18n('AUTH_USER_NO_EMAIL'),
+                    'blank': i18n('AUTH_USER_NO_EMAIL'),
                 }
             },
             'password': {
                 'write_only': True,
                 'min_length': 5,
                 'error_messages': {
-                    'required': i18n('CREATE_USER_NO_PASSWORD'),
+                    'required': i18n('AUTH_USER_NO_PASSWORD'),
                     'min_length': i18n('CREATE_USER_SHORT_PASSWORD'),
-                    'blank': i18n('CREATE_USER_NO_PASSWORD'),
+                    'blank': i18n('AUTH_USER_NO_PASSWORD'),
                 }
             },
         }
@@ -56,8 +56,15 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
 
-    email = serializers.CharField()
+    email = serializers.CharField(
+        error_messages={
+            'blank': i18n('AUTH_USER_NO_EMAIL')
+        }
+    )
     password = serializers.CharField(
+        error_messages={
+            'blank': i18n('AUTH_USER_NO_PASSWORD')
+        },
         style={'input_type': 'password'},
         trim_whitespace=False
     )
