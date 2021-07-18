@@ -18,18 +18,20 @@ export const useHooks = (props: Props) => {
   };
 
   const handleTitleClick = () => {
-    _resetGameIfGameIsOver();
+    _resetGame();
     history.push('/');
   };
 
   const handleLeaderboardClick = () => {
-    _resetGameIfGameIsOver();
     history.push('/leaderboard');
+    _resetGame();
   };
 
   const handleLogout = () => {
-    removeCookie('token');
     history.push('/login');
+    removeCookie('token');
+    props.resetApp();
+    _resetGame();
   };
 
   const _startGameIfGameIsOn = () => {
@@ -38,11 +40,11 @@ export const useHooks = (props: Props) => {
     }
   };
 
-  const _resetGameIfGameIsOver = () => {
+  const _resetGame = () => {
     if (props.endGame) {
       props.endGame(true);
-      props.resetGame();
     }
+    props.resetGame();
   };
 
   return {

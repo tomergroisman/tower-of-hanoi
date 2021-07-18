@@ -5,6 +5,7 @@ import {Button, Container, IconButton, Typography} from '@material-ui/core';
 import {Add, Remove} from '@material-ui/icons';
 
 import {increaseDifficulty, decreaseDifficulty, resetGame} from '../../store/actions/game';
+import {resetApp} from '../../store/actions/app';
 import {Difficulty} from '../../store/types/game';
 import {User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
@@ -25,6 +26,7 @@ interface DispatchProps {
   increaseDifficulty: () => void;
   decreaseDifficulty: () => void;
   resetGame: () => void;
+  resetApp: () => void;
 }
 
 interface OwnProps {
@@ -103,6 +105,7 @@ const mapDispatch = {
   increaseDifficulty,
   decreaseDifficulty,
   resetGame,
+  resetApp,
 };
 
 export const TopBar = connect(mapState, mapDispatch)(TopBarComponent);

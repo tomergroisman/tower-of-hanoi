@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import {useWindowSize} from '../../../../utils/hooks/useWindowSize';
+
 import {Props} from '.';
 
 export const useHooks = ({finishTime, bestRecord}: Props) => {

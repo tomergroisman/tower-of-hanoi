@@ -16,3 +16,7 @@ export const setLanguage = (language: Language) => ({
   type: AppActions.SET_LANGUAGE,
   payload: language,
 });
+
+export const resetApp = () => ({
+  type: AppActions.RESET_APP,
+});

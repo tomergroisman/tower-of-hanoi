@@ -7,6 +7,7 @@ export enum AppActions {
   SET_USER = 'SET_USER',
   SET_BEST_RECORDS = 'SET_BEST_RECORDS',
   SET_LANGUAGE = 'SET_LANGUAGE',
+  RESET_APP = 'RESET_APP',
 }
 
 type Payload = User | Language | Record[];
@@ -54,6 +55,9 @@ export const appStateReducer = (
         };
       }
       return state;
+
+    case AppActions.RESET_APP:
+      return initialState;
 
     default:
       return state;
