@@ -17,6 +17,7 @@ export const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
   const [isXsCollapse, setIsXsCollapse] = useState(windowSize.width < SIZES.XSMALL);
   const [isSmCollapse, setIsSmCollapse] = useState(windowSize.width < SIZES.SMALL);
+  const [isMdCollapse, setIsMdCollapse] = useState(windowSize.width < SIZES.MEDIUM);
   const [isLgCollapse, setIsLgCollapse] = useState(windowSize.width < breakpoints.lg);
 
   useEffect(() => {
@@ -31,8 +32,15 @@ export const useWindowSize = () => {
   useEffect(() => {
     setIsXsCollapse(windowSize.width < SIZES.XSMALL);
     setIsSmCollapse(windowSize.width < SIZES.SMALL);
+    setIsMdCollapse(windowSize.width < SIZES.MEDIUM);
     setIsLgCollapse(windowSize.width < breakpoints.lg + 20);
   }, [windowSize.width, breakpoints]);
 
-  return {...windowSize, isSmCollapse, isLgCollapse, isXsCollapse};
+  return {
+    ...windowSize,
+    isXsCollapse,
+    isSmCollapse,
+    isMdCollapse,
+    isLgCollapse,
+  };
 };

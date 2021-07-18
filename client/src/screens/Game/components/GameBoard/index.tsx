@@ -11,6 +11,7 @@ import {Record} from '../../../../utils/api/interfaces/Record';
 
 import {useHooks} from './useHooks';
 import styles from './GameBoard.module.scss';
+import {useGameObjectsStyles} from '../useGameObjectsStyles';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -28,11 +29,12 @@ const GameBoardComponent = (props: Props) => {
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const {onDragEnd, getFinishTime, getBestRecord} = useHooks(props, t, dispatch);
+  const {getBoardContainerStyles, getBoardStyles} = useGameObjectsStyles({});
 
   /** Render the pegs to the screen */
   const renderGame = useMemo(
     () => (
-      <div className={styles.gameBoard}>
+      <div className={styles.gameBoard} style={getBoardStyles()}>
         {Object.keys(props.board).map((key, idx) => (
           <Peg key={key} id={key} startPeg={props.startPeg}>
             {props.board[key]}
@@ -40,11 +42,11 @@ const GameBoardComponent = (props: Props) => {
         ))}
       </div>
     ),
-    [props.board, props.startPeg]
+    [props.board, props.startPeg, getBoardStyles]
   );
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={getBoardContainerStyles()}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
       {props.finishTime && props.startTime && (
         <FinishMessage finishTime={getFinishTime()} bestRecord={getBestRecord()} />

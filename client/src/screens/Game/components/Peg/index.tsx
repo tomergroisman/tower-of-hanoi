@@ -11,7 +11,7 @@ export interface Props {
 
 export const Peg = (props: PropsWithChildren<Props>) => {
   const {id} = props;
-  const {getContainerStyles, getPegStyles} = useGameObjectsStyles({pegId: id});
+  const {getContainerStyles, getPegBaseStyles, getPegStyles} = useGameObjectsStyles({pegId: id});
 
   return (
     <Droppable droppableId={id} ignoreContainerClipping isCombineEnabled>
@@ -20,6 +20,7 @@ export const Peg = (props: PropsWithChildren<Props>) => {
           <div className={styles.peg} style={getPegStyles()}>
             {provided.placeholder}
             <div className={styles.discContainer}>{props.children}</div>
+            <div className={styles.base} style={getPegBaseStyles()}></div>
           </div>
         </div>
       )}

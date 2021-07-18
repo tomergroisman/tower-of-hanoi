@@ -22,6 +22,7 @@ export const DISC_COLORS = ['#ff4d4d', '#00e600', '#4d4dff', '#cc33ff', '#ff9900
 
 export const SIZES = {
   XLARGE: 1500,
+  MEDIUM: 800,
   SMALL: 600,
   XSMALL: 450,
 };

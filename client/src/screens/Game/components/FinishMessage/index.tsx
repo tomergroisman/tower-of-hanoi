@@ -20,16 +20,18 @@ export const FinishMessage = (props: Props) => {
       <Typography align="center" variant="h5">
         {t('GAME_FINISH_MESSAGE', {finishTime: props.finishTime})}
       </Typography>
-      <Zoom in={isBestRecord}>
-        <div className={styles.newBestMessage}>
-          <Typography align="center" variant="h1">
-            {t('NEW_BEST_RECORD_PRE')}
-          </Typography>
-          <Typography align="center" variant="h3">
-            {t('NEW_BEST_RECORD_BODY')}
-          </Typography>
-        </div>
-      </Zoom>
+      {isBestRecord && (
+        <Zoom in={isBestRecord}>
+          <div className={styles.newBestMessage}>
+            <Typography align="center" variant="h1">
+              {t('NEW_BEST_RECORD_PRE')}
+            </Typography>
+            <Typography align="center" variant="h3">
+              {t('NEW_BEST_RECORD_BODY')}
+            </Typography>
+          </div>
+        </Zoom>
+      )}
       {isBestRecord && <Confetti height={windowSize.height} width={windowSize.width} />}
       <Slide in={showCTA} direction="up" timeout={500}>
         <div className={styles.ctaContainer}>

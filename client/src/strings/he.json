@@ -6,7 +6,7 @@
   "DIFFICULTY_HARD": "קשה",
   "START_GAME_BUTTON": "התחל משחק",
   "GAME_FINISH_TITLE": "המשחק הסתיים!",
-  "GAME_FINISH_MESSAGE": "משך זמן המשחק הוא {{finishTime}}",
+  "GAME_FINISH_MESSAGE": "משך זמן המשחק היה {{finishTime}}",
   "GAME_FINISH_MESSAGE_AND": " ו-",
   "TIME_HOUR": "שעה אחת",
   "TIME_HOURS": "{{hours}} שעות",
