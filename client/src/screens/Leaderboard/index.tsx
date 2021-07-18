@@ -43,7 +43,12 @@ class LeaderboardScreen extends Component<Props, State> {
     this.setState({loading: true});
     const {level, page} = this.state;
     const token = this.props.allCookies?.token;
-    const leaderboard = await apiRequests.getLeaderboard(token, level, RECORDS_PER_PAGE, page);
+    const leaderboard = await apiRequests.getLeaderboard(
+      token,
+      level,
+      RECORDS_PER_PAGE,
+      RECORDS_PER_PAGE * page
+    );
     this.setState({leaderboard, loading: false});
   };
 
