@@ -11,4 +11,9 @@
       border: none;
     }
   }
+  @media (max-width: 600px) {
+    .content {
+      margin-bottom: 60px;
+    }
+  }
 }

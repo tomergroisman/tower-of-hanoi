@@ -1,3 +1,4 @@
+import {useTheme} from '@material-ui/core';
 import {useState, useEffect} from 'react';
 import {SIZES} from '../constants';
 
@@ -10,9 +11,13 @@ const getWindowSize = () => {
 };
 
 export const useWindowSize = () => {
+  const {
+    breakpoints: {values: breakpoints},
+  } = useTheme();
   const [windowSize, setWindowSize] = useState(getWindowSize());
-  const [isMobile, setIsMobile] = useState(windowSize.width < SIZES.SMALL);
-  // const [isMobile, setIsMobile] = useState(windowSize.width < SIZES.MOBILE);
+  const [isXsCollapse, setIsXsCollapse] = useState(windowSize.width < SIZES.XSMALL);
+  const [isSmCollapse, setIsSmCollapse] = useState(windowSize.width < SIZES.SMALL);
+  const [isLgCollapse, setIsLgCollapse] = useState(windowSize.width < breakpoints.lg);
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,8 +29,10 @@ export const useWindowSize = () => {
   }, []);
 
   useEffect(() => {
-    setIsMobile(windowSize.width < SIZES.SMALL);
-  }, [windowSize.width]);
+    setIsXsCollapse(windowSize.width < SIZES.XSMALL);
+    setIsSmCollapse(windowSize.width < SIZES.SMALL);
+    setIsLgCollapse(windowSize.width < breakpoints.lg + 20);
+  }, [windowSize.width, breakpoints]);
 
-  return {...windowSize, isMobile};
+  return {...windowSize, isSmCollapse, isLgCollapse, isXsCollapse};
 };

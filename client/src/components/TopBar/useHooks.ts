@@ -2,10 +2,12 @@ import {useCookies} from 'react-cookie';
 import {useHistory} from 'react-router-dom';
 
 import {Props} from '.';
+import {useWindowSize} from '../../utils/hooks/useWindowSize';
 
 export const useHooks = (props: Props) => {
   const history = useHistory();
   const [, , removeCookie] = useCookies(['token']);
+  const {isXsCollapse, isLgCollapse} = useWindowSize();
 
   const handleDecreaseDifficulty = () => {
     props.decreaseDifficulty();
@@ -34,6 +36,29 @@ export const useHooks = (props: Props) => {
     _resetGame();
   };
 
+  const getContainerStyles = (): React.CSSProperties | undefined => {
+    if (isLgCollapse) {
+      return {
+        paddingLeft: 20,
+        paddingRight: 20,
+      };
+    }
+  };
+
+  const getUserSectionStyles = (): React.CSSProperties | undefined => {
+    if (isXsCollapse) {
+      return {
+        position: 'fixed',
+        bottom: 12,
+        right: 12,
+        color: '#595959',
+        padding: 4,
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        borderRadius: 10,
+      };
+    }
+  };
+
   const _startGameIfGameIsOn = () => {
     if (props.isInGame && props.startGame) {
       props.startGame();
@@ -53,5 +78,7 @@ export const useHooks = (props: Props) => {
     handleTitleClick,
     handleLeaderboardClick,
     handleLogout,
+    getContainerStyles,
+    getUserSectionStyles,
   };
 };

@@ -10,10 +10,10 @@ import {Difficulty} from '../../store/types/game';
 import {User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
 import {timerToString} from '../../utils/parse';
+import {NUM_DIFFICULTIES} from '../../utils/constants';
 
 import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
-import {NUM_DIFFICULTIES} from '../../utils/constants';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -38,14 +38,16 @@ interface OwnProps {
 export type Props = OwnProps & StateProps & DispatchProps;
 
 const TopBarComponent = (props: Props) => {
+  const {t} = useTranslation();
   const {
     handleDecreaseDifficulty,
     handleIncreaseDifficulty,
     handleTitleClick,
     handleLeaderboardClick,
     handleLogout,
+    getContainerStyles,
+    getUserSectionStyles,
   } = useHooks(props);
-  const {t} = useTranslation();
 
   const renderLevelSelector = () => {
     const {difficulty} = props;
@@ -65,7 +67,7 @@ const TopBarComponent = (props: Props) => {
 
   return (
     <div className={styles.wrapper}>
-      <Container maxWidth="lg" className={styles.container}>
+      <Container maxWidth="lg" className={styles.container} style={getContainerStyles()}>
         <div className={styles.leftSide}>
           <Typography variant="h6" className={styles.link} onClick={handleTitleClick}>
             {t('TOWER_OF_HANOI')}
@@ -81,7 +83,7 @@ const TopBarComponent = (props: Props) => {
           }`}</Typography>
           {renderLevelSelector()}
         </div>
-        <div className={styles.rightSide}>
+        <div className={styles.rightSide} style={getUserSectionStyles()}>
           <Typography variant="body1" onClick={handleTitleClick}>
             {props.user.nickname}
           </Typography>
