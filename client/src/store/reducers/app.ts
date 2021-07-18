@@ -1,3 +1,4 @@
+import {UserIcon} from '../../components/UserIconSet/interface/UserIcon';
 import {Record} from '../../utils/api/interfaces/Record';
 import {rehydrate} from '../../utils/rehydrate';
 import {getTheme} from '../../utils/theme';
@@ -6,12 +7,13 @@ import {User, AppState, Language} from '../types/app';
 export enum AppActions {
   SET_USER = 'SET_USER',
   SET_BEST_RECORDS = 'SET_BEST_RECORDS',
+  SET_ICON = 'SET_ICON',
   SET_LANGUAGE = 'SET_LANGUAGE',
   SET_PATH = 'SET_PATH',
   RESET_APP = 'RESET_APP',
 }
 
-type Payload = User | Language | Record[];
+type Payload = User | Language | Record[] | UserIcon | undefined;
 
 export const initialState: AppState = {
   user: {},
@@ -54,6 +56,19 @@ export const appStateReducer = (
           ...state,
           language: language,
           theme: getTheme(language),
+        };
+      }
+      return state;
+
+    case AppActions.SET_ICON:
+      if (action.payload) {
+        const icon = action.payload as UserIcon | undefined;
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            icon,
+          },
         };
       }
       return state;

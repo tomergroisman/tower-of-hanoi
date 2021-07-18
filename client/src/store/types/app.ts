@@ -1,4 +1,5 @@
 import {Theme} from '@material-ui/core';
+import {UserIcon} from '../../components/UserIconSet/interface/UserIcon';
 
 import {Record} from '../../utils/api/interfaces/Record';
 
@@ -13,6 +14,7 @@ export interface User {
   email?: string;
   name?: string;
   nickname?: string;
+  icon?: UserIcon;
   bestRecords?: (Record | undefined)[];
 }
 

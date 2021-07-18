@@ -1,0 +1,18 @@
+.popover {
+  pointer-events: none;
+
+  .icon {
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+  
+    &:hover {
+      background-color: #e6e6e6;
+      cursor: pointer;
+    }
+  }
+}
+
+.popoverContent {
+  pointer-events: auto;
+}

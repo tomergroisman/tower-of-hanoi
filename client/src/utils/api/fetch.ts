@@ -1,5 +1,6 @@
 import {User} from '../../store/types/app';
 import {padBestRecordsWithUndefined} from '../arrays';
+import {getIconFromName} from '../icon';
 import {apiRequests} from './requests';
 
 export const fetchUser = async (token: string) => {
@@ -8,6 +9,7 @@ export const fetchUser = async (token: string) => {
   return {
     ...user,
     bestRecords: padBestRecordsWithUndefined(bestRecords),
+    icon: getIconFromName(user.icon),
   } as User;
 };
 

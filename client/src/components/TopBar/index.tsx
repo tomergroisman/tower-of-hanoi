@@ -14,6 +14,8 @@ import {NUM_DIFFICULTIES} from '../../utils/constants';
 
 import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
+import UserIconSet from '../UserIconSet';
+import {useIconList} from './useIconList';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -48,6 +50,7 @@ const TopBarComponent = (props: Props) => {
     getContainerStyles,
     getUserSectionStyles,
   } = useHooks(props);
+  const {anchorEl, open, openIconList, closeIconList, onSelectIcon} = useIconList();
 
   const renderLevelSelector = () => {
     const {difficulty} = props;
@@ -84,9 +87,16 @@ const TopBarComponent = (props: Props) => {
           {renderLevelSelector()}
         </div>
         <div className={styles.rightSide} style={getUserSectionStyles()}>
-          <Typography variant="body1" onClick={handleTitleClick}>
+          <Typography
+            variant="body1"
+            onMouseEnter={openIconList}
+            onMouseLeave={closeIconList}
+            className={styles.nickname}
+          >
+            {props.user.icon?.icon}
             {props.user.nickname}
           </Typography>
+          <UserIconSet anchorEl={anchorEl.current} open={open} onSelectIcon={onSelectIcon} />
           <Button color="inherit" onClick={handleLogout}>
             {t('LOGOUT_LABEL')}
           </Button>

@@ -3,9 +3,11 @@ import {apiEndpoints} from '../constants';
 import {Credentials, User} from '../../store/types/app';
 import {LeaderboardRecord, Record} from './interfaces/Record';
 import {ApiResponse} from './interfaces/Response';
+import {UserApi} from './interfaces/UserApi';
 
 interface ApiRequest {
-  getUser: (token: string) => Promise<Partial<User>>;
+  getUser: (token: string) => Promise<Partial<UserApi>>;
+  updateUser: (token: string, data: Partial<UserApi>) => Promise<Partial<UserApi>>;
   getToken: (credentials: Credentials) => Promise<{token: string}>;
   createUser: (userData: Credentials) => Promise<{user: User}>;
   postRecord: (token: string, record: Record) => Promise<Record>;
@@ -27,8 +29,8 @@ const getAuthorizedHeaders = (token: string) => ({
 export const apiRequests: ApiRequest = {
   getUser: (token: string) => {
     return apiClient
-      .get<User>(apiEndpoints.getUser, getAuthorizedHeaders(token))
-      .then(res => res.data as User);
+      .get<UserApi>(apiEndpoints.getUser, getAuthorizedHeaders(token))
+      .then(res => res.data);
   },
   getToken: (credentials: Credentials) => {
     return apiClient
@@ -63,6 +65,11 @@ export const apiRequests: ApiRequest = {
           offset,
         },
       })
+      .then(res => res.data);
+  },
+  updateUser: (token: string, data: Partial<UserApi>) => {
+    return apiClient
+      .patch<UserApi>(apiEndpoints.getUser, data, getAuthorizedHeaders(token))
       .then(res => res.data);
   },
 };
