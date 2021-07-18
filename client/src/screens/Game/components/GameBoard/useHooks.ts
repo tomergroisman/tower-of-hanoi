@@ -1,10 +1,10 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {DropResult} from 'react-beautiful-dnd';
 import {TFunction} from 'i18next';
 import {Dispatch} from 'redux';
 
 import {endGame, moveDisc} from '../../../../store/actions/game';
-import {getFinishTime} from '../../../../utils/parse';
+import {getFinishTime as getFinishTimeRaw} from '../../../../utils/parse';
 
 import {Props} from '.';
 
@@ -15,9 +15,9 @@ export const useHooks = (props: Props, t: TFunction, dispatch: Dispatch) => {
     }
   };
 
-  const getEndGameMessage = () => {
+  const getFinishTime = () => {
     // @ts-ignore
-    const {seconds, minutes, hours} = getFinishTime(props.finishTime, props.startTime);
+    const {seconds, minutes, hours} = getFinishTimeRaw(props.finishTime, props.startTime);
     let message = [];
     if (!!hours) {
       if (hours > 1) {
@@ -44,8 +44,18 @@ export const useHooks = (props: Props, t: TFunction, dispatch: Dispatch) => {
     if (message.length > 1) {
       last = t('GAME_FINISH_MESSAGE_AND') + message.pop();
     }
-    return t('GAME_FINISH_MESSAGE', {finishTime: message.join(', ') + last});
+    return message.join(', ') + last;
   };
+
+  const getBestRecord = useCallback(() => {
+    const bestRecord = props.bestRecords?.[props.difficulty];
+    if (bestRecord) {
+      return {
+        time: bestRecord.time,
+        moves: bestRecord.moves,
+      };
+    }
+  }, [props.bestRecords, props.difficulty]);
 
   useEffect(() => {
     for (const key of Object.keys(props.board)) {
@@ -57,6 +67,7 @@ export const useHooks = (props: Props, t: TFunction, dispatch: Dispatch) => {
 
   return {
     onDragEnd,
-    getEndGameMessage,
+    getFinishTime,
+    getBestRecord,
   };
 };

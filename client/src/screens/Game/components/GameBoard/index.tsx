@@ -5,12 +5,12 @@ import {useTranslation} from 'react-i18next';
 
 import {Board, Difficulty} from '../../../../store/types/game';
 import {Store} from '../../../../store/types/store';
-
 import {Peg} from '../Peg';
-import {useHooks} from './useHooks';
+import {FinishMessage} from '../FinishMessage';
+import {Record} from '../../../../utils/api/interfaces/Record';
 
+import {useHooks} from './useHooks';
 import styles from './GameBoard.module.scss';
-import {Typography} from '@material-ui/core';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -19,24 +19,22 @@ interface StateProps {
   board: Board;
   startTime?: number;
   finishTime?: number;
+  bestRecords?: (Record | undefined)[];
 }
 
 export type Props = StateProps;
 
-// TODO: delete later
-const pegColors = ['#99ffff', '#cc99ff', '#ccff99', '#ffff99', '#dfbf9f'];
-
 const GameBoardComponent = (props: Props) => {
   const dispatch = useDispatch();
   const {t} = useTranslation();
-  const {onDragEnd, getEndGameMessage} = useHooks(props, t, dispatch);
+  const {onDragEnd, getFinishTime, getBestRecord} = useHooks(props, t, dispatch);
 
   /** Render the pegs to the screen */
   const renderGame = useMemo(
     () => (
       <div className={styles.gameBoard}>
         {Object.keys(props.board).map((key, idx) => (
-          <Peg key={key} id={key} startPeg={props.startPeg} backgroundColor={pegColors[idx]}>
+          <Peg key={key} id={key} startPeg={props.startPeg}>
             {props.board[key]}
           </Peg>
         ))}
@@ -49,9 +47,7 @@ const GameBoardComponent = (props: Props) => {
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
       {props.finishTime && props.startTime && (
-        <Typography className={styles.finishTitle} variant="h5">
-          {getEndGameMessage()}
-        </Typography>
+        <FinishMessage finishTime={getFinishTime()} bestRecord={getBestRecord()} />
       )}
     </div>
   );
@@ -64,6 +60,7 @@ const mapState = (store: Store) => ({
   board: store.gameState.board,
   startTime: store.gameState.startTime,
   finishTime: store.gameState.finishTime,
+  bestRecords: store.appState.user.bestRecords,
 });
 
 export const GameBoard = connect(mapState)(GameBoardComponent);

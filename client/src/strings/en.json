@@ -31,5 +31,7 @@
   "LOADING_LABEL": "Loading...",
   "LEADERBOARD_TABLE_NICKNAME": "Nickname",
   "LEADERBOARD_TABLE_FINISH_TIME": "Finish Time",
-  "LEADERBOARD_TABLE_MOVES": "No. of Moves"
+  "LEADERBOARD_TABLE_MOVES": "No. of Moves",
+  "NEW_BEST_RECORD_PRE": "YES!",
+  "NEW_BEST_RECORD_BODY": "Its a new best RECORD!"
 }

@@ -31,5 +31,7 @@
   "LOADING_LABEL": "טוען...",
   "LEADERBOARD_TABLE_NICKNAME": "כינוי",
   "LEADERBOARD_TABLE_FINISH_TIME": "זמן סיום",
-  "LEADERBOARD_TABLE_MOVES": "מספר מהלכים"
+  "LEADERBOARD_TABLE_MOVES": "מספר מהלכים",
+  "NEW_BEST_RECORD_PRE": "יש!",
+  "NEW_BEST_RECORD_BODY": "שיא חדש!"
 }

@@ -5,7 +5,6 @@ import styles from './Peg.module.scss';
 
 interface Props {
   id: string;
-  backgroundColor: string;
   startPeg: number;
 }
 
