@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'password', 'name', 'nickname']
+        fields = ['email', 'password', 'name', 'nickname', 'icon']
         extra_kwargs = {
             'email': {
                 'error_messages': {
@@ -42,6 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """Update and return a user"""
+        print(validated_data)
         password = validated_data.pop('password', None)
 
         user = super().update(instance, validated_data)

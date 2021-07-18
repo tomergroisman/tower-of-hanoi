@@ -60,6 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         }
     )
     name = fields.CharField(max_length=255, blank=True, null=True)
+    icon = fields.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(
         i18n('ADMIN_USER_ACTIVE'),
         help_text=i18n('ADMIN_USER_ACTIVE_HELPER_TEXT'),
