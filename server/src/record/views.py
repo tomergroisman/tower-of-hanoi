@@ -9,7 +9,7 @@ from record import serializers
 PAGE_SIZE = 20
 
 
-class RecipeViewSet(viewsets.ModelViewSet):
+class RecordViewSet(viewsets.ModelViewSet):
     """Manage record in the database"""
     queryset = Record.objects.all()
     serializer_class = serializers.RecordSerializer

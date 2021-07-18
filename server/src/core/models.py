@@ -78,7 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class RecordManager(models.Manager):
 
-    def create(self, user, time, level, **extra_fields):
+    def create(self, user, time, moves, level, **extra_fields):
         """Create and save a new record"""
         is_best = False
         try:
@@ -87,7 +87,10 @@ class RecordManager(models.Manager):
                 level=level,
                 is_best=True
             )[0]
-            if best_record.time > time:
+            better_time = best_record.time > time
+            better_moves = best_record.time == time and \
+                best_record.moves > moves
+            if better_time or better_moves:
                 is_best = True
                 best_record.is_best = False
                 best_record.save(using=self._db)
@@ -97,6 +100,7 @@ class RecordManager(models.Manager):
         record = super().create(
             user=user,
             time=time,
+            moves=moves,
             is_best=is_best,
             level=level,
             **extra_fields)

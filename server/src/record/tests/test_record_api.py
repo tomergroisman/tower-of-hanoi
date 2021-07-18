@@ -32,7 +32,7 @@ def create_mock_record(user, **params):
 
 
 class PrivateIngredientsApiTests(TestCase):
-    """Private recipe api tests (authenticated)"""
+    """Private record api tests (authenticated)"""
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(**MOCKED_USER)

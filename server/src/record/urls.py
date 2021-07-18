@@ -5,7 +5,7 @@ from record import views
 
 
 router = DefaultRouter()
-router.register('user', views.RecipeViewSet, basename='user')
+router.register('user', views.RecordViewSet, basename='user')
 router.register(
   'leaderboard',
   views.LeaderboardViewSet,
