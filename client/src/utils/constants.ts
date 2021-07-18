@@ -20,4 +20,9 @@ export const NUM_DIFFICULTIES = Object.keys(Difficulty).length / 2;
 
 export const DISC_COLORS = ['red', 'green', 'blue', '#cc33ff', '#ff9900'];
 
-export const MOBILE_THRESHOLD = 600;
+export const SIZES = {
+  LARGE: 1500,
+  MEDIUM: 1000,
+  SMALL: 600,
+  XSMALL: 450,
+};

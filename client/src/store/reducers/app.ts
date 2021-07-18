@@ -7,6 +7,7 @@ export enum AppActions {
   SET_USER = 'SET_USER',
   SET_BEST_RECORDS = 'SET_BEST_RECORDS',
   SET_LANGUAGE = 'SET_LANGUAGE',
+  SET_PATH = 'SET_PATH',
   RESET_APP = 'RESET_APP',
 }
 
@@ -16,6 +17,7 @@ export const initialState: AppState = {
   user: {},
   language: rehydrate.language(),
   theme: getTheme(rehydrate.language()),
+  path: window.location.pathname,
 };
 
 export const appStateReducer = (
@@ -52,6 +54,16 @@ export const appStateReducer = (
           ...state,
           language: language,
           theme: getTheme(language),
+        };
+      }
+      return state;
+
+    case AppActions.SET_PATH:
+      if (action.payload) {
+        const path = action.payload as string;
+        return {
+          ...state,
+          path,
         };
       }
       return state;

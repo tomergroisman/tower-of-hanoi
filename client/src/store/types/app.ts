@@ -6,6 +6,7 @@ export interface AppState {
   user: User;
   language: Language;
   theme: Theme;
+  path: string;
 }
 
 export interface User {

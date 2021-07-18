@@ -13,6 +13,7 @@ import {Assets} from '../../utils/assets';
 
 interface StateProps {
   language: Language;
+  path: string;
 }
 
 interface DispatchProps {
@@ -22,9 +23,9 @@ interface DispatchProps {
 export type Props = StateProps & DispatchProps;
 
 const LanguageSelectorComponent = (props: Props) => {
-  const {handleSetToHe, handleSetToEn} = useHooks(props);
+  const {handleSetToHe, handleSetToEn, position} = useHooks(props);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={position}>
       <Icon spacing={1} asset={Assets.icons.en} onClick={handleSetToEn} />
       <Icon spacing={1} asset={Assets.icons.he} onClick={handleSetToHe} />
     </div>
@@ -33,6 +34,7 @@ const LanguageSelectorComponent = (props: Props) => {
 
 const mapState = (store: Store) => ({
   language: store.appState.language,
+  path: store.appState.path,
 });
 
 const mapDispatch = {

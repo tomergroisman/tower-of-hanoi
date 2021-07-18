@@ -12,6 +12,11 @@ export const setBestRecords = (bestRecords: (Record | undefined)[]) => ({
   payload: bestRecords,
 });
 
+export const setPath = (path: string) => ({
+  type: AppActions.SET_PATH,
+  payload: path,
+});
+
 export const setLanguage = (language: Language) => ({
   type: AppActions.SET_LANGUAGE,
   payload: language,

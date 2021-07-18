@@ -1,42 +1,21 @@
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useCookies} from 'react-cookie';
 import {ThemeProvider} from '@material-ui/core';
 import {StylesProvider, jssPreset} from '@material-ui/core/styles';
 import {create} from 'jss';
 import rtl from 'jss-rtl';
 
 import {Router} from './components/Router';
-import {setUser} from './store/actions/app';
-import {AppState} from './store/types/app';
-import {Store} from './store/types/store';
-import {fetchUser} from './utils/api/fetch';
+
 import {LanguageSelector} from './components/LanguageSelector';
+import {useApp} from './useApp';
 
 const jss = create({plugins: [...jssPreset().plugins, rtl()]});
 
 function App() {
-  const [cookies, setCookies] = useCookies(['token']);
-  const dispatch = useDispatch();
-  const appState = useSelector<Store, AppState>(store => store.appState);
-
-  useEffect(() => {
-    const fetch = async () => {
-      const user = await fetchUser(cookies.token);
-      dispatch(setUser(user));
-    };
-
-    cookies.token && fetch();
-  }, [cookies, dispatch]);
-
-  useEffect(() => {
-    document.body.setAttribute('dir', appState.language === 'en' ? 'ltr' : 'rtl');
-    window.localStorage.setItem('language', appState.language);
-  }, [appState.language, setCookies]);
+  const {theme} = useApp();
 
   return (
     <StylesProvider jss={jss}>
-      <ThemeProvider theme={appState.theme}>
+      <ThemeProvider theme={theme}>
         <LanguageSelector />
         <Router />
       </ThemeProvider>
