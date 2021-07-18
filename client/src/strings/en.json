@@ -7,6 +7,7 @@
   "START_GAME_BUTTON": "Start Game",
   "GAME_FINISH_TITLE": "Game Finished!",
   "GAME_FINISH_MESSAGE": "You finish the game in {{finishTime}}",
+  "GAME_FINISH_BACK": "Back",
   "GAME_FINISH_MESSAGE_AND": " and ",
   "TIME_HOUR": "1 hour",
   "TIME_HOURS": "{{hours}} hours",

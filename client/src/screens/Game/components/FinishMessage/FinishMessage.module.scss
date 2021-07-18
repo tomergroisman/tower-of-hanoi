@@ -5,3 +5,13 @@
 .newBestMessage {
   margin-top: 20px;
 }
+
+.ctaContainer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    border-radius: 50px;
+  }
+}

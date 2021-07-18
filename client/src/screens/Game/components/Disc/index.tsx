@@ -7,7 +7,7 @@ import {
 } from 'react-beautiful-dnd';
 import {connect} from 'react-redux';
 import {Store} from '../../../../store/types/store';
-import {BASE_DISC_WIDTH, DISC_COLORS} from '../../../../utils/constants';
+import {useGameObjectsStyles} from '../useGameObjectsStyles';
 
 import styles from './Disc.module.scss';
 
@@ -25,6 +25,7 @@ type Props = StateProps & OwnProps;
 
 const DiscComponent = (props: Props) => {
   const {size, index, isOnTop, isGameInProgress} = props;
+  const {getDiscStyles} = useGameObjectsStyles({discSize: size});
 
   /** Disable dnd drop animation */
   const getStyle = (
@@ -53,10 +54,7 @@ const DiscComponent = (props: Props) => {
           {...provided.dragHandleProps}
           style={getStyle(provided.draggableProps.style, snapshot)}
         >
-          <div
-            className={styles.disc}
-            style={{backgroundColor: DISC_COLORS[size], width: BASE_DISC_WIDTH * (size + 1)}}
-          />
+          <div className={styles.disc} style={getDiscStyles()} />
         </div>
       )}
     </Draggable>

@@ -1,36 +1,37 @@
 import {useEffect, useRef, useState} from 'react';
-import {useTranslation} from 'react-i18next';
+import {useDispatch} from 'react-redux';
 
 import {useWindowSize} from '../../../../utils/hooks/useWindowSize';
+import {resetGame} from '../../../../store/actions/game';
 
 import {Props} from '.';
 
 export const useHooks = ({finishTime, bestRecord}: Props) => {
-  const {t} = useTranslation();
   const windowSize = useWindowSize();
+  const dispatch = useDispatch();
   const [isBestRecord, setIsBestRecord] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
   const didMountRef = useRef(false);
 
-  const getEndGameMessage = () => {
-    return t('GAME_FINISH_MESSAGE', {finishTime});
-  };
-
-  const newBestRecordMessage = {
-    pre: t('NEW_BEST_RECORD_PRE'),
-    body: t('NEW_BEST_RECORD_BODY'),
+  const handleBackClick = () => {
+    dispatch(resetGame());
   };
 
   useEffect(() => {
     if (didMountRef.current) {
       setIsBestRecord(true);
+    } else {
+      didMountRef.current = true;
+      setTimeout(() => {
+        setShowCTA(true);
+      }, 1000);
     }
-    didMountRef.current = true;
   }, [bestRecord?.time, bestRecord?.moves]);
 
   return {
-    getEndGameMessage,
     isBestRecord,
-    newBestRecordMessage,
+    handleBackClick,
+    showCTA,
     windowSize,
   };
 };

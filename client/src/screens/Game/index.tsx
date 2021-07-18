@@ -128,6 +128,9 @@ class GameScreen extends Component<Props, State> {
       this.handleEndGame();
       this.submitRecord();
     }
+    if (prevProps.startTime !== this.props.startTime && !this.props.startTime) {
+      this.handleEndGame(true);
+    }
   }
 
   render() {

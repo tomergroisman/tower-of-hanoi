@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {MOBILE_THRESHOLD} from '../constants';
 
 const getWindowSize = () => {
   const {innerWidth: width, innerHeight: height} = window;
@@ -10,6 +11,7 @@ const getWindowSize = () => {
 
 export const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
+  const [isMobile, setIsMobile] = useState(windowSize.width < MOBILE_THRESHOLD);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,5 +22,9 @@ export const useWindowSize = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return windowSize;
+  useEffect(() => {
+    setIsMobile(windowSize.width < MOBILE_THRESHOLD);
+  }, [windowSize.width]);
+
+  return {...windowSize, isMobile};
 };
