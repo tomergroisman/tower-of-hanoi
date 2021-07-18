@@ -7,6 +7,7 @@ import {
 } from 'react-beautiful-dnd';
 import {connect} from 'react-redux';
 import {Store} from '../../../../store/types/store';
+import {BASE_DISC_WIDTH, DISC_COLORS} from '../../../../utils/constants';
 
 import styles from './Disc.module.scss';
 
@@ -21,8 +22,6 @@ interface OwnProps {
 }
 
 type Props = StateProps & OwnProps;
-
-const discColors = ['red', 'green', 'blue', '#cc33ff', '#ff9900'];
 
 const DiscComponent = (props: Props) => {
   const {size, index, isOnTop, isGameInProgress} = props;
@@ -56,7 +55,7 @@ const DiscComponent = (props: Props) => {
         >
           <div
             className={styles.disc}
-            style={{backgroundColor: discColors[size], width: 30 * (size + 1)}}
+            style={{backgroundColor: DISC_COLORS[size], width: BASE_DISC_WIDTH * (size + 1)}}
           />
         </div>
       )}

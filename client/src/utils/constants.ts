@@ -17,3 +17,7 @@ export const apiEndpoints = {
 };
 
 export const NUM_DIFFICULTIES = Object.keys(Difficulty).length / 2;
+
+export const DISC_COLORS = ['red', 'green', 'blue', '#cc33ff', '#ff9900'];
+
+export const BASE_DISC_WIDTH = 30;

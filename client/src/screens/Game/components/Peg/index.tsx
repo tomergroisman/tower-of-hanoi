@@ -10,14 +10,16 @@ interface Props {
 }
 
 export const Peg = (props: PropsWithChildren<Props>) => {
-  const {id, backgroundColor} = props;
+  const {id} = props;
 
   return (
     <Droppable droppableId={id} ignoreContainerClipping isCombineEnabled>
       {provided => (
-        <div ref={provided.innerRef} className={styles.container} style={{backgroundColor}}>
-          {provided.placeholder}
-          <div className={styles['disc-container']}>{props.children}</div>
+        <div ref={provided.innerRef} className={styles.container}>
+          <div className={styles.peg} style={{backgroundImage: `url(img/${id}.png)`}}>
+            {provided.placeholder}
+            <div className={styles.discContainer}>{props.children}</div>
+          </div>
         </div>
       )}
     </Droppable>

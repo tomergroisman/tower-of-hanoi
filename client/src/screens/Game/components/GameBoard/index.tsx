@@ -10,6 +10,7 @@ import {Peg} from '../Peg';
 import {useHooks} from './useHooks';
 
 import styles from './GameBoard.module.scss';
+import {Typography} from '@material-ui/core';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -32,19 +33,26 @@ const GameBoardComponent = (props: Props) => {
 
   /** Render the pegs to the screen */
   const renderGame = useMemo(
-    () =>
-      Object.keys(props.board).map((key, idx) => (
-        <Peg key={key} id={key} startPeg={props.startPeg} backgroundColor={pegColors[idx]}>
-          {props.board[key]}
-        </Peg>
-      )),
+    () => (
+      <div className={styles.gameBoard}>
+        {Object.keys(props.board).map((key, idx) => (
+          <Peg key={key} id={key} startPeg={props.startPeg} backgroundColor={pegColors[idx]}>
+            {props.board[key]}
+          </Peg>
+        ))}
+      </div>
+    ),
     [props.board, props.startPeg]
   );
 
   return (
     <div className={styles.container}>
       <DragDropContext onDragEnd={onDragEnd}>{renderGame}</DragDropContext>
-      {props.finishTime && props.startTime && <p>{getEndGameMessage()}</p>}
+      {props.finishTime && props.startTime && (
+        <Typography className={styles.finishTitle} variant="h5">
+          {getEndGameMessage()}
+        </Typography>
+      )}
     </div>
   );
 };
