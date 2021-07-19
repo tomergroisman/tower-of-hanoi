@@ -21,6 +21,7 @@ class RecordSerializer(serializers.ModelSerializer):
 class LeaderboardSerializer(serializers.ModelSerializer):
     """Serializer for leaderboard record objects"""
     nickname = serializers.SerializerMethodField()
+    icon = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
@@ -30,10 +31,15 @@ class LeaderboardSerializer(serializers.ModelSerializer):
             'time',
             'moves',
             'date',
-            'nickname'
+            'nickname',
+            'icon',
         )
-        read_only_field = ('id', 'nickname')
+        read_only_field = ('id', 'nickname', 'icon')
 
     def get_nickname(self, obj):
         """Get the instance nickname"""
         return obj.user.nickname
+    
+    def get_icon(self, obj):
+        """Get the instance icon"""
+        return obj.user.icon
