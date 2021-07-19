@@ -15,6 +15,7 @@ import {useTranslation} from 'react-i18next';
 
 import {LeaderboardRecord} from '../../../../utils/api/interfaces/Record';
 import {RECORDS_PER_PAGE} from '../..';
+import styles from './LeaderboardTable.module.scss';
 
 export interface Props {
   records: LeaderboardRecord[];
@@ -47,11 +48,12 @@ export const LeaderboardTable = ({records, onPageChange, nickname, page, count}:
           {records.map(record => (
             <TableRow key={`leaderboard-${record.nickname}`}>
               <TableCell
+                className={styles.nicknameCell}
                 component="th"
                 scope="row"
                 style={record.nickname === nickname ? selectedStyles : undefined}
               >
-                {record.nickname}
+                {record.nickname} {record.icon?.icon}
               </TableCell>
               <TableCell
                 align="right"

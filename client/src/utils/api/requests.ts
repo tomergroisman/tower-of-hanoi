@@ -1,7 +1,7 @@
 import {apiClient} from './api';
 import {apiEndpoints} from '../constants';
 import {Credentials, User} from '../../store/types/app';
-import {LeaderboardRecord, Record} from './interfaces/Record';
+import {LeaderboardRecordApi, Record} from './interfaces/Record';
 import {ApiResponse} from './interfaces/Response';
 import {UserApi} from './interfaces/UserApi';
 
@@ -17,7 +17,7 @@ interface ApiRequest {
     level?: number,
     limit?: number,
     offset?: number
-  ) => Promise<ApiResponse<LeaderboardRecord[]>>;
+  ) => Promise<ApiResponse<LeaderboardRecordApi[]>>;
 }
 
 const getAuthorizedHeaders = (token: string) => ({
@@ -57,7 +57,7 @@ export const apiRequests: ApiRequest = {
   },
   getLeaderboard: (token: string, level: number = 1, limit: number = 20, offset: number = 1) => {
     return apiClient
-      .get<ApiResponse<LeaderboardRecord[]>>(apiEndpoints.leaderboard, {
+      .get<ApiResponse<LeaderboardRecordApi[]>>(apiEndpoints.leaderboard, {
         ...getAuthorizedHeaders(token),
         params: {
           level,

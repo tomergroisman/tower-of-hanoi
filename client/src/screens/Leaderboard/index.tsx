@@ -15,6 +15,7 @@ import {DifficultySelector} from './components/DifficultySelector';
 import {LeaderboardTable} from './components/LeaderboardTable';
 
 import styles from './Leaderboard.module.scss';
+import {getIconFromName} from '../../utils/icon';
 
 export const RECORDS_PER_PAGE = 20;
 
@@ -43,12 +44,20 @@ class LeaderboardScreen extends Component<Props, State> {
     this.setState({loading: true});
     const {level, page} = this.state;
     const token = this.props.allCookies?.token;
-    const leaderboard = await apiRequests.getLeaderboard(
+    const fetchedLeaderboard = await apiRequests.getLeaderboard(
       token,
       level,
       RECORDS_PER_PAGE,
       RECORDS_PER_PAGE * page
     );
+    const leaderboard: ApiResponse<LeaderboardRecord[]> = {
+      ...fetchedLeaderboard,
+      results: fetchedLeaderboard.results.map(record => ({
+        ...record,
+        icon: getIconFromName(record.icon),
+      })),
+    };
+    console.log(leaderboard);
     this.setState({leaderboard, loading: false});
   };
 
