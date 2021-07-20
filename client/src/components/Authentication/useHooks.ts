@@ -1,12 +1,17 @@
 import {useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
+import {useDispatch} from 'react-redux';
+
 import {Credentials, ErrorFields} from '../../store/types/app';
 import {apiRequests} from '../../utils/api/requests';
+import {setUser} from '../../store/actions/app';
+import {fetchUser} from '../../utils/api/fetch';
 
 import {Props} from '.';
 
 export const useHooks = (props: Props) => {
   const [, setCookies] = useCookies(['token']);
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState<ErrorFields>();
   const [loading, setLoading] = useState(false);
 
@@ -24,6 +29,8 @@ export const useHooks = (props: Props) => {
       }
       const {token} = await apiRequests.getToken(userData);
       _setTokenCookie(token);
+      const user = await fetchUser(token);
+      dispatch(setUser(user));
     } catch (e) {
       const errors: ErrorFields = e.response.data;
       setLoading(false);

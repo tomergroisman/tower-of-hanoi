@@ -154,7 +154,7 @@ const mapState = (store: Store) => ({
   finishTime: store.gameState.finishTime,
   level: store.gameState.difficulty + 1,
   moves: store.gameState.moves,
-  bestRecords: store.appState.user.bestRecords,
+  bestRecords: store.appState.user?.bestRecords,
 });
 
 const mapDispatch: DispatchProps = {

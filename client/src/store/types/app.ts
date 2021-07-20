@@ -4,7 +4,7 @@ import {UserIcon} from '../../components/UserIconSet/interface/UserIcon';
 import {Record} from '../../utils/api/interfaces/Record';
 
 export interface AppState {
-  user: User;
+  user?: User;
   language: Language;
   theme: Theme;
   path: string;

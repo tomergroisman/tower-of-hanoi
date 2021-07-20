@@ -21,7 +21,7 @@ interface StateProps {
   difficulty: Difficulty;
   moves: number;
   isInGame: boolean;
-  user: User;
+  user?: User;
 }
 
 interface DispatchProps {
@@ -93,8 +93,8 @@ const TopBarComponent = (props: Props) => {
             onMouseLeave={closeIconList}
             className={styles.nickname}
           >
-            {props.user.icon?.icon}
-            {props.user.nickname}
+            {props.user?.icon?.icon}
+            {props.user?.nickname}
           </Typography>
           <UserIconSet anchorEl={anchorEl.current} open={open} onSelectIcon={onSelectIcon} />
           <Button color="inherit" onClick={handleLogout}>

@@ -16,7 +16,6 @@ export enum AppActions {
 type Payload = User | Language | Record[] | UserIcon | undefined;
 
 export const initialState: AppState = {
-  user: {},
   language: rehydrate.language(),
   theme: getTheme(rehydrate.language()),
   path: window.location.pathname,

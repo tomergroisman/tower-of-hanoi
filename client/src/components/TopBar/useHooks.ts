@@ -29,11 +29,11 @@ export const useHooks = (props: Props) => {
     _resetGame();
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    _resetGame();
+    props.resetApp();
     history.push('/login');
     removeCookie('token');
-    props.resetApp();
-    _resetGame();
   };
 
   const getContainerStyles = (): React.CSSProperties | undefined => {

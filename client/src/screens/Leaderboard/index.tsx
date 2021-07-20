@@ -124,8 +124,8 @@ class LeaderboardScreen extends Component<Props, State> {
 }
 
 const mapState = (store: Store) => ({
-  nickname: store.appState.user.nickname ?? '',
-  userIcon: store.appState.user.icon,
+  nickname: store.appState.user?.nickname ?? '',
+  userIcon: store.appState.user?.icon,
 });
 
 export const Leaderboard = connect(mapState)(withCookies(withTranslation()(LeaderboardScreen)));

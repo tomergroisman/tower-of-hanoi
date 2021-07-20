@@ -62,7 +62,7 @@ const mapState = (store: Store) => ({
   board: store.gameState.board,
   startTime: store.gameState.startTime,
   finishTime: store.gameState.finishTime,
-  bestRecords: store.appState.user.bestRecords,
+  bestRecords: store.appState.user?.bestRecords,
 });
 
 export const GameBoard = connect(mapState)(GameBoardComponent);
