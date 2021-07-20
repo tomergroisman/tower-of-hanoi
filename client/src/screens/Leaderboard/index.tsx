@@ -2,32 +2,32 @@
 import React, {Component} from 'react';
 import {ReactCookieProps, withCookies} from 'react-cookie';
 import {withTranslation, WithTranslation} from 'react-i18next';
-import {connect} from 'react-redux';
 import {CircularProgress, Container, Typography} from '@material-ui/core';
+import {connect} from 'react-redux';
 
 import {TopBar} from '../../components/TopBar';
 import {Store} from '../../store/types/store';
-import {LeaderboardRecord} from '../../utils/api/interfaces/Record';
-import {apiRequests} from '../../utils/api/requests';
-import {ApiResponse} from '../../utils/api/interfaces/Response';
 import {Difficulty} from '../../store/types/game';
 import {DifficultySelector} from './components/DifficultySelector';
 import {LeaderboardTable} from './components/LeaderboardTable';
+import {fetchLeaderboard} from '../../utils/api/fetch';
+import {UserIcon} from '../../components/UserIconSet/interface/UserIcon';
+import {Leaderboard as TLeaderboard} from '../../utils/api/interfaces/Leaderboard';
 
 import styles from './Leaderboard.module.scss';
-import {getIconFromName} from '../../utils/icon';
 
 export const RECORDS_PER_PAGE = 20;
 
 interface StateProps {
   nickname: string;
+  userIcon?: UserIcon;
 }
 
 interface State {
   loading: boolean;
   level: number;
   page: number;
-  leaderboard?: ApiResponse<LeaderboardRecord[]>;
+  leaderboard?: TLeaderboard;
 }
 
 type Props = StateProps & WithTranslation & ReactCookieProps;
@@ -44,21 +44,13 @@ class LeaderboardScreen extends Component<Props, State> {
     this.setState({loading: true});
     const {level, page} = this.state;
     const token = this.props.allCookies?.token;
-    const fetchedLeaderboard = await apiRequests.getLeaderboard(
+    const leaderboard = await fetchLeaderboard(
       token,
       level,
       RECORDS_PER_PAGE,
       RECORDS_PER_PAGE * page
     );
-    const leaderboard: ApiResponse<LeaderboardRecord[]> = {
-      ...fetchedLeaderboard,
-      results: fetchedLeaderboard.results.map(record => ({
-        ...record,
-        icon: getIconFromName(record.icon),
-      })),
-    };
-    console.log(leaderboard);
-    this.setState({leaderboard, loading: false});
+    this.setState({leaderboard: leaderboard, loading: false});
   };
 
   /** Page change handler */
@@ -91,18 +83,19 @@ class LeaderboardScreen extends Component<Props, State> {
     this.fetchLeaderboard();
   }
 
-  componentDidUpdate({}, prevState: State) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     const isPageChanged = prevState.page !== this.state.page;
     const isLevelChanged = prevState.level !== this.state.level;
+    const isIconChanged = prevProps.userIcon !== this.props.userIcon;
 
-    if (isPageChanged || isLevelChanged) {
+    if (isPageChanged || isLevelChanged || isIconChanged) {
       this.fetchLeaderboard();
     }
   }
 
   render() {
     const {nickname} = this.props;
-    const {leaderboard, level} = this.state;
+    const {level, leaderboard} = this.state;
 
     return (
       <div>
@@ -132,6 +125,7 @@ class LeaderboardScreen extends Component<Props, State> {
 
 const mapState = (store: Store) => ({
   nickname: store.appState.user.nickname ?? '',
+  userIcon: store.appState.user.icon,
 });
 
 export const Leaderboard = connect(mapState)(withCookies(withTranslation()(LeaderboardScreen)));

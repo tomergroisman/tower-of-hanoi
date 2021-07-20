@@ -1,9 +1,10 @@
 import {apiClient} from './api';
 import {apiEndpoints} from '../constants';
 import {Credentials, User} from '../../store/types/app';
-import {LeaderboardRecordApi, Record} from './interfaces/Record';
+import {Record} from './interfaces/Record';
 import {ApiResponse} from './interfaces/Response';
 import {UserApi} from './interfaces/UserApi';
+import {LeaderboardRecordApi} from './interfaces/Leaderboard';
 
 interface ApiRequest {
   getUser: (token: string) => Promise<Partial<UserApi>>;
