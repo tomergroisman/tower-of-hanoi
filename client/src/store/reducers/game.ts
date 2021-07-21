@@ -4,7 +4,6 @@ import * as _ from 'lodash';
 import {createBoard, difficultyToGameBoard} from '../../utils/gameBoard';
 import {EndDrag} from '../types/actions';
 import {GameState, Difficulty} from '../types/game';
-import {PEGS} from '../../utils/constants';
 
 export enum GameActions {
   CHANGE_DIFFICULTY = 'CHANGE_DIFFICULTY',
@@ -42,15 +41,12 @@ export const gameStateReducer = (
       };
 
     case GameActions.START_GAME:
-      const startPeg = Math.floor(Math.random() * PEGS);
-
       return {
         ...state,
         startTime: Date.now(),
         finishTime: undefined,
-        startPeg: startPeg,
         moves: 0,
-        board: createBoard(startPeg, state.discs),
+        board: createBoard(state.startPeg, state.discs),
       };
 
     case GameActions.END_GAME:

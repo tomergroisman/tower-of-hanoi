@@ -34,5 +34,11 @@
   "LEADERBOARD_TABLE_FINISH_TIME": "Finish Time",
   "LEADERBOARD_TABLE_MOVES": "No. of Moves",
   "NEW_BEST_RECORD_PRE": "YES!",
-  "NEW_BEST_RECORD_BODY": "Its a new best RECORD!"
+  "NEW_BEST_RECORD_BODY": "Its a new best RECORD!",
+  "HELP_DIALOG_TITLE": "Welcome to Tower of Hanoi!",
+  "HELP_DIALOG_BODY": "The goal of the puzzle is to move all the disks from the rightmost peg to the leftmost peg, adhering to the following rules:",
+  "HELP_DIALOG_RULE_1": "Move only one disk at a time.",
+  "HELP_DIALOG_RULE_2": "A larger disk may not be placed on top of a smaller disk.",
+  "HELP_DIALOG_RULE_3": "All disks, except the one being moved, must be on a peg.",
+  "HELP_DIALOG_BACK_CTA": "BACK"
 }

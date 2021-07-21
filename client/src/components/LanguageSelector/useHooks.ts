@@ -10,6 +10,7 @@ export const useHooks = (props: Props) => {
   const {i18n} = useTranslation();
   const {width: screenWidth} = useWindowSize();
   const [position, setPosition] = useState<React.CSSProperties>({top: 0});
+  const [openHelpDialog, setOpenHelpDialog] = useState(false);
 
   const handleSetToEn = () => {
     props.setLanguage('en');
@@ -17,6 +18,14 @@ export const useHooks = (props: Props) => {
 
   const handleSetToHe = () => {
     props.setLanguage('he');
+  };
+
+  const handleOpenHelpDialog = () => {
+    setOpenHelpDialog(true);
+  };
+
+  const handleCloseHelpDialog = () => {
+    setOpenHelpDialog(false);
   };
 
   useEffect(() => {
@@ -36,5 +45,8 @@ export const useHooks = (props: Props) => {
     handleSetToEn,
     handleSetToHe,
     position,
+    openHelpDialog,
+    handleOpenHelpDialog,
+    handleCloseHelpDialog,
   };
 };

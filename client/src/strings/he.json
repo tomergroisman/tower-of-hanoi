@@ -34,5 +34,12 @@
   "LEADERBOARD_TABLE_FINISH_TIME": "זמן סיום",
   "LEADERBOARD_TABLE_MOVES": "מספר מהלכים",
   "NEW_BEST_RECORD_PRE": "יש!",
-  "NEW_BEST_RECORD_BODY": "שיא חדש!"
+  "NEW_BEST_RECORD_BODY": "שיא חדש!",
+  "HELP_DIALOG_TITLE": "ברוכים הבאים למגדל האנוי!",
+  "HELP_DIALOG_BODY": "מטרת המשחק היא להזיז את כל הדיסקיות מהעמוד הימני ביותק לעמוד השמאלי ביותר, בהתאם לחוקים הבאים:",
+  "HELP_DIALOG_RULE_1": "ניתן להזיז דיסקית אחת בכל מהלך.",
+  "HELP_DIALOG_RULE_2": "דיסקית לא תונח על דיסקית שקטנה ממנה.",
+  "HELP_DIALOG_RULE_3": "על כל הדיסקיות, למעט זו שמועברת, להימצא על אחד העמודים.",
+  "HELP_DIALOG_BACK_CTA": "חזור"
+
 }

@@ -1,6 +1,13 @@
 .container {
   position: fixed;
+  align-items: center;
+  display: flex;
   padding: 12px;
   left: 0;
   direction: ltr;
+
+  .help {
+    margin: 0 8px;
+    cursor: pointer;
+  }
 }
