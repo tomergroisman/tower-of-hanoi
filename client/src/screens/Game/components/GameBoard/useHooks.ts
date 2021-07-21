@@ -7,6 +7,7 @@ import {endGame, moveDisc} from '../../../../store/actions/game';
 import {getFinishTime as getFinishTimeRaw} from '../../../../utils/parse';
 
 import {Props} from '.';
+import {END_PEG} from '../../../../utils/constants';
 
 export const useHooks = (props: Props, t: TFunction, dispatch: Dispatch) => {
   const onDragEnd = ({source, destination}: DropResult) => {
@@ -59,7 +60,7 @@ export const useHooks = (props: Props, t: TFunction, dispatch: Dispatch) => {
 
   useEffect(() => {
     for (const key of Object.keys(props.board)) {
-      if (key !== `peg-${props.startPeg}` && props.board[key].length === props.discs) {
+      if (key === `peg-${END_PEG}` && props.board[key].length === props.discs) {
         dispatch(endGame());
       }
     }
