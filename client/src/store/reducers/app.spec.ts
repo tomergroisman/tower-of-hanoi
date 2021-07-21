@@ -19,7 +19,6 @@ describe('App state reducer tests', () => {
   it('should return the initial state', () => {
     const state = reducer(undefined);
     expect(state).toMatchObject({
-      user: {},
       language: 'en',
     });
   });
@@ -32,9 +31,9 @@ describe('App state reducer tests', () => {
 
     const state = reducer(undefined, action);
 
-    expect(state.user.email).toEqual(mockUser.email);
-    expect(state.user.nickname).toEqual(mockUser.nickname);
-    expect(state.user.name).toBeUndefined();
+    expect(state.user?.email).toEqual(mockUser.email);
+    expect(state.user?.nickname).toEqual(mockUser.nickname);
+    expect(state.user?.name).toBeUndefined();
   });
 
   it('should set a new best records array', () => {
@@ -46,7 +45,7 @@ describe('App state reducer tests', () => {
 
     const state = reducer(undefined, action);
 
-    expect(state.user.bestRecords).toEqual(bestRecords);
+    expect(state.user?.bestRecords).toEqual(bestRecords);
   });
 
   it('should set a language', () => {

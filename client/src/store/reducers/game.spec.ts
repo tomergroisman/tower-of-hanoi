@@ -38,15 +38,11 @@ describe('Game state reducer tests', () => {
     };
 
     jest.spyOn(require('../../utils/gameBoard'), 'createBoard');
-    jest.spyOn(Math, 'random').mockReturnValue(0);
-    jest.spyOn(Math, 'floor');
 
     const state = reducer(prevState, action);
 
     expect(state.startTime).toBeDefined();
     expect(createBoard).toBeCalledWith(0, 3);
-    expect(Math.random).toBeCalled();
-    expect(Math.floor).toBeCalled();
   });
 
   it('should end the game', () => {
