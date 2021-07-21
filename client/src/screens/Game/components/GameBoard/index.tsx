@@ -8,10 +8,10 @@ import {Store} from '../../../../store/types/store';
 import {Peg} from '../Peg';
 import {FinishMessage} from '../FinishMessage';
 import {Record} from '../../../../utils/api/interfaces/Record';
+import {useGameObjectsStyles} from '../useGameObjectsStyles';
 
 import {useHooks} from './useHooks';
 import styles from './GameBoard.module.scss';
-import {useGameObjectsStyles} from '../useGameObjectsStyles';
 
 interface StateProps {
   difficulty: Difficulty;
@@ -31,7 +31,6 @@ const GameBoardComponent = (props: Props) => {
   const {onDragEnd, getFinishTime, getBestRecord} = useHooks(props, t, dispatch);
   const {getBoardContainerStyles, getBoardStyles} = useGameObjectsStyles({});
 
-  /** Render the pegs to the screen */
   const renderGame = useMemo(
     () => (
       <div className={styles.gameBoard} style={getBoardStyles()}>

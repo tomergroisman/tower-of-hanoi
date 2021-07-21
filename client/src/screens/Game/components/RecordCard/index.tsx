@@ -4,11 +4,11 @@ import {Card, Grid, Typography} from '@material-ui/core';
 
 import {Difficulty} from '../../../../store/types/game';
 import {Record} from '../../../../utils/api/interfaces/Record';
-
-import styles from './RecordCard.module.scss';
 import {parseDate} from '../../../../utils/parse';
 import {Icon} from '../../../../components/Icon';
 import {Assets} from '../../../../utils/assets';
+
+import styles from './RecordCard.module.scss';
 
 interface Props {
   record?: Record;

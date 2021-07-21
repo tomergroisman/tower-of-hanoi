@@ -1,10 +1,10 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {Button, Slide, Typography, Zoom} from '@material-ui/core';
 import Confetti from 'react-confetti';
 
 import {useHooks} from './useHooks';
 import styles from './FinishMessage.module.scss';
-import {useTranslation} from 'react-i18next';
 
 export interface Props {
   finishTime: string;

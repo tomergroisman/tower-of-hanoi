@@ -1,7 +1,7 @@
 import React from 'react';
+import * as _ from 'lodash';
 import {useTranslation} from 'react-i18next';
 import {ToggleButton, ToggleButtonGroup} from '@material-ui/lab';
-import * as _ from 'lodash';
 
 import {Difficulty} from '../../../../store/types/game';
 

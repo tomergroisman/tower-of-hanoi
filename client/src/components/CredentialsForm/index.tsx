@@ -1,8 +1,8 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {TextField, Button, Typography, CircularProgress, Container} from '@material-ui/core';
-import * as _ from 'lodash';
 import {useTranslation} from 'react-i18next';
+import * as _ from 'lodash';
 
 import {Credentials, ErrorFields} from '../../store/types/app';
 import {AuthenticationScreen} from '../Authentication';

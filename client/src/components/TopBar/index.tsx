@@ -11,11 +11,11 @@ import {User} from '../../store/types/app';
 import {Store} from '../../store/types/store';
 import {timerToString} from '../../utils/parse';
 import {NUM_DIFFICULTIES} from '../../utils/constants';
+import UserIconSet from '../UserIconSet';
 
+import {useIconList} from './useIconList';
 import {useHooks} from './useHooks';
 import styles from './TopBar.module.scss';
-import UserIconSet from '../UserIconSet';
-import {useIconList} from './useIconList';
 
 interface StateProps {
   difficulty: Difficulty;

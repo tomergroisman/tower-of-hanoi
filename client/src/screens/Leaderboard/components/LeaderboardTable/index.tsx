@@ -14,8 +14,8 @@ import {
 import {useTranslation} from 'react-i18next';
 
 import {LeaderboardRecord} from '../../../../utils/api/interfaces/Leaderboard';
-
 import {RECORDS_PER_PAGE} from '../..';
+
 import styles from './LeaderboardTable.module.scss';
 
 export interface Props {

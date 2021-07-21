@@ -1,8 +1,9 @@
 import {useCookies} from 'react-cookie';
 import {useHistory} from 'react-router-dom';
 
-import {Props} from '.';
 import {useWindowSize} from '../../utils/hooks/useWindowSize';
+
+import {Props} from '.';
 
 export const useHooks = (props: Props) => {
   const history = useHistory();

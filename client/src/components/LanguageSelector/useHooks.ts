@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import {useWindowSize} from '../../utils/hooks/useWindowSize';
+import {SIZES} from '../../utils/constants';
 
 import {Props} from '.';
-import {SIZES} from '../../utils/constants';
 
 export const useHooks = (props: Props) => {
   const {i18n} = useTranslation();

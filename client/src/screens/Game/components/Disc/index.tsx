@@ -6,6 +6,7 @@ import {
   NotDraggingStyle,
 } from 'react-beautiful-dnd';
 import {connect} from 'react-redux';
+
 import {Store} from '../../../../store/types/store';
 import {useGameObjectsStyles} from '../useGameObjectsStyles';
 
@@ -27,7 +28,6 @@ const DiscComponent = (props: Props) => {
   const {size, index, isOnTop, isGameInProgress} = props;
   const {getDiscStyles} = useGameObjectsStyles({discSize: size});
 
-  /** Disable dnd drop animation */
   const getStyle = (
     style?: DraggingStyle | NotDraggingStyle,
     snapshot?: DraggableStateSnapshot

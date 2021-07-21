@@ -39,14 +39,10 @@ interface State {
 export type Props = StateProps & DispatchProps & WithTranslation & ReactCookieProps;
 
 class GameScreen extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      gameTimer: 0,
-      timerInterval: null,
-    };
-  }
+  state: State = {
+    gameTimer: 0,
+    timerInterval: null,
+  };
 
   /** Clear the game timer interval, if defined */
   clearTimerInterval() {

@@ -1,5 +1,6 @@
 import {useCookies} from 'react-cookie';
 import {Switch, Route, Redirect} from 'react-router-dom';
+
 import {Game} from '../../screens/Game';
 import {Leaderboard} from '../../screens/Leaderboard';
 import {Login} from '../../screens/Login';

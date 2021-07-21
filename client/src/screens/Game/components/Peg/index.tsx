@@ -1,5 +1,6 @@
 import React, {PropsWithChildren} from 'react';
 import {Droppable} from 'react-beautiful-dnd';
+
 import {useGameObjectsStyles} from '../useGameObjectsStyles';
 
 import styles from './Peg.module.scss';
