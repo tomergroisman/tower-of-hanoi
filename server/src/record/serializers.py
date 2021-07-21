@@ -39,7 +39,7 @@ class LeaderboardSerializer(serializers.ModelSerializer):
     def get_nickname(self, obj):
         """Get the instance nickname"""
         return obj.user.nickname
-    
+
     def get_icon(self, obj):
         """Get the instance icon"""
         return obj.user.icon
