@@ -6,6 +6,7 @@ services:
     depends_on:
       - client
       - server
+    restart: always
     build:
       context: ./nginx
       dockerfile: Dockerfile
@@ -17,9 +18,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    volumes: 
-      - ./client:/app
-      - /app/node_modules
+    restart: on-failure
     command: >
       sh -c "npm start"
 
@@ -28,10 +27,9 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    volumes: 
-      - ./server/src:/app
     env_file:
       - ./env/server.env    
+    restart: on-failure
     depends_on:
       - db
     command: >
@@ -41,7 +39,5 @@ services:
   db:
     container_name: tower-of-hanoi-db
     image: postgres:13.3-alpine
-    environment: 
-      - POSTGRES_DB=app
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=supersecretpassword 
+    env_file:
+      - ./env/db.env   
