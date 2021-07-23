@@ -1,41 +1,53 @@
-version: "3"
+version: "3.3"
 
 services: 
+  nginx:
+    container_name: towe-of-hanoi-nginx
+    depends_on:
+      - client
+      - server
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+
   client:
+    container_name: towe-of-hanoi-client
     build:
       context: ./client
-    ports:
-      - "3000:3000"
+      dockerfile: Dockerfile
+    # ports:
+      # - "3000:3000"
     volumes: 
       - ./client:/app
       - /app/node_modules
-    container_name: towe-of-hanoi-client
-    stdin_open: true
+    restart: on-failure
     command: >
       sh -c "npm start"
 
   server:
+    container_name: towe-of-hanoi-server
     build:
       context: ./server
-    ports:
-      - "3232:3232"
+      dockerfile: Dockerfile
+    # ports:
+      # - "3232:3232"
     volumes: 
       - ./server/src:/app
-    container_name: towe-of-hanoi-server
+    env_file:
+      - ./env/server.env    
+    restart: on-failure
+    depends_on:
+      - db
     command: >
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:3232"
-    environment:
-      - DB_HOST=db
-      - DB_NAME=app
-      - DB_USER=postgres
-      - DB_PASSWORD=supersecretpassword
-    depends_on:
-      - db
 
   db:
-    image: postgres:13.3-alpine
     container_name: towe-of-hanoi-db
+    image: postgres:13.3-alpine
     environment: 
       - POSTGRES_DB=app
       - POSTGRES_USER=postgres

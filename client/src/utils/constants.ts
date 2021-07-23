@@ -6,9 +6,7 @@ export const END_PEG = 2;
 
 export const SECOND_IN_MILLIS = 1000;
 
-export const ENV_PREFIX = process.env.NODE_ENV === 'development' ? 'REACT_APP_' : '';
-
-const _apiHost = process.env[`${ENV_PREFIX}API_ENDPOINT`];
+const _apiHost = process.env.REACT_APP_API_ENDPOINT;
 
 export const apiEndpoints = {
   getUser: `${_apiHost}/api/user/me/`,

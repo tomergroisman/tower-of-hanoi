@@ -15,5 +15,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./src /app
 
+EXPOSE 3232
+
 RUN adduser -D user
-USER user 
+USER user
