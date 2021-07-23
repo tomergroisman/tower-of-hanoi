@@ -30,8 +30,11 @@ services:
       dockerfile: Dockerfile
     volumes: 
       - ./server/src:/app
-    env_file:
-      - ./env/server.env    
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASSWORD=supersecretpassword
     depends_on:
       - db
     command: >
