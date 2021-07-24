@@ -20,8 +20,6 @@ services:
     volumes: 
       - ./client:/app
       - /app/node_modules
-    command: >
-      sh -c "npm start"
 
   server:
     container_name: tower-of-hanoi-server
@@ -31,15 +29,15 @@ services:
     volumes: 
       - ./server/src:/app
     environment:
+      - HOST_NAME=server
+      - DJANGO_SUPERUSER_EMAIL=test@gmail.com
+      - DJANGO_SUPERUSER_PASSWORD=123456
       - DB_HOST=db
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASSWORD=supersecretpassword
     depends_on:
       - db
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:3232"
 
   db:
     container_name: tower-of-hanoi-db
