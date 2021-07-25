@@ -104,7 +104,9 @@ class LeaderboardScreen extends Component<Props, State> {
           <DifficultySelector level={level} center onClick={this.handleLevelChange} />
           <div className={styles.content}>
             {this.state.loading ? (
-              <CircularProgress />
+              <div className={styles.loader}>
+                <CircularProgress />
+              </div>
             ) : !!leaderboard?.results.length ? (
               <LeaderboardTable
                 records={leaderboard.results}

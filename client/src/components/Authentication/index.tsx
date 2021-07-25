@@ -17,7 +17,7 @@ export default function Authentication(props: Props) {
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-        <img src="img/Logo.png" className={styles.logo} alt="Logo" />
+        <img src="img/logo.png" className={styles.logo} alt="Logo" />
         <CredentialsForm
           formType={props.screen}
           onSubmit={handleSubmit}
