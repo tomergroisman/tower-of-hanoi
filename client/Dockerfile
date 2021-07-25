@@ -1,16 +1,14 @@
 FROM node:14-alpine3.14
 LABEL maintainer = "Tomer Groisman"
 
-RUN mkdir /app
+RUN mkdir -p /app/build
 WORKDIR /app
-COPY . /app
+COPY ./env.sh /app
+COPY ./build /app/build
 
 RUN npm install -g npm@latest
 RUN npm install -g serve
-RUN npm install
-
-RUN npm run build
 
 EXPOSE 3000
 
-CMD source env.sh && cat build/env-config.js && serve -s build -l 3000
+CMD source env.sh && serve -s build -l 3000

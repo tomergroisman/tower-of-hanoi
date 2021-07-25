@@ -1,29 +1,23 @@
-version: "3.3"
+version: "3"
 
 services: 
   nginx:
     container_name: tower-of-hanoi-nginx
     image: tomergroisman/toh-nginx
+    ports:
+      - "80:80"
     depends_on:
       - client
       - server
-    ports:
-      - "80:80"
 
   client:
     container_name: tower-of-hanoi-client
     image: tomergroisman/toh-client
+    env_file:
+      - ./env/client.env
 
   server:
     container_name: tower-of-hanoi-server
     image: tomergroisman/toh-server
     env_file:
       - ./env/server.env
-    depends_on:
-      - db
-
-  db:
-    container_name: tower-of-hanoi-db
-    image: postgres:13.3-alpine
-    env_file:
-      - ./env/db.env
