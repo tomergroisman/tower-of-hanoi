@@ -13,4 +13,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ls /app && serve -s build -l 3000
+CMD source env.sh && cat build/env-config.js && serve -s build -l 3000
