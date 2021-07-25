@@ -20,4 +20,4 @@ EXPOSE 3232
 RUN adduser -D user
 USER user
 
-CMD python manage.py migrate && python manage.py createsuperuser --noinput && python manage.py runserver 0.0.0.0:3232
+CMD python manage.py wait_for_db && python manage.py migrate && python manage.py createsuperuser --noinput && python manage.py runserver 0.0.0.0:3232
