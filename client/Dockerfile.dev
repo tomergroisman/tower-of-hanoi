@@ -3,11 +3,11 @@ LABEL maintainer = "Tomer Groisman"
 
 RUN mkdir /app
 WORKDIR /app
-COPY ./build /app
+COPY . /app
 
 RUN npm install -g npm@latest
-RUN npm install -g serve
+RUN npm install
 
 EXPOSE 3000
 
-CMD serve -l 3000 -s build
+CMD npm start
