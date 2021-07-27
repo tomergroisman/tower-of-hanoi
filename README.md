@@ -1,4 +1,5 @@
 # Tower of Hanoi
+
 Tower of Hanoi web application game!\
 The app includes a backend service (database and api server), frontend service (React) and routing server (nginx) - running simultaniusly on a docker container, each service as a unique image.
 
@@ -18,6 +19,8 @@ The app includes a backend service (database and api server), frontend service (
 
 🛠 TDD (Test Driven Development) using Jest and TestCase
 
+👷🏻‍♀️ [Travis CI](https://travis-ci.org/)
+
 🔒 User Authentication and Authorization
 
 🍪 Browser Cookies
@@ -28,6 +31,4 @@ The app includes a backend service (database and api server), frontend service (
 
 🖱️ Drag n' Drop
 
-
-
-### Enjoy Tower of Hanoi!
+### Enjoy Tower of Hanoi
