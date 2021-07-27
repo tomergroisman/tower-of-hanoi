@@ -12,7 +12,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         (
             i18n('ADMIN_USER_PERSONAL_INFO'),
-            {'fields': ('name', 'nickname')}
+            {'fields': ('name', 'nickname', 'icon')}
         ),
         (
             i18n('ADMIN_USER_PERMISSIONS'),
