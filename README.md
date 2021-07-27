@@ -16,6 +16,8 @@ The app includes a backend service (database and api server), frontend service (
 
 ☁️ AWS [ECS](https://aws.amazon.com/ecs/) and [EC2](https://aws.amazon.com/ec2/) services
 
+🛠 TDD (Test Driven Development) using Jest and TestCase
+
 🔒 User Authentication and Authorization
 
 🍪 Browser Cookies
