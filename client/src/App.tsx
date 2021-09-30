@@ -4,8 +4,8 @@ import {create} from 'jss';
 import rtl from 'jss-rtl';
 
 import {Router} from './components/Router';
-
 import {LanguageSelector} from './components/LanguageSelector';
+
 import {useApp} from './useApp';
 
 const jss = create({plugins: [...jssPreset().plugins, rtl()]});

@@ -6,18 +6,18 @@ import {SIZES} from '../../utils/constants';
 
 import {Props} from '.';
 
-export const useHooks = (props: Props) => {
+export const useHooks = ({setLanguage, path, language}: Props) => {
   const {i18n} = useTranslation();
   const {width: screenWidth} = useWindowSize();
   const [position, setPosition] = useState<React.CSSProperties>({top: 0});
   const [openHelpDialog, setOpenHelpDialog] = useState(false);
 
   const handleSetToEn = () => {
-    props.setLanguage('en');
+    setLanguage('en');
   };
 
   const handleSetToHe = () => {
-    props.setLanguage('he');
+    setLanguage('he');
   };
 
   const handleOpenHelpDialog = () => {
@@ -29,17 +29,17 @@ export const useHooks = (props: Props) => {
   };
 
   useEffect(() => {
-    i18n.changeLanguage(props.language);
-  }, [props.language, i18n]);
+    i18n.changeLanguage(language);
+  }, [language, i18n]);
 
   useEffect(() => {
     const collapse = screenWidth < SIZES.XLARGE;
-    if (collapse && !/signup|login/.test(props.path)) {
+    if (collapse && !/signup|login/.test(path)) {
       setPosition({bottom: 0});
     } else {
       setPosition({top: 0});
     }
-  }, [screenWidth, props.path]);
+  }, [screenWidth, path]);
 
   return {
     handleSetToEn,

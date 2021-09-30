@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import {useDispatch} from 'react-redux';
 
@@ -32,7 +33,10 @@ export const useHooks = (props: Props) => {
       const user = await fetchUser(token);
       dispatch(setUser(user));
     } catch (e) {
-      const errors: ErrorFields = e.response.data;
+      let errors: ErrorFields = {};
+      if (axios.isAxiosError(e)) {
+        errors = e.response?.data;
+      }
       setLoading(false);
       setErrors(errors);
     }

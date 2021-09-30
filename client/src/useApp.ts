@@ -28,6 +28,7 @@ export const useApp = () => {
       dispatch(setPath(window.location.pathname));
     };
 
+    setNewPath();
     history.listen(setNewPath);
     return () => {
       history.listen(setNewPath);

@@ -12,16 +12,16 @@ export const Router = () => {
   return (
     <Switch>
       <Route exact path="/login">
-        {!cookies.token ? <Login /> : <Redirect to="/" />}
+        {!cookies.token ? <Login /> : <Redirect push to="/" />}
       </Route>
       <Route exact path="/signup">
-        {!cookies.token ? <Signup /> : <Redirect to="/" />}
+        {!cookies.token ? <Signup /> : <Redirect push to="/" />}
       </Route>
       <Route exact path="/leaderboard">
-        {cookies.token ? <Leaderboard /> : <Redirect to="/signup" />}
+        {cookies.token ? <Leaderboard /> : <Redirect push to="/signup" />}
       </Route>
       <Route exact path="/">
-        {cookies.token ? <Game /> : <Redirect to="/signup" />}
+        {cookies.token ? <Game /> : <Redirect push to="/signup" />}
       </Route>
     </Switch>
   );
