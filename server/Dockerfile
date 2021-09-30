@@ -20,4 +20,4 @@ EXPOSE 8080
 RUN adduser -D user
 USER user
 
-CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn app.wsgi:application --bind 0.0.0.0:8080
