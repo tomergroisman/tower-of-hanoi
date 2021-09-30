@@ -1,14 +1,12 @@
-FROM node:14-alpine3.14
-LABEL maintainer = "Tomer Groisman"
-
-RUN mkdir -p /app/build
+FROM node:14-alpine3.14 AS builder
 WORKDIR /app
-COPY ./env.sh /app
-COPY ./build /app/build
+COPY . /app
+RUN npm install
+RUN npm run build
 
-RUN npm install -g npm@latest
-RUN npm install -g serve
-
-EXPOSE 3000
-
-CMD source env.sh && serve -s build -l 3000
+FROM nginx:1.21.3-alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 8081
+CMD ["nginx", "-g", "daemon off;"]

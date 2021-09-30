@@ -1,23 +1,21 @@
-version: "3"
+version: "3.7"
 
 services: 
-  nginx:
-    container_name: tower-of-hanoi-nginx
-    image: tomergroisman/toh-nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - client
-      - server
 
   client:
-    container_name: tower-of-hanoi-client
-    image: tomergroisman/toh-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
     env_file:
       - ./env/client.env
 
   server:
-    container_name: tower-of-hanoi-server
-    image: tomergroisman/toh-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
     env_file:
       - ./env/server.env

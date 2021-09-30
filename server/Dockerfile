@@ -15,9 +15,9 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./src /app
 
-EXPOSE 3232
+EXPOSE 8080
 
 RUN adduser -D user
 USER user
 
-CMD python manage.py wait_for_db && python manage.py migrate && (python manage.py createsuperuser --noinput) || python manage.py runserver 0.0.0.0:3232
+CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000
