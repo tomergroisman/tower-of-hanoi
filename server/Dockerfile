@@ -1,5 +1,4 @@
 FROM python:3.9.5-alpine
-LABEL maintainer = "Tomer Groisman"
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH /src
@@ -14,10 +13,11 @@ RUN apk del .temp-build-deps
 RUN mkdir /app
 WORKDIR /app
 COPY ./src /app
+RUN python manage.py collectstatic
 
-EXPOSE 8080
+EXPOSE 8000
 
 RUN adduser -D user
 USER user
 
-CMD gunicorn app.wsgi:application --bind 0.0.0.0:8080
+CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000

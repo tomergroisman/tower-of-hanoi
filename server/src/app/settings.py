@@ -24,12 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-IS_DEBUG = bool(os.environ.get('IS_DEBUG', True))
+IS_DEBUG = bool(int(os.environ.get('IS_DEBUG', 1)))
 DEBUG = IS_DEBUG
 
 HOST_NAME = os.environ.get('HOST_NAME', None)
 ALLOWED_HOSTS = ['server', '.localhost', '127.0.0.1', '[::1]', HOST_NAME]
-
 
 # Application definition
 
@@ -139,9 +138,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-PATH_PREFIX = os.environ.get('PATH_PREFIX', None)
+PATH_PREFIX = os.environ.get('PATH_PREFIX', '')
 
-STATIC_URL = f'/{PATH_PREFIX}static/'
+STATIC_URL = f'{PATH_PREFIX}static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

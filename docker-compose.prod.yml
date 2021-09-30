@@ -2,6 +2,17 @@ version: "3.7"
 
 services: 
 
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - static_volume:/app/staticfiles
+    depends_on:
+      - server
+
   client:
     build:
       context: ./client
@@ -15,7 +26,10 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
     env_file:
       - ./env/server.env
+    volumes:
+      - static_volume:/app/staticfiles
+
+volumes:
+  static_volume:
