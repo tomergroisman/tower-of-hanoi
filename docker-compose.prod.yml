@@ -17,10 +17,10 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_ENDPOINT=$REACT_APP_API_ENDPOINT
     ports:
       - "8081:8081"
-    env_file:
-      - ./env/client.env
 
   server:
     build:
